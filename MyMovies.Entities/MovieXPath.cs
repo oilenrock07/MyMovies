@@ -18,17 +18,19 @@ namespace MyMovies.Entities
         public string Duration { get; set; }
         public string RelatedMovie { get; set; }
 
-        //#2 will be used when the movie has trailer (structure of the html page is different)
+        public string Header { get; set; }
+
         public string Poster { get; set; }
-        public string Poster2 { get; set; } 
-        
         public string Directors { get; set; }
-        public string Directors2 { get; set; } 
-
         public string Writers { get; set; }
-        public string Writers2 { get; set; }
-
         public string Stars { get; set; }
-        public string Stars2 { get; set; }
+
+        public string Country { get; set; }
+        public string Language { get; set; }
+        public string AlsoKnownAs { get; set; }
+
+        //Box Office
+        public string Budget { get; set; }
+        public string Gross { get; set; }
     }
 }

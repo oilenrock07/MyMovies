@@ -21,5 +21,14 @@ namespace MyMovies.Entities
         public string Summary { get; set; }
         public string Genre { get; set; }
         public string RelatedMovie { get; set; }
+
+        public string Country { get; set; }
+        public string Language { get; set; }
+        public string AlsoKnownAs { get; set; }
+
+        //Box Office
+        public string Budget { get; set; }
+        public string Gross { get; set; }
+
     }
 }

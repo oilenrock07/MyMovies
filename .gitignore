@@ -4,6 +4,7 @@ MyMovies.Web/obj/
 MyMovies.Test/bin/
 MyMovies.Entities/obj/
 MyMovies.Infrastructure/bin/
+MyMovies.Infrastructure/obj/
 MyMovies.Common/bin/
 MyMovies.Common/obj/
 MyMovies.Test/obj/

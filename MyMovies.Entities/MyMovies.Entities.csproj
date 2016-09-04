@@ -71,6 +71,26 @@
     <Compile Include="Migrations\201609040606245_RemoveSummary2.Designer.cs">
       <DependentUpon>201609040606245_RemoveSummary2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609040624008_AddedWriters2.cs" />
+    <Compile Include="Migrations\201609040624008_AddedWriters2.Designer.cs">
+      <DependentUpon>201609040624008_AddedWriters2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609040847539_removeposter2.cs" />
+    <Compile Include="Migrations\201609040847539_removeposter2.Designer.cs">
+      <DependentUpon>201609040847539_removeposter2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609041109368_returnPoster2.cs" />
+    <Compile Include="Migrations\201609041109368_returnPoster2.Designer.cs">
+      <DependentUpon>201609041109368_returnPoster2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609041117374_AddedHeader.cs" />
+    <Compile Include="Migrations\201609041117374_AddedHeader.Designer.cs">
+      <DependentUpon>201609041117374_AddedHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609041135516_AddedMoreProp.cs" />
+    <Compile Include="Migrations\201609041135516_AddedMoreProp.Designer.cs">
+      <DependentUpon>201609041135516_AddedMoreProp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -99,6 +119,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609040606245_RemoveSummary2.resx">
       <DependentUpon>201609040606245_RemoveSummary2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609040624008_AddedWriters2.resx">
+      <DependentUpon>201609040624008_AddedWriters2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609040847539_removeposter2.resx">
+      <DependentUpon>201609040847539_removeposter2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609041109368_returnPoster2.resx">
+      <DependentUpon>201609041109368_returnPoster2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609041117374_AddedHeader.resx">
+      <DependentUpon>201609041117374_AddedHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609041135516_AddedMoreProp.resx">
+      <DependentUpon>201609041135516_AddedMoreProp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
