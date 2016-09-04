@@ -1,0 +1,12 @@
+packages/
+MyMovies.Web/bin/
+MyMovies.Web/obj/
+MyMovies.Test/bin/
+MyMovies.Entities/obj/
+MyMovies.Infrastructure/bin/
+MyMovies.Common/bin/
+MyMovies.Common/obj/
+MyMovies.Test/obj/
+MyMovies.Repository/bin/
+MyMovies.Repository/obj/
+MyMovies.Entities/bin/
