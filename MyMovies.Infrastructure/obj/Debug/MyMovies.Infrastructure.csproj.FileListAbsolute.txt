@@ -10,3 +10,15 @@ C:\Users\CawiDesktop\Documents\Visual Studio 2013\Projects\MyMovies.Web\MyMovies
 C:\Users\CawiDesktop\Documents\Visual Studio 2013\Projects\MyMovies.Web\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\CawiDesktop\Documents\Visual Studio 2013\Projects\MyMovies.Web\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.dll
 C:\Users\CawiDesktop\Documents\Visual Studio 2013\Projects\MyMovies.Web\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.pdb
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\MyMovies.Infrastructure.dll.config
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\MyMovies.Infrastructure.dll
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\MyMovies.Infrastructure.pdb
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\EntityFramework.dll
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\MyMovies.Entities.dll
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\MyMovies.Entities.pdb
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\EntityFramework.xml
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.dll
+C:\Cawi\DEV\MyMovies\MyMovies.Infrastructure\obj\Debug\MyMovies.Infrastructure.pdb

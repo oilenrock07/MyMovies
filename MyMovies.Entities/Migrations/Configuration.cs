@@ -27,7 +27,7 @@ namespace MyMovies.Entities.Migrations
                   Rate = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[1]/div[1]/div[1]/strong/span",
                   Rating = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[2]/div[2]/div/meta",
                   Duration = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[2]/div[2]/div/time",
-                  Genre = "//*[@id=\"titleStoryLine\"]/div[4]/a",
+                  Genre = "//div[@itemprop=\"genre\"]/a",
                   DateReleased = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[2]/div[2]/div/a[4]/text()",
                   Year = "//*[@id=\"titleYear\"]/a",
                   Summary = "//*[@id=\"titleStoryLine\"]/div[1]/p/text()",
@@ -40,7 +40,8 @@ namespace MyMovies.Entities.Migrations
                   Directors = "//*[@itemprop=\"director\"]",
                   Writers = "//*[@itemprop=\"creator\"]",
 
-                  RelatedMovie = "//*[@id=\"title_recs\"]/div[1]/div/div[2]/div"
+                  RelatedMovie = "//*[@id=\"title_recs\"]/div[1]/div/div[2]/div",
+                  TitleDetails = "//*[@id=\"titleDetails\"]"
               }
             );
         }

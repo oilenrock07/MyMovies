@@ -19,6 +19,16 @@ namespace MyMovies.Common.Extension
             return node == null ? "" : node.InnerText;
         }
 
+        public static string TitleDetailsAnchor(this HtmlNode node)
+        {
+            return node == null ? "" : node.ParentNode.SelectSingleNode("a").InnerText();
+        }
+
+        public static string TitleDetailsText(this HtmlNode node)
+        {
+            return node == null ? "" : node.ParentNode.ChildNodes[2].InnerTextClean();
+        }
+
         public static string InnerTextClean(this HtmlNode node)
         {
             return node == null ? "" : node.InnerText.CleanHtml();

@@ -18,6 +18,7 @@ namespace MyMovies.Entities
         public string Duration { get; set; }
         public string RelatedMovie { get; set; }
 
+        public string TitleDetails { get; set; }
         public string Header { get; set; }
 
         public string Poster { get; set; }

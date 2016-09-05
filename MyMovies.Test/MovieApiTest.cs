@@ -22,12 +22,19 @@ namespace MyMovies.Test
         }
 
         [TestMethod]
+        public void LoadMovieFromFile()
+        {
+            var scrapper = new ImdbScrapper(_xPathRepository);
+            var movie = scrapper.LoadMovieFromFile(@"C:\Cawi\Trash\MovieTestData\dialM.txt");
+        }
+
+        [TestMethod]
         public void ImdbNormalLayout()
         {
             //Spiderman: tt0468569
             //Dial M For Murder (old movie): tt0046912
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.GetMovie("tt0046912");
+            var movie = scrapper.GetMovie("tt0368323");
         }
 
         [TestMethod]
@@ -35,7 +42,6 @@ namespace MyMovies.Test
         {
             //Spiderman: tt0145487
             //Inception: tt1375666
-
             var scrapper = new ImdbScrapper(_xPathRepository);
             var movie = scrapper.GetMovie("tt0046912");
         }
@@ -44,9 +50,17 @@ namespace MyMovies.Test
         public void ImdbWithSeriesTest()
         {
             //Walking Dead: tt1520211
-
+            //Game Of Thrones: tt0944947
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.GetMovie("tt1520211");
+            var movie = scrapper.GetMovie("tt0944947");
+        }
+
+        [TestMethod]
+        public void FilipinoMoviesTest()
+        {
+            //Ang tanging ina: tt0368323
+            var scrapper = new ImdbScrapper(_xPathRepository);
+            var movie = scrapper.GetMovie("tt0368323");
         }
 
         
