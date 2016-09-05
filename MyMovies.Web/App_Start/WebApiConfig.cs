@@ -10,8 +10,22 @@ namespace MyMovies.Web
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "IdParam",
                 routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+                );
+
+            
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{imdbid}",
+                defaults: new { imdbid = RouteParameter.Optional }
+            );
+
+
+            config.Routes.MapHttpRoute(
+                name: "ApiWithAction",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

@@ -95,6 +95,14 @@
     <Compile Include="Migrations\201609050044067_AddedTitleDetails.Designer.cs">
       <DependentUpon>201609050044067_AddedTitleDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609050342006_AddedCustomProperties.cs" />
+    <Compile Include="Migrations\201609050342006_AddedCustomProperties.Designer.cs">
+      <DependentUpon>201609050342006_AddedCustomProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609050421578_addedRequiredFieldToImdb.cs" />
+    <Compile Include="Migrations\201609050421578_addedRequiredFieldToImdb.Designer.cs">
+      <DependentUpon>201609050421578_addedRequiredFieldToImdb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -141,6 +149,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609050044067_AddedTitleDetails.resx">
       <DependentUpon>201609050044067_AddedTitleDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609050342006_AddedCustomProperties.resx">
+      <DependentUpon>201609050342006_AddedCustomProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609050421578_addedRequiredFieldToImdb.resx">
+      <DependentUpon>201609050421578_addedRequiredFieldToImdb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

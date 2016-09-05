@@ -1,4 +1,5 @@
-﻿using MyMovies.Entities;
+﻿using System.Linq;
+using MyMovies.Entities;
 using MyMovies.Infrastructure.Implementations;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
@@ -11,6 +12,11 @@ namespace MyMovies.Repository.Implementations
             : base(databaseFactory)
         {
                 
+        }
+
+        public virtual Movie GetByImdbId(string imdbId)
+        {
+            return Find(x => x.ImdbId == imdbId).FirstOrDefault();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyMovies.Entities
 {
@@ -7,7 +8,10 @@ namespace MyMovies.Entities
         [Key]
         public int MovieId { get; set; }
 
+        [Required]
         public string ImdbId { get; set; }
+
+        [Required]
         public string Title { get; set; }
         public string Year { get; set; }
         public double Rate { get; set; }
@@ -30,5 +34,14 @@ namespace MyMovies.Entities
         public string Budget { get; set; }
         public string Gross { get; set; }
 
+        //Custom
+        public DateTime DateCreated { get; set; }
+        public string Location { get; set; }
+        public string Remarks { get; set; }
+
+        public Movie()
+        {
+            DateCreated = DateTime.Now;
+        }
     }
 }

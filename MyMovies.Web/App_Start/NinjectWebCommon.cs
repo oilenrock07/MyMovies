@@ -1,3 +1,4 @@
+using System.Web.Http;
 using CacheManager.Core;
 using MyMovies.Infrastructure.Implementations;
 using MyMovies.Repository.Implementations;
@@ -52,6 +53,7 @@ namespace MyMovies.Web.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
             }
             catch
