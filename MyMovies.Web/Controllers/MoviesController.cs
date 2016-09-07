@@ -55,14 +55,14 @@ namespace MyMovies.Web.Controllers
             return movie;
         }
 
-        [HttpGet]
-        public Movie ScrapeMovie(string imdbId)
-        {
-            var scrapper = new ImdbScrapper(_movieXPathRepository);
-            var movie = scrapper.GetMovie(imdbId);
+        //[HttpGet]
+        //public Movie ScrapeMovie(string imdbId)
+        //{
+        //    var scrapper = new ImdbScrapper(_movieXPathRepository);
+        //    var movie = scrapper.GetMovie(imdbId);
 
-            return movie;
-        }
+        //    return movie;
+        //}
 
         [HttpPost]
         public void Post([FromBody]Movie movie)

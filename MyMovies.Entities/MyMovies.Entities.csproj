@@ -103,11 +103,16 @@
     <Compile Include="Migrations\201609050421578_addedRequiredFieldToImdb.Designer.cs">
       <DependentUpon>201609050421578_addedRequiredFieldToImdb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609060910251_addmoreproperties.cs" />
+    <Compile Include="Migrations\201609060910251_addmoreproperties.Designer.cs">
+      <DependentUpon>201609060910251_addmoreproperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
     <Compile Include="MovieXPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -155,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609050421578_addedRequiredFieldToImdb.resx">
       <DependentUpon>201609050421578_addedRequiredFieldToImdb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609060910251_addmoreproperties.resx">
+      <DependentUpon>201609060910251_addmoreproperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

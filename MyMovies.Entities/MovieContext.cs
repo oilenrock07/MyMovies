@@ -11,5 +11,6 @@ namespace MyMovies.Entities
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieXPath> MovieXPaths { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }

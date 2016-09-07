@@ -39,6 +39,11 @@ namespace MyMovies.Entities
         public string Location { get; set; }
         public string Remarks { get; set; }
 
+        [Required]
+        public string FileName { get; set; }
+        [Required]
+        public string FileSize { get; set; }
+
         public Movie()
         {
             DateCreated = DateTime.Now;
