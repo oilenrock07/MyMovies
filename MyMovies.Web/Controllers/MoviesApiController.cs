@@ -9,13 +9,13 @@ using Omu.ValueInjecter;
 
 namespace MyMovies.Web.Controllers
 {
-    public class MoviesController : ApiController
+    public class MoviesApiController : ApiController
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IMovieXPathRepository _movieXPathRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public MoviesController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork)
+        public MoviesApiController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork)
         {
             _movieRepository = movieRepository;
             _movieXPathRepository = movieXPathRepository;
@@ -54,15 +54,6 @@ namespace MyMovies.Web.Controllers
 
             return movie;
         }
-
-        //[HttpGet]
-        //public Movie ScrapeMovie(string imdbId)
-        //{
-        //    var scrapper = new ImdbScrapper(_movieXPathRepository);
-        //    var movie = scrapper.GetMovie(imdbId);
-
-        //    return movie;
-        //}
 
         [HttpPost]
         public void Post([FromBody]Movie movie)
