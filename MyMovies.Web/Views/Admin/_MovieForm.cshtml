@@ -1,0 +1,115 @@
+﻿@model MyMovies.Web.ViewModels.MovieViewModel
+
+@using (@Html.BeginForm("MovieMaintenance", "Admin", FormMethod.Post))
+{
+    <div class="row">
+
+        <div class="col-md-4 col-md-push-8">
+            <img src="/Resources/images/tt0373889.jpg" class="img-responsive" />
+        </div>
+
+        <div class="col-md-8 col-md-pull-4">
+
+            <div class="col-sm-6">
+                <label class="input-desc">Title</label>
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control no-radius", placeholder = "Title" })
+
+                <label class="input-desc">Genre</label>
+                @Html.TextBoxFor(model => model.Genre, new { @class = "form-control no-radius", placeholder = "Genre" })
+
+                <label class="input-desc">Year</label>
+                @Html.TextBoxFor(model => model.Year, new { @class = "form-control no-radius", placeholder = "Year" })
+
+                <label class="input-desc">Rate</label>
+                @Html.TextBoxFor(model => model.Rate, new { @class = "form-control no-radius", placeholder = "Rate" })
+
+                <label class="input-desc">Stars</label>
+                @Html.TextBoxFor(model => model.Stars, new { @class = "form-control no-radius", placeholder = "Stars" })
+
+                <label class="input-desc">Runtime</label>
+                @Html.TextBoxFor(model => model.Runtime, new { @class = "form-control no-radius", placeholder = "Runtime" })
+            </div>
+            <div class="col-sm-6">
+                <label class="input-desc">Rating</label>
+                @Html.TextBoxFor(model => model.Rating, new { @class = "form-control no-radius", placeholder = "Rating" })
+
+                <label class="input-desc">Directors</label>
+                @Html.TextBoxFor(model => model.Directors, new { @class = "form-control no-radius", placeholder = "Directors" })
+
+                <label class="input-desc">Writers</label>
+                @Html.TextBoxFor(model => model.Writers, new { @class = "form-control no-radius", placeholder = "Writers" })
+
+                <label class="input-desc">Date Released</label>
+                @Html.TextBoxFor(model => model.DateReleased, new { @class = "form-control no-radius", placeholder = "Date Released" })
+            </div>
+
+            <div class="col-sm-12">
+                <label class="input-desc">Summary</label>
+                @Html.TextAreaFor(model => model.Summary, new { @class = "form-control no-radius" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="divider pattern-square"></div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>More Details</h2>
+            <div class="col-sm-6">
+                <label class="input-desc">Country</label>
+                @Html.TextBoxFor(model => model.Country, new { @class = "form-control no-radius", placeholder = "Country" })
+
+                <label class="input-desc">Language</label>
+                @Html.TextBoxFor(model => model.Language, new { @class = "form-control no-radius", placeholder = "Language" })
+
+                <label class="input-desc">Also Known As</label>
+                @Html.TextBoxFor(model => model.AlsoKnownAs, new { @class = "form-control no-radius", placeholder = "Also Known As" })
+            </div>
+
+            <div class="col-sm-6">
+                <label class="input-desc">Budget</label>
+                @Html.TextBoxFor(model => model.Budget, new { @class = "form-control no-radius", placeholder = "Budget" })
+
+                <label class="input-desc">Gross</label>
+                @Html.TextBoxFor(model => model.Gross, new { @class = "form-control no-radius", placeholder = "Gross" })
+            </div>
+        </div>
+    </div>
+
+    <div class="divider pattern-square"></div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>File Details</h2>
+            <div class="col-sm-6">
+                <label class="input-desc">Date Created</label>
+                @Html.TextBoxFor(model => model.DateCreated, new { @class = "form-control no-radius", placeholder = "Date Created" })
+
+                <label class="input-desc">Location</label>
+                @Html.TextBoxFor(model => model.Location, new { @class = "form-control no-radius", placeholder = "Location" })
+            </div>
+
+            <div class="col-sm-6">
+                <label class="input-desc">File Name</label>
+                @Html.TextBoxFor(model => model.FileName, new { @class = "form-control no-radius", placeholder = "File Name" })
+
+                <label class="input-desc">File Size</label>
+                @Html.TextBoxFor(model => model.FileSize, new { @class = "form-control no-radius", placeholder = "File Size" })
+            </div>
+
+            <div class="col-sm-12">
+                <label class="input-desc">Remarks</label>
+                @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control no-radius", placeholder = "Remarks" })
+            </div>
+        </div>
+    </div>
+
+    <div class="divider pattern-square"></div>
+    <div class="row">
+        @Html.HiddenFor(model => model.MovieId)
+        <div class="col-xs-12">
+            <input type="submit" class="btn btn-custom btn-lg" value="Submit" />
+        </div>
+    </div>
+}
