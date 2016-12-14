@@ -81,6 +81,8 @@ namespace MyMovies.Web.App_Start
             //Repository
             kernel.Bind<IMovieRepository>().To<MovieRepository>();
             kernel.Bind<IMovieXPathRepository>().To<MovieXPathRepository>();
+            kernel.Bind<IUserRoleRepository>().To<UserRoleRepository>().InRequestScope();
+            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
         }        
     }
 }

@@ -56,8 +56,12 @@
   <ItemGroup>
     <Compile Include="Implementations\MovieXPathRepository.cs" />
     <Compile Include="Implementations\MovieRepository.cs" />
+    <Compile Include="Implementations\UserRepository.cs" />
+    <Compile Include="Implementations\UserRoleRepository.cs" />
     <Compile Include="Interfaces\IMovieXPathRepository.cs" />
     <Compile Include="Interfaces\IMovieRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\IUserRoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
