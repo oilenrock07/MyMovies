@@ -9,7 +9,6 @@
         </div>
 
         <div class="col-md-8 col-md-pull-4">
-
             <div class="col-sm-6">
                 <label class="input-desc">Title</label>
                 @Html.TextBoxFor(model => model.Title, new { @class = "form-control no-radius", placeholder = "Title" })
@@ -84,7 +83,7 @@
             <h2>File Details</h2>
             <div class="col-sm-6">
                 <label class="input-desc">Date Created</label>
-                @Html.TextBoxFor(model => model.DateCreated, new { @class = "form-control no-radius", placeholder = "Date Created" })
+                @Html.TextBoxFor(model => model.DateCreated, new { @class = "form-control no-radius", placeholder = "Date Created", @readonly="readonly" })
 
                 <label class="input-desc">Location</label>
                 @Html.TextBoxFor(model => model.Location, new { @class = "form-control no-radius", placeholder = "Location" })
