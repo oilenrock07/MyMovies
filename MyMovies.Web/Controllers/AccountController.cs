@@ -79,22 +79,10 @@ namespace MyMovies.Web.Controllers
 
         //
         // GET: /Account/Register
-        //[Authorize(Roles = "Admin")]
-        //public ActionResult Register()
-        //{
-        //    var roles = _roleRepository.Find(x => x.IsActive && x.Id != "Admin").ToList();
-
-        //    var viewModel = new RegisterViewModel
-        //    {
-        //        Roles = roles.Select(x => new SelectListItem()
-        //        {
-        //            Text = x.Name,
-        //            Value = x.Id
-        //        })
-        //    };
-
-        //    return System.Web.UI.WebControls.View(viewModel);
-        //}
+        public ActionResult Register()
+        {
+            return View();
+        }
 
         //
         // POST: /Account/Register
@@ -122,7 +110,6 @@ namespace MyMovies.Web.Controllers
                     });
                     _unitOfWork.Commit();
 
-                    //await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Account");
                 }
                 else
