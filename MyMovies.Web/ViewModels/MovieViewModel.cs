@@ -30,6 +30,6 @@ namespace MyMovies.Web.ViewModels
             {
                 return Rate.ToString("#.#");
             }
-        } 
+        }
     }
 }

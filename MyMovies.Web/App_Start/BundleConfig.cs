@@ -48,7 +48,8 @@ namespace MyMovies.Web
                       "~/Content/green.css",
                       "~/Content/vspacing.min.css",
                       "~/Content/simple-line-icons.css",
-                      "~/Content/custom.css"));
+                      "~/Content/custom.css",
+                      "~/Content/my-movie.css"));
         }
     }
 }

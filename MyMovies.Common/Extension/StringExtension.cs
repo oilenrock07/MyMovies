@@ -9,5 +9,13 @@
 
             return str.Trim();
         }
+
+        public static bool IsIMDB(this string str)
+        {
+            if (str.Length == 9 && str.Substring(0, 2) == "tt")
+                return true;
+
+            return false;
+        }
     }
 }

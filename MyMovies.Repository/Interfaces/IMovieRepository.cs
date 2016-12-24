@@ -6,5 +6,6 @@ namespace MyMovies.Repository.Interfaces
     public interface IMovieRepository : IRepository<Movie>
     {
         Movie GetByImdbId(string imdbId);
+        Movie GetByMovieName(string movieName);
     }
 }

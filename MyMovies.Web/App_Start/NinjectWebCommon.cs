@@ -70,8 +70,8 @@ namespace MyMovies.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             //Infrastructure
-            kernel.Bind<IDatabaseFactory>().To<DatabaseFactory>();
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IDatabaseFactory>().To<DatabaseFactory>().InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             kernel.Bind(typeof(ICacheManager<>)).ToMethod((context) =>
             {
@@ -79,8 +79,8 @@ namespace MyMovies.Web.App_Start
             }).InSingletonScope();
 
             //Repository
-            kernel.Bind<IMovieRepository>().To<MovieRepository>();
-            kernel.Bind<IMovieXPathRepository>().To<MovieXPathRepository>();
+            kernel.Bind<IMovieRepository>().To<MovieRepository>().InRequestScope();
+            kernel.Bind<IMovieXPathRepository>().To<MovieXPathRepository>().InRequestScope();
             kernel.Bind<IUserRoleRepository>().To<UserRoleRepository>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
         }        

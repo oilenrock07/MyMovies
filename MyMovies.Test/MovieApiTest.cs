@@ -25,7 +25,7 @@ namespace MyMovies.Test
         public void LoadMovieFromFile()
         {
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.LoadMovieFromFile(@"C:\Cawi\Trash\MovieTestData\dialM.txt");
+            var movie = scrapper.LoadMovieFromFile(@"C:\Cawi\fn.txt");
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace MyMovies.Test
             //Spiderman: tt0468569
             //Dial M For Murder (old movie): tt0046912
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.GetMovie("tt0368323");
+            var movie = scrapper.GetMovie("tt0137523");
         }
 
         [TestMethod]

@@ -7,6 +7,7 @@ using MyMovies.Common.Extension;
 using MyMovies.Entities;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
+using MyMovies.Web.BusinessLogic;
 using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
 
@@ -15,12 +16,14 @@ namespace MyMovies.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IMovieXPathRepository _movieXPathRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AdminController(IMovieRepository movieRepository, IUnitOfWork unitOfWork)
+        public AdminController(IMovieRepository movieRepository, IUnitOfWork unitOfWork,IMovieXPathRepository movieXPathRepository)
         {
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
+            _movieXPathRepository = movieXPathRepository;
         }
 
         public ActionResult Index(int id = 0)
@@ -35,8 +38,32 @@ namespace MyMovies.Web.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Search(string key)
+        {
+            Movie movie;
+            if (key.IsIMDB())
+            {
+                //search for local record
+                movie = _movieRepository.GetByImdbId(key);
+                if (movie == null)
+                {
+                    var scrapper = new ImdbScrapper(_movieXPathRepository);
+                    movie = scrapper.GetMovie(key);
+                    //movie = scrapper.LoadMovieFromFile(@"C:\Cawi\dialM.txt");
+                }
+            }
+            else
+            {
+                movie = _movieRepository.GetByMovieName(key);
+            }
+
+            ViewBag.Search = key;
+            var viewModel = movie.MapItem<MovieViewModel>();
+            return View("Index", viewModel);
+        }
+
         [HttpPost]
-        public ActionResult MovieMaintenance(MovieViewModel viewModel)
+        public ActionResult Index(MovieViewModel viewModel)
         {
             var id = viewModel.MovieId;
             try
@@ -64,6 +91,7 @@ namespace MyMovies.Web.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = MyMovieResource.MovieErrorSaving;
+                return View("Index", viewModel);
             }
 
             return RedirectToAction("Index", new { id });

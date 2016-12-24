@@ -1,19 +1,20 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
 <div ng-controller="AdminController">
-    @using (@Html.BeginForm("MovieMaintenance", "Admin", FormMethod.Post))
+    @using (@Html.BeginForm("Index", "Admin", FormMethod.Post))
     {
         <div class="row">
 
             <div class="col-md-4 col-md-push-8">
-                <img src="/Resources/images/tt0373889.jpg" class="img-responsive" />
+                <img src="@Model.Poster" class="img-responsive" />
             </div>
 
             <div class="col-md-8 col-md-pull-4">
                 <div class="col-sm-6">
                     <label class="input-desc">Title</label>
+                    @Html.ValidationMessageFor(model => model.Title)
                     @Html.TextBoxFor(model => model.Title, new { @class = "form-control no-radius", placeholder = "Title" })
-
+                    
                     <label class="input-desc">Genre</label>
                     @Html.TextBoxFor(model => model.Genre, new { @class = "form-control no-radius", placeholder = "Genre" })
 
@@ -30,17 +31,21 @@
                     @Html.TextBoxFor(model => model.Runtime, new { @class = "form-control no-radius", placeholder = "Runtime" })
                 </div>
                 <div class="col-sm-6">
+                    <label class="input-desc">IMDB ID</label>
+                    @Html.ValidationMessageFor(model => model.ImdbId)
+                    @Html.TextBoxFor(model => model.ImdbId, new { @class = "form-control no-radius", placeholder = "Imdb Id" })
+
                     <label class="input-desc">Rating</label>
-                    @Html.TextBoxFor(model => model.Rating, new { @class = "form-control no-radius", placeholder = "Rating" })
+                    @Html.TextBoxFor(model => model.Rating, new {@class = "form-control no-radius", placeholder = "Rating"})
 
                     <label class="input-desc">Directors</label>
-                    @Html.TextBoxFor(model => model.Directors, new { @class = "form-control no-radius", placeholder = "Directors" })
+                    @Html.TextBoxFor(model => model.Directors, new {@class = "form-control no-radius", placeholder = "Directors"})
 
                     <label class="input-desc">Writers</label>
-                    @Html.TextBoxFor(model => model.Writers, new { @class = "form-control no-radius", placeholder = "Writers" })
+                    @Html.TextBoxFor(model => model.Writers, new {@class = "form-control no-radius", placeholder = "Writers"})
 
                     <label class="input-desc">Date Released</label>
-                    @Html.TextBoxFor(model => model.DateReleased, new { @class = "form-control no-radius", placeholder = "Date Released" })
+                    @Html.TextBoxFor(model => model.DateReleased, new {@class = "form-control no-radius", placeholder = "Date Released"})
                 </div>
 
                 <div class="col-sm-12">
@@ -92,10 +97,12 @@
 
                 <div class="col-sm-6">
                     <label class="input-desc">File Name</label>
+                    @Html.ValidationMessageFor(model => model.FileName)
                     @Html.TextBoxFor(model => model.FileName, new { @class = "form-control no-radius", placeholder = "File Name", ng_model = "fileName" })
-
+                                        
                     <label class="input-desc">File Size</label>
-                    @Html.TextBoxFor(model => model.FileSize, new { @class = "form-control no-radius", placeholder = "File Size", ng_model = "fileSize" })
+                    @Html.ValidationMessageFor(model => model.FileSize)
+                    @Html.TextBoxFor(model => model.FileSize, new { @class = "form-control no-radius", placeholder = "File Size", ng_model = "fileSize" })                    
                 </div>
 
                 <div class="col-sm-12">
@@ -111,9 +118,11 @@
 
         <div class="divider pattern-square"></div>
         <div class="row">
+            @Html.HiddenFor(model => model.Poster)
             @Html.HiddenFor(model => model.MovieId)
             <div class="col-xs-12">
-                <input type="submit" class="btn btn-custom btn-lg" value="Submit" />
+                <input type="submit" class="btn btn-custom btn-lg" value="Submit"/>
+                <input type="submit" class="btn btn-custom btn-lg" value="View In IMDB" />
             </div>
         </div>
     }
@@ -129,8 +138,18 @@
             input.attr("type", "file");
 
             $(input).change(function () {
-                $scope.fileName = $(input)[0].files[0].name;
-                $scope.fileSize = $(input)[0].files[0].size;
+                $scope.fileName = $(input)[0].files[0].name;               
+                var fileSize = $(input)[0].files[0].size;
+                var ctr = 0;
+                var byteSizes = [ "kb", "mb", "gb" ];
+
+                fileSize = parseFloat(fileSize) / 1024;
+                while (fileSize > 1000) {
+                    fileSize = fileSize / 1024;
+                    ctr++;
+                }
+
+                $scope.fileSize = fileSize.toFixed(2) + byteSizes[ctr];
                 $scope.$apply();
             });
             

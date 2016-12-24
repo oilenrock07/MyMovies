@@ -18,5 +18,10 @@ namespace MyMovies.Repository.Implementations
         {
             return Find(x => x.ImdbId == imdbId).FirstOrDefault();
         }
+
+        public virtual Movie GetByMovieName(string movieName)
+        {
+            return Find(x => x.Title == movieName).FirstOrDefault();
+        }
     }
 }
