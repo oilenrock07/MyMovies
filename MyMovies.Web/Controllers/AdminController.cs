@@ -49,7 +49,6 @@ namespace MyMovies.Web.Controllers
                 {
                     var scrapper = new ImdbScrapper(_movieXPathRepository);
                     movie = scrapper.GetMovie(key);
-                    //movie = scrapper.LoadMovieFromFile(@"C:\Cawi\dialM.txt");
                 }
             }
             else
