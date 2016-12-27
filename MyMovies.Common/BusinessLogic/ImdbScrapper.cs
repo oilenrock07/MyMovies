@@ -1,16 +1,14 @@
-﻿using HtmlAgilityPack;
-using MyMovies.Entities;
-using System;
+﻿using System;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Xml;
+using HtmlAgilityPack;
 using MyMovies.Common.Extension;
+using MyMovies.Entities;
 using MyMovies.Repository.Interfaces;
 
-namespace MyMovies.Web.BusinessLogic
+namespace MyMovies.Common.BusinessLogic
 {
     public class ImdbScrapper
     {
@@ -45,6 +43,15 @@ namespace MyMovies.Web.BusinessLogic
 
             GC.Collect();
             return movie;
+        }
+
+        public virtual string GetMovieDocument(string imdbId)
+        {
+            var url = string.Format("{0}{1}", _baseUrl, imdbId);
+            var doc = _web.Load(url);
+
+            GC.Collect();
+            return doc.DocumentNode.OuterHtml;           
         }
 
         protected Movie MapResult(HtmlDocument doc)

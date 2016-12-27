@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MyMovies.Common.BusinessLogic;
 using MyMovies.Repository.Interfaces;
 using MyMovies.Entities;
 using MyMovies.Infrastructure.Interfaces;
-using MyMovies.Web.BusinessLogic;
 using Omu.ValueInjecter;
 
 namespace MyMovies.Web.Controllers
