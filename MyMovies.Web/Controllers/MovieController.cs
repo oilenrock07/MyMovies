@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using MyMovies.Common.Extension;
@@ -9,6 +10,8 @@ using MyMovies.Repository.Interfaces;
 using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
 using MyMovies.Entities;
+using MyMovies.Web.BusinessLogic;
+using MyMovies.Web.Models;
 
 namespace MyMovies.Web.Controllers
 {
@@ -25,9 +28,30 @@ namespace MyMovies.Web.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(PaginationModel paginationViewModel = null)
         {
-            return View();
+            var pagination = new Pagination();
+
+            IQueryable<Movie> movies;
+            Expression<Func<Movie, bool>> expression;
+            if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Search))
+            {
+                var search = paginationViewModel.Search;
+
+                //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
+                expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
+                movies = _movieRepository.Find(expression);                
+            }
+            else
+            {
+                expression = x => true;
+                movies = _movieRepository.GetAll();
+            }
+
+            var count = _movieRepository.Find(expression).Count();
+            paginationViewModel = pagination.GetPaginationModel(Request, count);
+            var viewModel = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), paginationViewModel);
+            return View(viewModel);
         }
 
         public ActionResult Detail(int id)
