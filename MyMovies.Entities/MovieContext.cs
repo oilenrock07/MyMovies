@@ -17,8 +17,8 @@ namespace MyMovies.Entities
         //Users
         public virtual IDbSet<Role> Roles { get; set; }
         public virtual IDbSet<User> Users { get; set; }
-        public virtual IDbSet<UserClaim> UserClaims { get; set; }
-        public virtual IDbSet<UserLogin> UserLogIns { get; set; }
+        //public virtual IDbSet<UserClaim> UserClaims { get; set; }
+        //public virtual IDbSet<UserLogin> UserLogIns { get; set; }
         public virtual IDbSet<UserRole> UserRoles { get; set; }
     }
 }

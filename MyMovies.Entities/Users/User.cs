@@ -16,10 +16,7 @@ namespace MyMovies.Entities.Users
         public string PasswordHash { get; set; }
         
         [StringLength(500)]
-        public string SecurityStamp { get; set; }
-        
-        [StringLength(500)]
-        public string Discriminator { get; set; }
+        public string SecurityStamp { get; set; }        
 
         public string FirstName { get; set; }
 

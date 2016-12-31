@@ -14,8 +14,15 @@
                 <div class="pull-right">
                     <ul class="navbar-top-nav clearfix hidden-sm hidden-xs">
                         <li><a href="login.html"><i class="fa fa-external-link"></i>Games</a></li>
-                        <li><a href="login.html"><i class="fa fa-external-link"></i>Login</a></li>
-                        <li><a href="#"><i class="fa fa-play-circle"></i>My Watchlist</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a href="/Account/LogOff"><i class="fa fa-external-link"></i>Logout</a></li>
+                            <li><a href="#"><i class="fa fa-play-circle"></i>My Watchlist</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/Account/Login"><i class="fa fa-external-link"></i>Login</a></li>
+                        }                        
                     </ul>
                     <div class="dropdown account-dropdown visible-sm visible-xs">
                         <a class="dropdown-toggle" href="#" id="account-dropdown" data-toggle="dropdown" aria-expanded="true">
@@ -49,18 +56,24 @@
                 </div><!-- End .navbar-header -->
 
                 <div class="collapse navbar-collapse" id="main-navbar-container">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="/Admin/Index">Movies</a></li>
-                        <li><a href="#">XPaths</a></li>
-                        <li><a href="#">Users</a></li>
-                    </ul>
+                    @if (User.IsInRole(MyMovies.Entities.Enums.RolesEnums.AdminRole))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/Admin/Index">Movies</a></li>
+                            <li><a href="#">XPaths</a></li>
+                            <li><a href="#">Users</a></li>
+                        </ul>
+                    }
+
 
                     <button type="button" class="navbar-btn btn-icon btn-circle navbar-right last  hidden-sm hidden-xs collapsed" data-toggle="collapse" data-target="#header-search-form" aria-expanded="false"><i class="fa fa-search"></i></button>
 
                     <div class="dropdown cart-dropdown navbar-right hidden-sm hidden-xs">
                         <button type="button" class="navbar-btn btn-icon btn-circle dropdown-toggle" data-toggle="dropdown"><i class="fa fa-play-circle"></i></button>
                         <div class="dropdown-menu cart-dropdown-menu" role="menu">
-                            <p class="cart-dropdown-desc"><i class="fa fa-cart-plus"></i>You have 2 product(s) in your cart:</p>
+                            <p class="cart-dropdown-desc">
+                                <i class="fa fa-cart-plus"></i>You have 2 product(s) in your cart:
+                            </p>
                             <hr>
                             <div class="product clearfix">
                                 <a href="#" class="remove-btn" title="Remove"><i class="fa fa-close"></i></a>
