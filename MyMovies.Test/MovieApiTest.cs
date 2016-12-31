@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
+using MyMovies.Common.BusinessLogic;
 using MyMovies.Entities;
 using MyMovies.Infrastructure.Implementations;
 using MyMovies.Repository.Implementations;
-using MyMovies.Web.BusinessLogic;
 using MyMovies.Repository.Interfaces;
 using MyMovies.Infrastructure.Interfaces;
 

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyMovies.Common.BusinessLogic;
 using MyMovies.Common.Extension;
 using MyMovies.Entities;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
-using MyMovies.Web.BusinessLogic;
 using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
 
