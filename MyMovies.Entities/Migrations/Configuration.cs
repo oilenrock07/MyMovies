@@ -30,7 +30,10 @@ namespace MyMovies.Entities.Migrations
                   Genre = "//div[@itemprop=\"genre\"]/a",
                   DateReleased = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[2]/div[2]/div/a[4]/text()",
                   Year = "//*[@id=\"titleYear\"]/a",
-                  Summary = "//*[@id=\"titleStoryLine\"]/div[1]/p/text()",
+
+                  Summary = "//*[@class=\"summary_text\"]/text()",
+                  //long summary
+                  //Summary = "//*[@id=\"titleStoryLine\"]/div[1]/p/text()",
                   Runtime = "//*[@id=\"title-overview-widget\"]/div[2]/div[2]/div/div[2]/div[2]/div/time",
 
                   //inside headers
