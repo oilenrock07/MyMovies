@@ -22,7 +22,7 @@ namespace MyMovies.Repository.Implementations
             var cachedMovieXPath = _cacheManager != null ? _cacheManager.Get("MovieXPaths") : null;
             if (cachedMovieXPath == null)
             {
-                var xPath = GetAll().Last();
+                var xPath = GetAll().ToList().LastOrDefault();
                 if (_cacheManager != null) _cacheManager.Add("MovieXPaths", xPath);
 
                 return xPath;

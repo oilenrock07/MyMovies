@@ -107,6 +107,10 @@
     <Compile Include="Migrations\201609060910251_addmoreproperties.Designer.cs">
       <DependentUpon>201609060910251_addmoreproperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612300212188_new.cs" />
+    <Compile Include="Migrations\201612300212188_new.Designer.cs">
+      <DependentUpon>201612300212188_new.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -168,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609060910251_addmoreproperties.resx">
       <DependentUpon>201609060910251_addmoreproperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612300212188_new.resx">
+      <DependentUpon>201612300212188_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,5 +17,10 @@
 
             return false;
         }
+
+        public static string GetImdbIdFromLink(this string link)
+        {
+            return link.Split('/')[4];
+        }
     }
 }

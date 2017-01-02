@@ -118,10 +118,11 @@
 
         <div class="divider pattern-square"></div>
         <div class="row">
+            @Html.HiddenFor(model => model.RelatedMovie)
             @Html.HiddenFor(model => model.Poster)
             @Html.HiddenFor(model => model.MovieId)
             <div class="col-xs-12">
-                <input type="submit" class="btn btn-custom btn-lg" value="Submit" />
+                <input type="submit" class="btn btn-custom btn-lg" value="Submit"/>
                 @if (!String.IsNullOrEmpty(Model.ImdbId))
                 {
                     <a href="http://www.imdb.com/title/@Model.ImdbId" class="btn btn-warning btn-lg">View In IMDB</a>
