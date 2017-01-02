@@ -238,8 +238,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612311224391_InitialIdentities.cs" />
+    <Compile Include="Migrations\201612311224391_InitialIdentities.Designer.cs">
+      <DependentUpon>201612311224391_InitialIdentities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="MyMovieResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -248,7 +254,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MovieViewModel.cs" />
-    <Compile Include="Models\PaginationModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -443,6 +448,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612311224391_InitialIdentities.resx">
+      <DependentUpon>201612311224391_InitialIdentities.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyMovieResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MyMovieResource.Designer.cs</LastGenOutput>

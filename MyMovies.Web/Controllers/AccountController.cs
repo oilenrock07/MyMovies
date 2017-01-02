@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using MyMovies.Entities.Enums;
 using MyMovies.Entities.Users;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
@@ -58,7 +59,6 @@ namespace MyMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = await UserManager.FindAsync(model.UserName, model.Password);
                 var user = _userRepository.Find(x => x.UserName == model.UserName).FirstOrDefault();
                 if (user != null && UserManager.PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password) == PasswordVerificationResult.Success)
                 {
@@ -97,20 +97,14 @@ namespace MyMovies.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //update user firstname and lastname
-                    var usr = _userRepository.GetById(user.Id);
-                    _userRepository.Update(usr);
-                    usr.FirstName = model.FirstName;
-                    usr.LastName = model.LastName;
-
                     _userRoleRepository.Add(new UserRole
                     {
-                        RoleId = model.RoleId,
+                        RoleId = RolesEnums.UserRole,
                         UserId = user.Id
                     });
                     _unitOfWork.Commit();
 
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -312,8 +306,8 @@ namespace MyMovies.Web.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();

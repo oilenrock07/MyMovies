@@ -7,9 +7,6 @@ namespace MyMovies.Entities.Users
     public class Role 
     {
         [Key]
-        public int RoleId { get; set; }
-
-        [StringLength(250)]
         public string Id { get; set; }
 
         [StringLength(250)]
