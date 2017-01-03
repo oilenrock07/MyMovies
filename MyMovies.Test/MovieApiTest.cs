@@ -32,7 +32,7 @@ namespace MyMovies.Test
         public void LoadMovieFromFile()
         {
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.LoadMovieFromFile(@"C:\nightmare.txt");
+            var movie = scrapper.LoadMovieFromFile(@"C:\GOT.txt");
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace MyMovies.Test
         public void GetRelatedMovies()
         {
             var doc = new HtmlDocument();
-            var html = File.ReadAllText(@"C:\nightmare.txt");
+            var html = File.ReadAllText(@"C:\GOT.txt");
             doc.LoadHtml(html);
 
             var relatedMoviesList = new List<Movie>();
@@ -96,17 +96,32 @@ namespace MyMovies.Test
 
             foreach (var overview in overviews)
             {
-                //var image = overview.SelectSingleNode("//*[@class=\"loadlate rec_poster_img\"]");
                 var genres = overview.SelectSingleNode(".//div[contains(@class, \"rec-cert-genre\")]");
+                var directorsNode = overview.SelectSingleNode(".//div[@class=\"rec-director rec-ellipsis\"]");
+                var actorsNode = overview.SelectSingleNode(".//div[@class=\"rec-actor rec-ellipsis\"]/span");
+                var rateNode = overview.SelectSingleNode(".//div[@class=\"rating rating-list\"]/span[contains(@class, \"rating-rating\")]/span[@class=\"value\"]");
+                //var rate = rateNode.SelectSingleNode("span[contains(@class, \"rating-rating\")]/span[@class=\"value\"]");
+
+                if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
+                actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));
+
+                foreach (var span in genres.SelectNodes("span"))
+                {
+                    genres.RemoveChild(span);
+                }
+
                 relatedMoviesList.Add(new Movie
                 {
-                    //Title = image.Attribute("title"),
-                    //Poster = image.Attribute("src"),
                     ImdbId = overview.Attribute("data-tconst"),
                     Title = overview.SelectSingleNode(".//div[@class=\"rec-title\"]/a/b").InnerTextClean(),
                     Year = overview.SelectSingleNode(".//div[@class=\"rec-title\"]/span").InnerTextClean().Replace("(", "").Replace(")", ""),
+                    Poster = overview.SelectSingleNode(".//img[@class=\"loadlate rec_poster_img\"]").Attribute("src"),
+                    Genre = genres.InnerText.CleanHtml().Replace("                                 ", "|"),
+                    Summary = overview.SelectSingleNode(".//div[@class=\"rec-outline\"]/p").InnerTextClean(),
+                    Directors = directorsNode != null ? directorsNode.InnerTextClean() : "",
+                    Stars = actorsNode.InnerTextClean(),
+                    Rate = Convert.ToDouble(rateNode.InnerText)
                 });
-               
             }
 
         }

@@ -43,8 +43,20 @@ namespace MyMovies.Entities.Migrations
                   Directors = "//*[@itemprop=\"director\"]",
                   Writers = "//*[@itemprop=\"creator\"]",
 
-                  RelatedMovie = "//*[@id=\"title_recs\"]/div[1]/div/div[2]/div",
-                  TitleDetails = "//*[@id=\"titleDetails\"]"
+                  //RelatedMovie = "//*[@id=\"title_recs\"]/div[1]/div/div[2]/div",
+                  TitleDetails = "//*[@id=\"titleDetails\"]",
+
+
+                  //Related Movies
+                  RelatedDirectors = ".//div[@class=\"rec-director rec-ellipsis\"]",
+                  RelatedGenre = ".//div[contains(@class, \"rec-cert-genre\")]",
+                  RelatedPoster = ".//img[@class=\"loadlate rec_poster_img\"]",
+                  RelatedRate = ".//div[@class=\"rating rating-list\"]/span[contains(@class, \"rating-rating\")]/span[@class=\"value\"]",
+                  RelatedRoot = "//*[@class=\"rec_overview\"]",
+                  RelatedStars = ".//div[@class=\"rec-actor rec-ellipsis\"]/span",
+                  RelatedSummary = ".//div[@class=\"rec-outline\"]/p",
+                  RelatedTitle = ".//div[@class=\"rec-title\"]/a/b",
+                  RelatedYear = ".//div[@class=\"rec-title\"]/span"
               }
             );
         }

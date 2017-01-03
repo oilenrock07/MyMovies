@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -77,15 +78,44 @@ namespace MyMovies.Common.BusinessLogic
             var poster = header.SelectSingleNode(xPath.Poster).Attribute("src");
             var directors = header.SelectSingleNode(xPath.Directors).InnerTextClean();
 
-            var relatedMovies = doc.DocumentNode.SelectNodes(xPath.RelatedMovie);
-            var strRelatedMovies = relatedMovies.Select(relatedMovieNode => String.Join(",", relatedMovieNode.SelectNodes("*/@data-tconst").Select(x => x.Attribute("data-tconst")))).ToList();
-
             var titleDetails = doc.DocumentNode.SelectSingleNode(xPath.TitleDetails).SelectNodes("*/h4");
             var country = titleDetails.FirstOrDefault(x => x.InnerText == "Country:").TitleDetailsAnchor();
             var language = titleDetails.FirstOrDefault(x => x.InnerText == "Language:").TitleDetailsAnchor();
             var alsoKnownAs = titleDetails.FirstOrDefault(x => x.InnerText == "Also Known As:").TitleDetailsText();
             var budget = titleDetails.FirstOrDefault(x => x.InnerText == "Budget:").TitleDetailsText();
             var gross = titleDetails.FirstOrDefault(x => x.InnerText == "Gross:").TitleDetailsText();
+
+            //Related Movies
+            var relatedMoviesList = new List<Movie>();
+            var overviews = doc.DocumentNode.SelectNodes(xPath.RelatedRoot);
+            foreach (var overview in overviews)
+            {
+                var genres = overview.SelectSingleNode(xPath.RelatedGenre);
+                var directorsNode = overview.SelectSingleNode(xPath.RelatedDirectors);
+                var actorsNode = overview.SelectSingleNode(xPath.RelatedStars);
+                var rateNode = overview.SelectSingleNode(xPath.RelatedRate);
+
+                if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
+                actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));
+
+                foreach (var span in genres.SelectNodes("span"))
+                {
+                    genres.RemoveChild(span);
+                }
+
+                relatedMoviesList.Add(new Movie
+                {
+                    ImdbId = overview.Attribute("data-tconst"),
+                    Title = overview.SelectSingleNode(xPath.RelatedTitle).InnerTextClean(),
+                    Year = overview.SelectSingleNode(xPath.RelatedYear).InnerTextClean().Replace("(", "").Replace(")", ""),
+                    Poster = overview.SelectSingleNode(xPath.RelatedPoster).Attribute("src"),
+                    Genre = genres.InnerText.CleanHtml().Replace("                                 ", "|"),
+                    Summary = overview.SelectSingleNode(xPath.RelatedSummary).InnerTextClean(),
+                    Directors = directorsNode != null ? directorsNode.InnerTextClean() : "",
+                    Stars = actorsNode.InnerTextClean(),
+                    Rate = Convert.ToDouble(rateNode.InnerText)
+                });
+            }
 
             var movie = new Movie
             {
@@ -101,12 +131,13 @@ namespace MyMovies.Common.BusinessLogic
                 Runtime = runtime,
                 Directors = directors,
                 Writers = writers,
-                RelatedMovie = String.Join(",", strRelatedMovies),
+                RelatedMovie = String.Join(",", relatedMoviesList.Select(x => x.ImdbId)), //String.Join(",", strRelatedMovies),
                 Country = country,
                 Language = language,
                 AlsoKnownAs = alsoKnownAs,
                 Budget = budget,
-                Gross = gross
+                Gross = gross,
+                RelatedMovies = relatedMoviesList
             };
 
             return movie;

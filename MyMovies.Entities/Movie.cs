@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyMovies.Entities
 {
@@ -44,9 +46,13 @@ namespace MyMovies.Entities
         [Required]
         public string FileSize { get; set; }
 
+        [NotMapped]
+        public IEnumerable<Movie> RelatedMovies { get; set; }
+
         public Movie()
         {
             DateCreated = DateTime.Now;
+            RelatedMovies = new List<Movie>();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MyMovies.Entities
         public string Summary { get; set; }
         public string Genre { get; set; }
         public string Duration { get; set; }
-        public string RelatedMovie { get; set; }
+        //public string RelatedMovie { get; set; }
 
         public string TitleDetails { get; set; }
         public string Header { get; set; }
@@ -33,5 +33,16 @@ namespace MyMovies.Entities
         //Box Office
         public string Budget { get; set; }
         public string Gross { get; set; }
+
+        //Related Movies
+        public string RelatedRoot { get; set; }
+        public string RelatedDirectors { get; set; }
+        public string RelatedStars { get; set; }
+        public string RelatedRate { get; set; }
+        public string RelatedTitle { get; set; }
+        public string RelatedYear { get; set; }
+        public string RelatedPoster { get; set; }
+        public string RelatedGenre { get; set; }
+        public string RelatedSummary { get; set; }
     }
 }
