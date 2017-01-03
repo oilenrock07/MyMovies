@@ -48,7 +48,8 @@ namespace MyMovies.Web.Controllers
                 if (movie == null)
                 {
                     var scrapper = new ImdbScrapper(_movieXPathRepository);
-                    movie = scrapper.GetMovie(key);
+                    movie = scrapper.LoadMovieFromFile("C:/GOT.txt");
+                    //movie = scrapper.GetMovie(key);
                 }
             }
             else

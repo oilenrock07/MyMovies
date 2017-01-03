@@ -88,7 +88,7 @@ namespace MyMovies.Test
 
             //    relatedMoviesList.Add(new Movie
             //    {
-            //        Title = image.Attribute("title"), 
+            //        Title = image.Attribute("title"),
             //        Poster = image.Attribute("src"),
             //        ImdbId = relatedMovie.Attribute("data-tconst")
             //    });

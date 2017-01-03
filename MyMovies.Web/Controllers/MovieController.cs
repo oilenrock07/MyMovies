@@ -32,23 +32,23 @@ namespace MyMovies.Web.Controllers
         {
             var pagination = new Pagination();
 
-            IQueryable<Movie> movies;
-            Expression<Func<Movie, bool>> expression;
+            int count;
+            IQueryable<Movie> movies;            
             if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Search))
             {
                 var search = paginationViewModel.Search;
 
                 //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
-                expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
-                movies = _movieRepository.Find(expression);                
+                Expression<Func<Movie, bool>> expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
+                movies = _movieRepository.Find(expression);
+                count = movies.Count();
             }
             else
             {
-                expression = x => true;
+                count = _movieRepository.GetAll().Count();
                 movies = _movieRepository.GetAll();
             }
 
-            var count = _movieRepository.Find(expression).Count();
             paginationViewModel = pagination.GetPaginationModel(Request, count);
             var viewModel = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), paginationViewModel);
             return View(viewModel);
