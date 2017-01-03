@@ -24,3 +24,24 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.portfolio-favourite-movie {
+	display:block;
+	width:52px;
+	height:52px;
+	border-radius:4px;
+	position: absolute;
+	right:18px;
+	top:50%;
+	margin-top:-26px;
+	background-color: goldenrod;
+	color:#303030;
+	text-align: center;
+	transition:all 0.4s ease;
+	-webkit-transition:all 0.4s ease;
+}
+
+.portfolio-favourite-movie i {
+	font-size:18px;
+	margin-top:9px;
+}

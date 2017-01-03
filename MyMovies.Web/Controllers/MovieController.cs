@@ -49,8 +49,10 @@ namespace MyMovies.Web.Controllers
                 movies = _movieRepository.GetAll();
             }
 
-            paginationViewModel = pagination.GetPaginationModel(Request, count);
-            var viewModel = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), paginationViewModel);
+            var viewModel = new MoviePaginationViewModel();
+            viewModel.Pagination = pagination.GetPaginationModel(Request, count);
+            viewModel.Movies = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), viewModel.Pagination).MapCollection<MovieViewModel>();
+            
             return View(viewModel);
         }
 

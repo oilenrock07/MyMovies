@@ -47,7 +47,7 @@ namespace MyMovies.Entities
         public string FileSize { get; set; }
 
         [NotMapped]
-        public IEnumerable<Movie> RelatedMovies { get; set; }
+        public IList<Movie> RelatedMovies { get; set; }
 
         public Movie()
         {

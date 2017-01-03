@@ -1,4 +1,5 @@
-﻿using MyMovies.Entities;
+﻿using System;
+using MyMovies.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,6 +7,10 @@ namespace MyMovies.Web.ViewModels
 {
     public class MovieViewModel : Movie
     {
+        public string LastStar
+        {
+            get { return StarLists.LastOrDefault(); }
+        }
         public IEnumerable<string> StarLists
         {
             get
@@ -14,15 +19,44 @@ namespace MyMovies.Web.ViewModels
             }
         }
 
+        public string LastGenre
+        {
+            get { return GenreList.LastOrDefault(); }
+        }
+
         public IEnumerable<string> GenreList
         {
             get
             {
                 return Genre.Split(',').Select(x => x.Trim());
             } 
-        } 
+        }
 
-        public IList<Movie> RelatedMovies { get; set; }
+        public string LastDirector
+        {
+            get { return DirectorList.LastOrDefault(); }
+        }
+
+        public IEnumerable<string> DirectorList
+        {
+            get
+            {
+                return Directors.Split(',').Select(x => x.Trim());
+            }
+        }
+
+        public string LastWriter
+        {
+            get { return WriterList.LastOrDefault(); }
+        }
+
+        public IEnumerable<string> WriterList
+        {
+            get
+            {
+                return Writers.Split(',').Select(x => x.Trim());
+            }
+        } 
 
         public string FormattedRate
         {
@@ -30,6 +64,11 @@ namespace MyMovies.Web.ViewModels
             {
                 return Rate.ToString("#.#");
             }
+        }
+
+        public string ShortenedSumary
+        {
+            get { return Summary.Length > 250 ? String.Format("{0}...", Summary.Substring(0, 250)) : Summary; }
         }
     }
 }
