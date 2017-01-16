@@ -45,3 +45,8 @@ input[type="checkbox"].input-validation-error {
 	font-size:18px;
 	margin-top:9px;
 }
+
+h1.movie-poster {
+    float: right;
+    margin-bottom: 0;
+}

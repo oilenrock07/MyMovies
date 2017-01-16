@@ -14,77 +14,7 @@
 
         @foreach (var movie in Model.Movies)
         {           
-            <div class="col-sm-6">
-                <div class="col-sm-5">
-                    <h3>@movie.Title (@movie.Year)</h3>
-                    <div class="portfolio-item portfolio-meta-slideup push">
-                        <figure>
-                            <a href="images/portfolio/grid/item3.jpg" class="zoom-item" title="Portfolio Item Description">
-                                <img src="@movie.Poster" alt="portfolio item name" class="img-responsive">
-                            </a>
-                        </figure>
-                        <div class="portfolio-meta">
-                            <h4>Put something here</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="col-xs-12"><span class=" pull-right">@movie.Rate.ToString("0.00")/10</span></div>
-                    <div>
-                        @foreach (var genre in movie.GenreList)
-                        {
-                            <a href="#">@genre</a>
-                            if (genre != movie.LastGenre)
-                            {
-                                <text>|</text>
-                            }
-                        }
-                    </div>
-                    <div>
-                        <span>Stars: </span>
-                        <div>
-                            @foreach (var star in movie.StarLists)
-                            {
-                                <a href="#">@star</a>
-                                if (star != movie.LastStar)
-                                {
-                                    <text>|</text>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div>
-                        <span>Writers: </span>
-                        <div>
-                            @foreach (var writer in movie.WriterList)
-                            {
-                                <a href="#">@writer</a>
-                                if (writer != movie.LastWriter)
-                                {
-                                    <text>|</text>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div>
-                        <span>Directors: </span>
-                        <div>
-                            @foreach (var director in movie.DirectorList)
-                            {
-                                <a href="#">@director</a>
-                                if (director != movie.LastDirector)
-                                {
-                                    <text>|</text>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div>
-                        @movie.ShortenedSumary
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("_Movie", movie)
         }
     </div>
-
 </div>
