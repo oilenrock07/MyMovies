@@ -1,0 +1,50 @@
+﻿@model string[]
+@*We can only have 12 rows per column.*@
+
+<div class="dropdown-menu megamenu" role="menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul>
+                    @for (int a = 0; a < 12 && a < Model.Length; a++)
+                    {
+                        <li><a href="aboutus.html">@Model[a]</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                    @if (Model.Length > 12)
+                    {
+                        for (int a = 12; a < 24 && a < Model.Length; a++)
+                        {
+                            <li><a href="aboutus.html">@Model[a]</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                   @if (Model.Length > 24)
+                    {
+                        for (int a = 24; a < 36 && a < Model.Length; a++)
+                        {
+                            <li><a href="aboutus.html">@Model[a]</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                   @if (Model.Length > 36)
+                    {
+                        for (int a = 36; a < 48 && a < Model.Length; a++)
+                        {
+                            <li><a href="aboutus.html">@Model[a]</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

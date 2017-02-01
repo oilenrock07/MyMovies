@@ -56,6 +56,12 @@ namespace MyMovies.Web.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Menu()
+        {
+            var categories = _movieRepository.GetGenres();
+            return PartialView("_Menu", categories.ToArray());
+        }
+
         public ActionResult Detail(int id)
         {
             var movie = _movieRepository.GetById(id);

@@ -72,71 +72,7 @@
 
                         <li class="dropdown megamenu-container">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="angle"></span></a>
-                            <div class="dropdown-menu megamenu" role="menu">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <ul>
-                                                <li><a href="aboutus.html">About - Agency</a></li>
-                                                <li><a href="aboutus2.html">About - Agency 2</a></li>
-                                                <li><a href="aboutus3.html">About - Agency 3</a></li>
-                                                <li><a href="aboutus4.html">About - Agency 4</a></li>
-                                                <li><a href="aboutus5.html">About - Agency 5</a></li>
-                                                <li><a href="aboutme.html">About - Personal</a></li>
-                                                <li><a href="aboutme2.html">About - Personal 2</a></li>
-                                                <li><a href="aboutme3.html">About - Personal 3</a></li>
-                                                <li><a href="aboutme4.html">About - Personal 4</a></li>
-                                                <li><a href="services1.html">Services - Page 1</a></li>
-                                                <li><a href="services2.html">Services - Page 2</a></li>
-                                                <li><a href="services3.html">Services - Page 3</a></li>
-                                            </ul>
-                                        </div><!-- End .col-sm-3 -->
-                                        <div class="col-sm-3">
-                                            <ul>
-                                                <li><a href="services4.html">Services - Page 4</a></li>
-                                                <li><a href="services5.html">Services - Page 5</a></li>
-                                                <li><a href="services6.html">Services - Page 6</a></li>
-                                                <li><a href="pricing.html">Pricing Tables 1</a></li>
-                                                <li><a href="pricing2.html">Pricing Tables 2</a></li>
-                                                <li><a href="pricing3.html">Pricing Tables 3</a></li>
-                                                <li><a href="pricing4.html">Pricing Tables 4</a></li>
-                                                <li><a href="events.html">Events - Grid 1</a></li>
-                                                <li><a href="events-right-sidebar.html">Events - Grid 2</a></li>
-                                                <li><a href="events-left-sidebar.html">Events - Grid 3</a></li>
-                                                <li><a href="events-list.html">Events - List 1</a></li>
-                                                <li><a href="events-list-right-sidebar.html">Events - List 2</a></li>
-                                            </ul>
-                                        </div><!-- End .col-sm-3 -->
-                                        <div class="col-sm-3">
-                                            <ul>
-                                                <li><a href="events-list-left-sidebar.html">Events - List 3</a></li>
-                                                <li><a href="knowledge.html">knowledge Base 1</a></li>
-                                                <li><a href="knowledge2.html">knowledge Base 2</a></li>
-                                                <li><a href="knowledge3.html">knowledge Base 3</a></li>
-                                                <li><a href="testimonials.html">Testimonials - Page</a></li>
-                                                <li><a href="testimonials2.html">Testimonials - Page 2</a></li>
-                                                <li><a href="testimonials3.html">Testimonials - Page 3</a></li>
-                                                <li><a href="team.html">Team - Page</a></li>
-                                                <li><a href="team2.html">Team - Page 2</a></li>
-                                                <li><a href="team3.html">Team - Page 3</a></li>
-                                                <li><a href="faqs.html">FaQs - Page 1</a></li>
-                                                <li><a href="faqs2.html">FaQs - Page 2</a></li>
-                                            </ul>
-                                        </div><!-- End .col-sm-3 -->
-                                        <div class="col-sm-3">
-                                            <ul>
-                                                <li><a href="faqs3.html">FaQs - Page 3</a></li>
-
-                                                <li><a href="404.html">404 - Version 1</a></li>
-                                                <li><a href="404-2.html">404 - Version 2</a></li>
-                                                <li><a href="404-3.html">404 - Version 3</a></li>
-                                                <li><a href="404-4.html">404 - Version 4</a></li>
-                                                <li><a href="404-5.html">404 - Version 5</a></li>
-                                            </ul>
-                                        </div><!-- End .col-sm-3 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .container -->
-                            </div><!-- End .megamenu -->
+                            @{Html.RenderAction("Menu", "Movie");}
                         </li>
 
                     </ul>

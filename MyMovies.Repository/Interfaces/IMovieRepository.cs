@@ -1,4 +1,5 @@
-﻿using MyMovies.Entities;
+﻿using System.Collections.Generic;
+using MyMovies.Entities;
 using MyMovies.Infrastructure.Interfaces;
 
 namespace MyMovies.Repository.Interfaces
@@ -7,5 +8,6 @@ namespace MyMovies.Repository.Interfaces
     {
         Movie GetByImdbId(string imdbId);
         Movie GetByMovieName(string movieName);
+        IEnumerable<string> GetGenres();
     }
 }
