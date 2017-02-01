@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CacheManager.Core;
 using MyMovies.Entities;
@@ -36,7 +37,8 @@ namespace MyMovies.Repository.Implementations
                 var genres = GetAll().Select(x => x.Genre).ToList();
                 if (_cacheManager != null)
                 {
-                    var splittedGenre = genres.SelectMany(x => x.Split(','));
+                    var splittedGenre = genres.SelectMany(x => x.Split(new[]{", "}, StringSplitOptions.None))
+                                       .Select(x => x.Trim()).Distinct().OrderBy(x => x);
                     genres = splittedGenre.ToList();
                     _cacheManager.Add("Genres", splittedGenre);
                 }

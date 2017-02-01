@@ -11,10 +11,11 @@
     </div>
 
     <div class="container">
-
-        @foreach (var movie in Model.Movies)
-        {           
-            @Html.Partial("_Movie", movie)
-        }
+        <div class="row">
+            @foreach (var movie in Model.Movies)
+            {           
+                @Html.Partial("_Movie", movie)
+            }
+        </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
-<div class="col-sm-6">
+<div class="col-sm-6 movie-list">
     <div class="col-sm-5">
         <h3>@Model.Title (@Model.Year)</h3>
         <div class="portfolio-item portfolio-meta-slideup push">
@@ -26,7 +26,7 @@
                 <a href="#">@genre</a>
                 if (genre != Model.LastGenre)
                 {
-                    <text>|</text>
+                <text>|</text>
                 }
             }
         </div>
@@ -38,7 +38,7 @@
                     <a href="#">@star</a>
                     if (star != Model.LastStar)
                     {
-                        <text>|</text>
+                    <text>|</text>
                     }
                 }
             </div>
@@ -51,7 +51,7 @@
                     <a href="#">@writer</a>
                     if (writer != Model.LastWriter)
                     {
-                        <text>|</text>
+                    <text>|</text>
                     }
                 }
             </div>
@@ -64,7 +64,7 @@
                     <a href="#">@director</a>
                     if (director != Model.LastDirector)
                     {
-                        <text>|</text>
+                    <text>|</text>
                     }
                 }
             </div>
