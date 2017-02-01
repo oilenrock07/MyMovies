@@ -5,8 +5,8 @@
         <h3>@Model.Title (@Model.Year)</h3>
         <div class="portfolio-item portfolio-meta-slideup push">
             <figure>
-                <a href="images/portfolio/grid/item3.jpg" class="zoom-item" title="Portfolio Item Description">
-                    <img src="@Model.Poster" alt="portfolio item name" class="img-responsive">
+                <a href="images/portfolio/grid/item3.jpg" class="zoom-item" title="@Model.Title">
+                    <img src="@Model.Poster" alt="@Model.Title" class="img-responsive">
                 </a>
             </figure>
             <div class="portfolio-meta">
@@ -23,7 +23,7 @@
         <div>
             @foreach (var genre in Model.GenreList)
             {
-                <a href="#">@genre</a>
+                <a href="/?Category=@genre">@genre</a>
                 if (genre != Model.LastGenre)
                 {
                 <text>|</text>
@@ -35,7 +35,7 @@
             <div>
                 @foreach (var star in Model.StarLists)
                 {
-                    <a href="#">@star</a>
+                    <a href="/?Star=@star">@star</a>
                     if (star != Model.LastStar)
                     {
                     <text>|</text>
@@ -48,7 +48,7 @@
             <div>
                 @foreach (var writer in Model.WriterList)
                 {
-                    <a href="#">@writer</a>
+                    <a href="/?Writer=@writer">@writer</a>
                     if (writer != Model.LastWriter)
                     {
                     <text>|</text>
@@ -61,7 +61,7 @@
             <div>
                 @foreach (var director in Model.DirectorList)
                 {
-                    <a href="#">@director</a>
+                    <a href="/?Director=@director">@director</a>
                     if (director != Model.LastDirector)
                     {
                     <text>|</text>

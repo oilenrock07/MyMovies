@@ -1,4 +1,6 @@
-﻿namespace MyMovies.Web.Models
+﻿using System;
+
+namespace MyMovies.Web.Models
 {
     public class PaginationModel
     {
@@ -12,5 +14,8 @@
 
         public string Search { get; set; }
         public string Category { get; set; }
+        public string Star { get; set; }
+        public string Director { get; set; }
+        public string Writer { get; set; }
     }
 }
