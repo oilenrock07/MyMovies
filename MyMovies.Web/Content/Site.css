@@ -24,7 +24,7 @@ Version:1.0
 - 2.12  Bootstrap slider
 - 2.13  Maps
 - 2.14  Counters
-- 2.15  Services
+- 2.15  Servicesdata-0="opacity:1;" data-top="opacity:0;" style="opacity: 1;"
 - 2.16  Pagination
 - 2.17  Bootstrap Modal
 - 2.18  Dividers
@@ -6862,7 +6862,7 @@ or the section with padding top more than header's height */
 
 @media (min-width:768px) {
 	.page-header {
-		padding:35px 0 20px;
+		padding:70px 0 35px;
 		margin-bottom:60px;
 	}
 
