@@ -2,6 +2,7 @@
 using MyMovies.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace MyMovies.Web.ViewModels
 {
@@ -70,5 +71,7 @@ namespace MyMovies.Web.ViewModels
         {
             get { return Summary.Length > 250 ? String.Format("{0}...", Summary.Substring(0, 250)) : Summary; }
         }
+
+        public HttpPostedFileBase MoviePoster { get; set; }
     }
 }

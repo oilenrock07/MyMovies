@@ -1,12 +1,13 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
 <div ng-controller="AdminController">
-    @using (@Html.BeginForm("Index", "Admin", FormMethod.Post))
+    @using (@Html.BeginForm("Index", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
 
             <div class="col-md-4 col-md-push-8">
-                <img src="@Model.Poster" class="img-responsive" />
+                <img src="@Model.Poster" class="img-responsive" id="MoviePoster"/>
+                <input type="file" value="Upload" accept="image/*" custom-on-change="fileChange" name="MoviePoster"/>
             </div>
 
             <div class="col-md-8 col-md-pull-4">
@@ -137,6 +138,21 @@
     app.controller('AdminController', function ($scope) {
         $scope.fileName = '@(Model.FileName)';
         $scope.fileSize = '@(Model.FileSize)';
+
+        $scope.fileChange = function (event) {
+            var input = event.target;
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#MoviePoster').attr('src', e.target.result);                    
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
         $scope.getFileDetails = function () {
             var input = $(document.createElement('input'));
             input.attr("type", "file");
@@ -160,5 +176,15 @@
             input.trigger('click');
             return false;
         }
+    });
+
+    app.directive('customOnChange', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var onChangeHandler = scope.$eval(attrs.customOnChange);
+                element.bind('change', onChangeHandler);
+            }
+        };
     });
 </script>
