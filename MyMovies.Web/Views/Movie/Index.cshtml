@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>@Model.ListTitle</h2>
+                    <h2>@Model.Pagination.ListTitle</h2>
                 </div>
             </div>
         </div>
@@ -14,9 +14,14 @@
     <div class="container">
         <div class="row">
             @foreach (var movie in Model.Movies)
-            {           
+            {
                 @Html.Partial("_Movie", movie)
             }
+        </div>
+
+        <div class="row">
+            <div class="mb30"></div>
+            @Html.Partial("_Pagination", Model.Pagination)
         </div>
     </div>
 </div>

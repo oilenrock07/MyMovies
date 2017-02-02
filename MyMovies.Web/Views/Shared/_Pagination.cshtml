@@ -1,0 +1,24 @@
+﻿@model MyMovies.Web.Models.PaginationModel
+
+<nav class="pagination-container text-right">
+    <ul class="pagination">
+        
+        <li>
+            <a href="@String.Format(Model.PageLink, 1)" aria-label="First">
+                <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+            </a>
+        </li>
+
+        @foreach (var pageNum in Model.DisplayPages)
+        {
+            var linkClass = pageNum == Model.CurrentPage ? "active" : "";
+            <li class="@linkClass"><a href="@String.Format(Model.PageLink, pageNum)">@pageNum</a></li>
+        }
+
+        <li>
+            <a href="@String.Format(Model.PageLink, Model.TotalPages)" aria-label="Last">
+                <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+            </a>
+        </li>
+    </ul>
+</nav>
