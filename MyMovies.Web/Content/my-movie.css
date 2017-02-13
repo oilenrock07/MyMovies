@@ -50,3 +50,12 @@ h1.movie-poster {
     float: right;
     margin-bottom: 0;
 }
+
+.list-header {
+    background:url('/Images/test.jpg')no-repeat;
+    background-size:100%;
+    height: 140px;
+    display:block;
+    /*padding:0 !important;
+    margin:0;*/
+}

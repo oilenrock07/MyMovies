@@ -1,7 +1,6 @@
 ﻿@model MyMovies.Web.ViewModels.MoviePaginationViewModel
 <div id="content" role="main">
-    @*<div class="page-header dark">*@
-    <div class="page-header" data-bgattach="/images/test.jpg">
+    <div class="page-header list-header">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -13,9 +12,24 @@
 
     <div class="container">
         <div class="row">
-            @foreach (var movie in Model.Movies)
+            @for (var i = 0; i < Model.Movies.Count(); i++)
             {
-                @Html.Partial("_Movie", movie)
+
+                if ((i % 2) == 0)
+                {
+                    @Html.Raw("<div class=\"row\">")
+                    @Html.Partial("_Movie", Model.Movies.ElementAt(i))
+
+                    if (i == Model.Movies.Count())
+                    {
+                        @Html.Raw("</div>")
+                    }
+                }
+                else
+                {
+                    @Html.Partial("_Movie", Model.Movies.ElementAt(i))
+                    @Html.Raw("</div>")
+                }
             }
         </div>
 
