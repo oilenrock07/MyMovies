@@ -121,12 +121,13 @@
         <div class="row">
             @Html.HiddenFor(model => model.RelatedMovie)
             @Html.HiddenFor(model => model.Poster)
-            @Html.HiddenFor(model => model.MovieId)
+            @Html.HiddenFor(model => model.MovieId, new {ng_model = "movieId"})
             <div class="col-xs-12">
-                <input type="submit" class="btn btn-custom btn-lg" value="Submit"/>
+                <input type="submit" class="btn btn-custom btn-lg" value="Save"/>
+                <a href="/Admin/MovieUpdate?id=@Model.MovieId" class="btn btn-primary btn-lg">Get Updates</a>
                 @if (!String.IsNullOrEmpty(Model.ImdbId))
                 {
-                    <a href="http://www.imdb.com/title/@Model.ImdbId" class="btn btn-warning btn-lg">View In IMDB</a>
+                    <a href="http://www.imdb.com/title/@Model.ImdbId" target="_blank" class="btn btn-warning btn-lg">View In IMDB</a>
                 }
             </div>
         </div>
@@ -135,7 +136,7 @@
 
 <script>
     var app = angular.module('MovieApp', []);
-    app.controller('AdminController', function ($scope) {
+    app.controller('AdminController', function ($http, $scope) {
         $scope.fileName = '@(Model.FileName)';
         $scope.fileSize = '@(Model.FileSize)';
 
@@ -146,7 +147,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#MoviePoster').attr('src', e.target.result);                    
+                    $('#MoviePoster').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);

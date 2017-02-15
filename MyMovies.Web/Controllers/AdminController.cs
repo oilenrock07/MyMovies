@@ -48,8 +48,8 @@ namespace MyMovies.Web.Controllers
                 if (movie == null)
                 {
                     var scrapper = new ImdbScrapper(_movieXPathRepository);
-                    movie = scrapper.LoadMovieFromFile("C:/GOT.txt");
-                    //movie = scrapper.GetMovie(key);
+                    //movie = scrapper.LoadMovieFromFile("C:/GOT.txt");
+                    movie = scrapper.GetMovie(key);
                 }
             }
             else
@@ -95,6 +95,27 @@ namespace MyMovies.Web.Controllers
             }
 
             return RedirectToAction("Index", new { id });
+        }
+
+        [HttpGet]
+        public ActionResult MovieUpdate(int id)
+        {
+            var viewModel = new MovieViewModel();
+            if (id > 0)
+            {
+                var movie = _movieRepository.GetById(id);
+                var scrapper = new ImdbScrapper(_movieXPathRepository);
+                var scrappedMovie = scrapper.GetMovie(movie.ImdbId);
+
+                viewModel = scrappedMovie.MapItem<MovieViewModel>();
+                viewModel.DateCreated = movie.DateCreated;
+                viewModel.FileName = movie.FileName;
+                viewModel.Location = movie.Location;
+                viewModel.FileSize = movie.FileSize;
+                viewModel.Remarks = movie.Remarks;
+            }
+
+            return View("Index", viewModel);
         }
     }
 }
