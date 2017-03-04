@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyMovies.Common.BusinessLogic;
 using MyMovies.Common.Extension;
@@ -10,6 +7,7 @@ using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
 using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
+using System.Net;
 
 namespace MyMovies.Web.Controllers
 {
@@ -67,7 +65,9 @@ namespace MyMovies.Web.Controllers
         {
             var id = viewModel.MovieId;
             try
-            {                
+            {
+                UpdateImage(viewModel);
+
                 if (viewModel.MovieId == 0)
                 {
                     var movie = viewModel.MapItem<Movie>();
@@ -113,9 +113,30 @@ namespace MyMovies.Web.Controllers
                 viewModel.Location = movie.Location;
                 viewModel.FileSize = movie.FileSize;
                 viewModel.Remarks = movie.Remarks;
+                viewModel.MovieId = movie.MovieId;
+                viewModel.UpdateImage = true;
             }
 
             return View("Index", viewModel);
+        }
+
+
+        private void UpdateImage(MovieViewModel viewModel)
+        {
+            var path = Server.MapPath("~/Images/");
+            var fullPath = String.Format("{0}/{1}.jpg", path, viewModel.ImdbId);
+            if (viewModel.MoviePoster != null && viewModel.UpdateImage)
+            {
+                viewModel.MoviePoster.SaveAs(fullPath);
+                viewModel.Poster = fullPath;
+            }
+            else if (viewModel.UpdateImage && !String.IsNullOrEmpty(viewModel.Poster))
+            {
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(viewModel.Poster, fullPath);
+                }
+            }
         }
     }
 }

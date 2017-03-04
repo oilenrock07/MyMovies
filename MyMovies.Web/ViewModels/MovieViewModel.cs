@@ -72,6 +72,7 @@ namespace MyMovies.Web.ViewModels
             get { return Summary.Length > 250 ? String.Format("{0}...", Summary.Substring(0, 250)) : Summary; }
         }
 
+        public bool UpdateImage { get; set; }
         public HttpPostedFileBase MoviePoster { get; set; }
     }
 }
