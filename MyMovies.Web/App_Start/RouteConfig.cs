@@ -14,6 +14,12 @@ namespace MyMovies.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdminSearch",
+                url: "{controller}/{action}/{key}",
+                defaults: new {controller = "Admin", action = "Search", id = UrlParameter.Optional}
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Movie", action = "Index", id = UrlParameter.Optional }
