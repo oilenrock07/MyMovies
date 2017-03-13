@@ -5,47 +5,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1>Movie Details</h1>
-                    <p class="page-header-desc">Check out our portfolio before working with us.</p>
-                </div><!-- End .col-md-6 -->
-                <div class="col-md-6">
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Movies</a></li>
-                        <li class="active">Details</li>
-                    </ol>
-                </div><!-- End .col-md-6 -->
-            </div><!-- End .row -->
-        </div><!-- End .container -->
-    </div><!-- End .page-header -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="portfolio-media">
-                    <img src="/Resources/images/@string.Format("{0}.jpg", Model.ImdbId)" class="img-responsive" alt="Sinle Project">
-                </div><!-- End .portfolio-media -->
-            </div><!-- End .col-md-7 -->
-
-            <div class="col-md-5">
-
-                <div class="portfolio-details">
-                    <i class="fa fa-star fa-2x pull-right detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i>    
-                    <h2 class="title-underblock custom">
-                        @Model.Title
-                        @if (!String.IsNullOrEmpty(Model.Year))
-                        {
-                            <span class="detail-year">(@Model.Year)</span>
-                        }
-                    </h2>
-
+                    <h1>@Model.Title <span class="detail-year">(@Model.Year)</span></h1>
+                    <p class="page-header-desc">
                     @foreach (var item in Model.GenreList)
                     {
-                        <a href="/Controllers/Genre/@item">@item</a>
+                        <a href="/?Category=@item">@item</a>
                         if (item != Model.GenreList.Last())
                         {
                             <text>,</text>
                         }
                     }
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb">
+                        <li><a href="/">Movies</a></li>
+                        <li class="active">Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="portfolio-media">
+                    <img src="/Resources/images/@string.Format("{0}.jpg", Model.ImdbId)" class="img-responsive" alt="@Model.Title">
+                </div>
+            </div>
+
+            <div class="col-md-5">
+
+                <div class="portfolio-details">
+                    <i class="fa fa-star fa-2x pull-right detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i>    
 
                     <p class="t1">@Model.Summary</p>
                     <ul class="portfolio-details-list">
@@ -64,7 +57,13 @@
                         </li>
                         <li><span>Runtime:</span> @Model.Runtime</li>
                         <li><span>Rating:</span> @Model.Rating</li>
-                        <li><a href="javascript:void(0)" class="green">Show More Details</a></li>
+                        <li><span>Date Released:</span> @Model.DateReleased</li>
+                        <li><span>Country:</span> @Model.Country</li>
+                        <li><span>Language:</span> @Model.Language</li>
+                        <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
+                        <li><span>Budget:</span> @Model.Budget</li>
+                        <li><span>Gross:</span> @Model.Gross</li>
+                        <li><a href="javascript:void(0)" class="green">Show File Details</a></li>
                         <li><a href="http://www.imdb.com/title/@Model.ImdbId" class="green">View in Imdb</a></li>
 
                         <li class="share-li">
@@ -76,27 +75,18 @@
                                 <a href="javascript:void(0)" class="social-icon icon-twitter add-tooltip" data-placement="top" title="" data-original-title="Twitter">
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="social-icon icon-dribbble add-tooltip" data-placement="top" title="" data-original-title="Dribbble">
-                                    <i class="fa fa-dribbble"></i>
-                                </a>
                                 <a href="javascript:void(0)" class="social-icon icon-google-plus add-tooltip" data-placement="top" title="" data-original-title="Google Plus">
                                     <i class="fa fa-google-plus"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="social-icon icon-linkedin add-tooltip" data-placement="top" title="" data-original-title="Linkedin">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                                <a href="javascript:void(0)" class="social-icon icon-rss add-tooltip" data-placement="top" title="" data-original-title="Rss Feed">
-                                    <i class="fa fa-rss"></i>
-                                </a>
-                            </div><!-- End .social-icons -->
+                            </div>
                         </li>
                     </ul>
-                </div><!-- End .portfolio-details -->
+                </div>
 
-            </div><!-- End .col-md-5 -->
+            </div>
 
-        </div><!-- End .row -->
-    </div><!-- End .container -->
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -118,7 +108,7 @@
                                             <i class="fa fa-heart-o"></i>
                                             <span>14</span>
                                         </a>
-                                    </div><!-- End .portfolio-meta -->
+                                    </div>
                                 </div>
                             </div><div class="owl-item" style="width: 220px; margin-right: 30px;">
                                 <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
@@ -132,7 +122,7 @@
                                             <i class="fa fa-heart-o"></i>
                                             <span>4</span>
                                         </a>
-                                    </div><!-- End .portfolio-meta -->
+                                    </div>
                                 </div>
                             </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
                                 <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
@@ -146,7 +136,7 @@
                                             <i class="fa fa-heart-o"></i>
                                             <span>12</span>
                                         </a>
-                                    </div><!-- End .portfolio-meta -->
+                                    </div>
                                 </div>
                             </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
                                 <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
@@ -160,7 +150,7 @@
                                             <i class="fa fa-heart-o"></i>
                                             <span>8</span>
                                         </a>
-                                    </div><!-- End .portfolio-meta -->
+                                    </div>
                                 </div>
                             </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
                                 <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
