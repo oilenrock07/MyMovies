@@ -16,10 +16,8 @@ namespace MyMovies.Web.BusinessLogic
             return list;
         }
 
-        public PaginationModel GetPaginationModel(HttpRequestBase request, int itemCount, int itemsPerPage = 0, string pageName = "")
+        public PaginationModel GetPaginationModel(int page, int itemCount, int itemsPerPage = 0, string pageName = "")
         {
-            var page = Convert.ToInt32(request.QueryString["Page"] ?? "1");
-
             if (itemsPerPage == 0)
                 itemsPerPage = ITEMS_PER_PAGE;
 

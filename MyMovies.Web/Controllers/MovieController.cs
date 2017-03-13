@@ -70,7 +70,7 @@ namespace MyMovies.Web.Controllers
             }
 
             var viewModel = new MoviePaginationViewModel();
-            viewModel.Pagination = pagination.GetPaginationModel(Request, count);
+            viewModel.Pagination = pagination.GetPaginationModel(GetPageNumber(), count);
             viewModel.Movies = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), viewModel.Pagination).MapCollection<MovieViewModel>();
             MapPaginationFilters(paginationViewModel, viewModel.Pagination);
 
@@ -113,6 +113,12 @@ namespace MyMovies.Web.Controllers
             newPagination.Star = requestPagination.Star;
             newPagination.Director = requestPagination.Director;
             newPagination.Writer = requestPagination.Writer;
+        }
+
+        private int GetPageNumber()
+        {
+            return Request.QueryString["Page"] != null ? Convert.ToInt32(Request.QueryString["Page"]) :
+                   RouteData.Values.ContainsKey("Page") ? Convert.ToInt32(RouteData.Values["Page"]) : 1;
         }
     }
 }

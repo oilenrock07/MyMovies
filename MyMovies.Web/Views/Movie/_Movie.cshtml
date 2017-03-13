@@ -23,7 +23,7 @@
         <div>
             @foreach (var genre in Model.GenreList)
             {
-                <a href="/?Category=@genre">@genre</a>
+                @Html.ActionLink(@genre, "Index", new {Category = @genre})
                 if (genre != Model.LastGenre)
                 {
                 <text>|</text>
@@ -35,7 +35,8 @@
             <div>
                 @foreach (var star in Model.StarLists)
                 {
-                    <a href="/?Star=@star">@star</a>
+                    @Html.ActionLink(@star, "Index", new {Star = @star})
+                    @*<a href="/?Star=@star">@star</a>*@
                     if (star != Model.LastStar)
                     {
                     <text>|</text>

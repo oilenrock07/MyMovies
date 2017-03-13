@@ -74,14 +74,14 @@ namespace MyMovies.Web.Models
         {
             get
             {
-                var link = "?Page={0}";
-                if (!String.IsNullOrEmpty(Category)) link += String.Format("&Category={0}", Category);
-                if (!String.IsNullOrEmpty(Search)) link += String.Format("&Search={0}", Search);
-                if (!String.IsNullOrEmpty(Star)) link += String.Format("&Star={0}", Star);
-                if (!String.IsNullOrEmpty(Director)) link += String.Format("&Director={0}", Director);
-                if (!String.IsNullOrEmpty(Writer)) link += String.Format("&Writer={0}", Writer);
+                var link = "/Movie/Index/";
+                if (!String.IsNullOrEmpty(Category)) link = String.Format("/Movie/Index/Category/{0}/", Category);
+                if (!String.IsNullOrEmpty(Search)) link = String.Format("/Movie/Index/Search/{0}/", Search);
+                if (!String.IsNullOrEmpty(Star)) link = String.Format("/Movie/Index/Star/{0}/", Star);
+                if (!String.IsNullOrEmpty(Director)) link = String.Format("/Movie/Index/Director/{0}", Director);
+                if (!String.IsNullOrEmpty(Writer)) link = String.Format("/Movie/Index/Writer/{0}", Writer);
 
-                return link;
+                return link + "{0}";
             }
         }
     }
