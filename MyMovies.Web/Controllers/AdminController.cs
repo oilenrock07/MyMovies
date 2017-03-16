@@ -15,11 +15,13 @@ namespace MyMovies.Web.Controllers
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IMovieXPathRepository _movieXPathRepository;
+        private readonly IBannerRepository _bannerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AdminController(IMovieRepository movieRepository, IUnitOfWork unitOfWork,IMovieXPathRepository movieXPathRepository)
+        public AdminController(IMovieRepository movieRepository, IUnitOfWork unitOfWork,IMovieXPathRepository movieXPathRepository, IBannerRepository bannerRepository)
         {
             _movieRepository = movieRepository;
+            _bannerRepository = bannerRepository;
             _unitOfWork = unitOfWork;
             _movieXPathRepository = movieXPathRepository;
         }
@@ -121,6 +123,27 @@ namespace MyMovies.Web.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Banner()
+        {
+            var banners = _bannerRepository.Find(x => !x.IsDeleted);
+            return View(banners);
+        }
+
+        [HttpGet]
+        public ActionResult EditBanner(int id)
+        {
+            var banner = _bannerRepository.GetById(id);
+            if (banner != null)
+            {
+                var viewModel = banner.MapItem<BannerAddEditViewModel>();
+                return View(viewModel);
+            }
+
+            //throw it to error page
+            return View(banner);
+        }
+
         private void UpdateImage(MovieViewModel viewModel)
         {
             var path = Server.MapPath("~/Images/");
@@ -137,6 +160,6 @@ namespace MyMovies.Web.Controllers
                     client.DownloadFile(viewModel.Poster, fullPath);
                 }
             }
-        }
+        }        
     }
 }

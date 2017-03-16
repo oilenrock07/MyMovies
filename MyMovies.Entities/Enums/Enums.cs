@@ -7,7 +7,7 @@ namespace MyMovies.Entities.Enums
         public const string UserRole = "User";
     }
 
-    public enum PageHeaderBackGroundType
+    public enum BannerType
     {
         Category = 1,
         Star = 2,
