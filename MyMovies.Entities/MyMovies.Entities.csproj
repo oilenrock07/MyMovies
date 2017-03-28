@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banner.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Migrations\201609040216348_InitialMigration.cs" />
     <Compile Include="Migrations\201609040216348_InitialMigration.Designer.cs">
@@ -112,6 +113,10 @@
     <Compile Include="Migrations\201701030035121_RelatedMovies.Designer.cs">
       <DependentUpon>201701030035121_RelatedMovies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703200602589_Banner.cs" />
+    <Compile Include="Migrations\201703200602589_Banner.Designer.cs">
+      <DependentUpon>201703200602589_Banner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -175,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701030035121_RelatedMovies.resx">
       <DependentUpon>201701030035121_RelatedMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703200602589_Banner.resx">
+      <DependentUpon>201703200602589_Banner.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

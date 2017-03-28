@@ -131,6 +131,12 @@ namespace MyMovies.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult AddBanner()
+        {            
+            return View("AddEditBanner", new BannerAddEditViewModel());
+        }
+
+        [HttpGet]
         public ActionResult EditBanner(int id)
         {
             var banner = _bannerRepository.GetById(id);

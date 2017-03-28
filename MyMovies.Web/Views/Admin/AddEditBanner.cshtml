@@ -1,0 +1,81 @@
+﻿@model MyMovies.Web.ViewModels.BannerAddEditViewModel
+@*download this https://itsjavi.com/bootstrap-colorpicker/*@
+@{
+    var headerBg = "'/Images/Banners/Default.jpg'";
+}
+<div id="content" role="main" ng-controller="AdminController">
+    <div class="page-header dark larger larger-desc">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Banners</h1>
+                    <p class="page-header-desc">Update banners to be displayed on Page list</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="file" id="file" value="Upload" accept="image/*" name="MoviePoster" custom-on-change="fileChange" capture="ChangeBackground" style="display: none" />
+                <span class="change-background" ng-click="changeBackGround()">Change Background
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="page-header" style="background: url(@headerBg) no-repeat; background-size: 100%; height: 140px; display: block" id="BackGround">
+                <div class="col-md-12">
+
+                    <h2 ng-show="!showTextBox">
+                        <div ng-bind="bannerText" ng-click="displayTextBox()"></div>
+                    </h2>
+                    <input type="text" class="form-control no-radius" ng-model="bannerText" ng-show="showTextBox" ng-blur="showTextBox=!showTextBox" id="BannerText" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var app = angular.module('MovieApp', []);
+    app.controller('AdminController', function ($scope) {
+        $scope.bannerText = 'Background Title';
+        $scope.showTextBox = false;
+
+        $scope.changeBackGround = function () {
+            setTimeout(function () {
+                document.getElementById('file').click();
+            }, 1);
+        }
+
+        $scope.displayTextBox = function() {
+            $scope.showTextBox = true;
+            setTimeout(function() {
+                document.getElementById('BannerText').focus();
+            }, 1);
+        }
+
+        $scope.fileChange = function (event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('BackGround').style.backgroundImage = 'url(' + e.target.result + ')';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    });
+
+    app.directive('customOnChange', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var onChangeHandler = scope.$eval(attrs.customOnChange);
+                element.bind('change', onChangeHandler);
+            }
+        };
+    });
+</script>

@@ -54,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\BannerRepository.cs" />
     <Compile Include="Implementations\MovieXPathRepository.cs" />
     <Compile Include="Implementations\MovieRepository.cs" />
     <Compile Include="Implementations\UserRepository.cs" />
     <Compile Include="Implementations\UserRoleRepository.cs" />
+    <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\IMovieXPathRepository.cs" />
     <Compile Include="Interfaces\IMovieRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />

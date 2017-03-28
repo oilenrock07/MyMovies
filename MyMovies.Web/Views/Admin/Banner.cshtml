@@ -17,30 +17,40 @@
     </div>
 
     <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.ActionLink("Add New", "AddBanner", null, new { @class = "btn btn-custom btn-lg pull-right" })
+            </div>
+        </div>
+
+        <div class="row t1">
+
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-condensed">
                 <thead>
-                <tr>
-                    <th>Text Color</th>
-                    <th>Type</th>
-                    <th>Poster</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Text Color</th>
+                        <th>Type</th>
+                        <th>Poster</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.TextColor</td>
-                        <td>@item.Type.ToString()</td>
-                        <td>@item.Poster</td>
-                        <td>
-                            @Html.ActionLink("edit", "EditBanner", new {id = item.BannerId}) |
-                            @Html.ActionLink("delete", "DeleteBanner", new {id = item.BannerId}) |
-                            @Html.ActionLink("preview", "PreviewBanner", new {id = item.BannerId})
-                        </td>
-                    </tr>
-                }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TextColor</td>
+                            <td>@item.Type.ToString()</td>
+                            <td>@item.Poster</td>
+                            <td>
+                                @Html.ActionLink("edit", "EditBanner", new { id = item.BannerId }) |
+                            @Html.ActionLink("delete", "DeleteBanner", new { id = item.BannerId }) |
+                            @Html.ActionLink("preview", "PreviewBanner", new { id = item.BannerId })
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

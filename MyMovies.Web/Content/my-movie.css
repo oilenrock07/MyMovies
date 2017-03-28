@@ -59,3 +59,20 @@ h1.movie-poster {
     /*padding:0 !important;
     margin:0;*/
 }
+
+.change-background {
+    color: #ef5350;
+    cursor: pointer;
+    left: auto;
+    right: 15px;
+    border: 2px solid #ef5350;
+    top: 15px;
+    font: 500 14px/1.5 'Open Sans', Verdana, sans-serif;
+    position: absolute;
+    min-width: 60px;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 100;
+    padding: 2px;
+    box-sizing: border-box;
+}
