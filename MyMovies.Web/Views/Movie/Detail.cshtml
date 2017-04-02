@@ -29,13 +29,13 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <div class="portfolio-media">
                     <img src="/Resources/images/@string.Format("{0}.jpg", Model.ImdbId)" class="img-responsive" alt="@Model.Title">
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-7">
 
                 <div class="portfolio-details">
                     <i class="fa fa-star fa-2x pull-right detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i>    
@@ -61,8 +61,8 @@
                         <li><span>Country:</span> @Model.Country</li>
                         <li><span>Language:</span> @Model.Language</li>
                         <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
-                        <li><span>Budget:</span> @Model.Budget</li>
-                        <li><span>Gross:</span> @Model.Gross</li>
+                        <li><span>Budget:</span> @Html.Raw(Model.Budget)</li>
+                        <li><span>Gross:</span> @Html.Raw(Model.Gross)</li>
                         <li><a href="javascript:void(0)" class="green">Show File Details</a></li>
                         <li><a href="http://www.imdb.com/title/@Model.ImdbId" class="green">View in Imdb</a></li>
 

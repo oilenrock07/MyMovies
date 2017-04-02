@@ -152,7 +152,7 @@ namespace MyMovies.Web.Controllers
 
         private void UpdateImage(MovieViewModel viewModel)
         {
-            var path = Server.MapPath("~/Images/");
+            var path = Server.MapPath("~/Resources/images");
             var fullPath = String.Format("{0}/{1}.jpg", path, viewModel.ImdbId);
             if (viewModel.MoviePoster != null && viewModel.UpdateImage)
             {

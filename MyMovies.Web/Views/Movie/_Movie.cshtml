@@ -5,13 +5,13 @@
         <h3>@Model.Title (@Model.Year)</h3>
         <div class="portfolio-item portfolio-meta-slideup push">
             <figure>
-                <a href="images/portfolio/grid/item3.jpg" class="zoom-item" title="@Model.Title">
+                <a href="/Movie/Detail?id=@Model.MovieId" class="zoom-item" title="@Model.Title">
                     <img src="@Model.Poster" alt="@Model.Title" class="img-responsive">
                 </a>
             </figure>
             <div class="portfolio-meta">
                 <h1 class="movie-poster">
-                    <a href="#" title="Favourite">
+                    <a href="javascript:void(0)" title="Favourite" ng-click="addToWatchList(@Model.MovieId)">
                         <i class="fa fa-heart-o"></i>
                     </a>
                 </h1>
@@ -23,10 +23,10 @@
         <div>
             @foreach (var genre in Model.GenreList)
             {
-                @Html.ActionLink(@genre, "Index", new {Category = @genre})
+                @Html.ActionLink(@genre, "Index", new { Category = @genre })
                 if (genre != Model.LastGenre)
                 {
-                <text>|</text>
+                    <text>|</text>
                 }
             }
         </div>
@@ -35,10 +35,10 @@
             <div>
                 @foreach (var star in Model.StarLists)
                 {
-                    @Html.ActionLink(@star, "Index", new {Star = @star})
+                    @Html.ActionLink(@star, "Index", new { Star = @star })
                     @*<a href="/?Star=@star">@star</a>*@
-                    if (star != Model.LastStar)
-                    {
+                if (star != Model.LastStar)
+                {
                     <text>|</text>
                     }
                 }
@@ -52,7 +52,7 @@
                     <a href="/?Writer=@writer">@writer</a>
                     if (writer != Model.LastWriter)
                     {
-                    <text>|</text>
+                        <text>|</text>
                     }
                 }
             </div>
@@ -65,7 +65,7 @@
                     <a href="/?Director=@director">@director</a>
                     if (director != Model.LastDirector)
                     {
-                    <text>|</text>
+                        <text>|</text>
                     }
                 }
             </div>
@@ -75,3 +75,14 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    var app = angular.module('MovieApp', []);
+    app.controller('MovieListController', function ($scope) {
+        $scope.addToWatchList = function (movieId) {
+            alert(movieId);
+        }
+    });
+</script>

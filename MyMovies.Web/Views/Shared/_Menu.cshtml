@@ -8,7 +8,7 @@
                 <ul>
                     @for (int a = 0; a < 12 && a < Model.Length; a++)
                     {
-                        <li><a href="/?Category=@Model[a]">@Model[a]</a></li>
+                        <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
                     }
                 </ul>
             </div>
@@ -18,7 +18,7 @@
                     {
                         for (int a = 12; a < 24 && a < Model.Length; a++)
                         {
-                            <li><a href="/?Category=@Model[a]">@Model[a]</a></li>
+                            <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
                         }
                     }
                 </ul>
@@ -26,12 +26,12 @@
             <div class="col-sm-3">
                 <ul>
                    @if (Model.Length > 24)
-                    {
-                        for (int a = 24; a < 36 && a < Model.Length; a++)
-                        {
-                            <li><a href="/?Category=@Model[a]">@Model[a]</a></li>
-                        }
-                    }
+                   {
+                       for (int a = 24; a < 36 && a < Model.Length; a++)
+                       {
+                            <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
+                       }
+                   }
                 </ul>
             </div>
             <div class="col-sm-3">

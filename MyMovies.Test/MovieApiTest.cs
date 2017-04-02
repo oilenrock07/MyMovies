@@ -32,7 +32,7 @@ namespace MyMovies.Test
         public void LoadMovieFromFile()
         {
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.LoadMovieFromFile(@"C:\GOT.txt");
+            var movie = scrapper.LoadMovieFromFile(@"C:\rec.txt");
         }
 
         [TestMethod]

@@ -67,7 +67,7 @@ namespace MyMovies.Common.BusinessLogic
             
             var summary = doc.DocumentNode.SelectSingleNode(xPath.Summary).OuterHtmlClean();
             var year = doc.DocumentNode.SelectSingleNode(xPath.Year).InnerText();
-            var genre = String.Join(",", doc.DocumentNode.SelectNodes(xPath.Genre).Select(x => x.InnerTextClean()));
+            var genre = String.Join(", ", doc.DocumentNode.SelectNodes(xPath.Genre).Select(x => x.InnerTextClean()));
             var runtime = doc.DocumentNode.SelectSingleNode(xPath.Runtime).InnerTextClean();
             
             var stars = String.Join(",", doc.DocumentNode.SelectNodes(xPath.Stars).Select(x => x.SelectSingleNode("*/span").InnerTextClean()));
@@ -98,9 +98,13 @@ namespace MyMovies.Common.BusinessLogic
                 if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
                 actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));
 
-                foreach (var span in genres.SelectNodes("span"))
+                var genreSpans = genres.SelectNodes("span");
+                if (genreSpans != null)
                 {
-                    genres.RemoveChild(span);
+                    foreach (var span in genreSpans)
+                    {
+                        genres.RemoveChild(span);
+                    }
                 }
 
                 relatedMoviesList.Add(new Movie
