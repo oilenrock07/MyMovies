@@ -65,7 +65,7 @@ namespace MyMovies.Web.Controllers
                     var usr = await UserManager.FindByIdAsync(user.Id);
                     await SignInAsync(usr, model.RememberMe);
 
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl ?? "/");
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace MyMovies.Web.Controllers
                     });
                     _unitOfWork.Commit();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Movie");
                 }
                 else
                 {
@@ -311,7 +311,7 @@ namespace MyMovies.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Movie");
         }
 
         //
@@ -470,7 +470,7 @@ namespace MyMovies.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Movie");
             }
         }
 

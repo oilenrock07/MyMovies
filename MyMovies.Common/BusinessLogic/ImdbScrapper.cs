@@ -107,6 +107,7 @@ namespace MyMovies.Common.BusinessLogic
                     }
                 }
 
+                var movieRate = Double.TryParse(rateNode.InnerText, out rate); 
                 relatedMoviesList.Add(new Movie
                 {
                     ImdbId = overview.Attribute("data-tconst"),
@@ -117,7 +118,7 @@ namespace MyMovies.Common.BusinessLogic
                     Summary = overview.SelectSingleNode(xPath.RelatedSummary).InnerTextClean(),
                     Directors = directorsNode != null ? directorsNode.InnerTextClean() : "",
                     Stars = actorsNode.InnerTextClean(),
-                    Rate = Convert.ToDouble(rateNode.InnerText)
+                    Rate = movieRate ? rate : 0
                 });
             }
 

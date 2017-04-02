@@ -1,57 +1,55 @@
-﻿<div id="content" role="main">
+﻿@model Payroll.Models.LoginViewModel
+
+<div id="content" role="main">
     <div class="page-header dark larger larger-desc">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <h1>Login Page</h1>
                     <p class="page-header-desc">Login to your account or create one.</p>
-                </div><!-- End .col-md-6 -->
+                </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="#">Shop</a></li>
                         <li class="active">Login</li>
                     </ol>
-                </div><!-- End .col-md-6 -->
-            </div><!-- End .row -->
-        </div><!-- End .container -->
-    </div><!-- End .page-header -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="title-border custom mb40">Login</h2>
-                <form action="#">
+                @using (Html.BeginForm("Login", "Account"))
+                {
                     <div class="form-group">
-                        <label for="username" class="input-desc">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required="">
-                    </div><!-- End .from-group -->
+                        @Html.LabelFor(model => model.UserName)
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Username" })
+                    </div>
                     <div class="form-group mb10">
-                        <label for="password" class="input-desc">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="">
-                    </div><!-- End .from-group -->
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                    </div>
                     <div class="form-group text-right clear-margin helper-group">
                         <a href="recover-password.html">Forget password?</a>
-                    </div><!-- End .form-group -->
+                    </div>
                     <div class="form-group mt15-r">
-                        <div class="checkbox">
-                            <label class="custom-checkbox-wrapper">
-                                <span class="custom-checkbox-container">
-                                    <input type="checkbox" name="remember" id="remember" value="true">
-                                    <span class="custom-checkbox-icon"></span>
-                                </span>
-                                <span>Remember Me!</span>
-                            </label>
-                        </div><!-- End .checkbox -->
-                    </div><!-- End .form-group -->
+                        <label>
+                            @Html.CheckBoxFor(model => model.RememberMe) Remeber Me!
+                        </label>
+                    </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-custom" value="Login Now">
-                    </div><!-- End .from-group -->
-                </form>
+                    </div>
 
-            </div><!-- End .col-sm-6 -->
+                    @Html.AntiForgeryToken()
+                }
+            </div>
 
-            <div class="mb20 visible-xs"></div><!-- space -->
+            <div class="mb20 visible-xs"></div>
 
             <div class="col-sm-6">
                 <h2 class="title-border custom mb40">Create Account</h2>
@@ -60,7 +58,7 @@
 
                 <div class="mb10"></div><!-- space -->
 
-                <a href="register.html" class="btn btn-dark">Create Account</a>
+                <a href="/Account/Register" class="btn btn-dark">Create Account</a>
             </div><!-- End .col-sm-6 -->
         </div><!-- End .row -->
     </div><!-- End .container -->

@@ -62,21 +62,18 @@
 
                 <div class="collapse navbar-collapse" id="main-navbar-container">
                     <ul class="nav navbar-nav">
-                        @if (User.IsInRole(MyMovies.Entities.Enums.RolesEnums.AdminRole))
-                        {
-
-                            <li class="active"><a href="/Admin/Index">Movies</a></li>
-                            <li><a href="#">XPaths</a></li>
-                            <li><a href="#">Users</a></li>
-                        }
-
-                        <li class="dropdown megamenu-container">
+                        <li class="dropdown megamenu-container @(ViewBag.Menu == "" || ViewBag.Menu == null ? "active" : "")">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="angle"></span></a>
                             @{Html.RenderAction("Menu", "Movie");}
                         </li>
-                        <li class="dropdown megamenu-container">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="angle"></span></a>
-                        </li>
+                        @if (User.IsInRole(MyMovies.Entities.Enums.RolesEnums.AdminRole))
+                        {
+
+                            <li class="@(ViewBag.Menu == "AdminMovie" ? "active" : "")"><a href="/Admin/Index">Movies</a></li>
+                            <li class="@(ViewBag.Menu == "AdminBanner" ? "active" : "")"><a href="/Admin/Banner">Banners</a></li>
+                            <li><a href="#">XPaths</a></li>
+                            <li><a href="#">Users</a></li>
+                        }
                     </ul>
 
                     <button type="button" class="navbar-btn btn-icon btn-circle navbar-right last  hidden-sm hidden-xs collapsed" data-toggle="collapse" data-target="#header-search-form" aria-expanded="false"><i class="fa fa-search"></i></button>

@@ -35,6 +35,7 @@ namespace MyMovies.Web.Controllers
                 viewModel = movie.MapItem<MovieViewModel>();
             }
 
+            ViewBag.Menu = "AdminMovie";
             return View(viewModel);
         }
 
@@ -126,19 +127,22 @@ namespace MyMovies.Web.Controllers
         [HttpGet]
         public ActionResult Banner()
         {
+            ViewBag.Menu = "AdminBanner";
             var banners = _bannerRepository.Find(x => !x.IsDeleted);
             return View(banners);
         }
 
         [HttpGet]
         public ActionResult AddBanner()
-        {            
+        {
+            ViewBag.Menu = "AdminBanner";
             return View("AddEditBanner", new BannerAddEditViewModel());
         }
 
         [HttpGet]
         public ActionResult EditBanner(int id)
         {
+            ViewBag.Menu = "AdminBanner";
             var banner = _bannerRepository.GetById(id);
             if (banner != null)
             {
@@ -153,17 +157,19 @@ namespace MyMovies.Web.Controllers
         private void UpdateImage(MovieViewModel viewModel)
         {
             var path = Server.MapPath("~/Resources/images");
+            var uploadPath = String.Format("/Resources/images/{0}.jpg", viewModel.ImdbId);
             var fullPath = String.Format("{0}/{1}.jpg", path, viewModel.ImdbId);
             if (viewModel.MoviePoster != null && viewModel.UpdateImage)
             {
                 viewModel.MoviePoster.SaveAs(fullPath);
-                viewModel.Poster = fullPath;
+                viewModel.Poster = uploadPath;
             }
             else if (viewModel.UpdateImage && !String.IsNullOrEmpty(viewModel.Poster))
             {
                 using (var client = new WebClient())
                 {
                     client.DownloadFile(viewModel.Poster, fullPath);
+                    viewModel.Poster = uploadPath;
                 }
             }
         }        
