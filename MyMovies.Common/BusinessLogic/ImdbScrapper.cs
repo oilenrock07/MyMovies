@@ -30,7 +30,6 @@ namespace MyMovies.Common.BusinessLogic
 
             var movie = MapResult(doc);
 
-            GC.Collect();
             return movie;
         }
 
@@ -38,11 +37,22 @@ namespace MyMovies.Common.BusinessLogic
         {
             var url = string.Format("{0}{1}", _baseUrl, imdbId);
             var doc = _web.Load(url);
+            
+            var movie = MapResult(doc);
+            movie.ImdbId = imdbId;
+            
+            return movie;
+        }
+
+        public virtual Movie GetMovie(string imdbId, out string document)
+        {
+            var url = string.Format("{0}{1}", _baseUrl, imdbId);
+            var doc = _web.Load(url);
 
             var movie = MapResult(doc);
             movie.ImdbId = imdbId;
+            document = doc.DocumentNode.OuterHtml;
 
-            GC.Collect();
             return movie;
         }
 
@@ -51,7 +61,6 @@ namespace MyMovies.Common.BusinessLogic
             var url = string.Format("{0}{1}", _baseUrl, imdbId);
             var doc = _web.Load(url);
 
-            GC.Collect();
             return doc.DocumentNode.OuterHtml;           
         }
 

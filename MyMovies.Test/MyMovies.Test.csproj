@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="HtmlDocumentTest.cs" />
     <Compile Include="MovieApiTest.cs" />
+    <Compile Include="MovieUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
