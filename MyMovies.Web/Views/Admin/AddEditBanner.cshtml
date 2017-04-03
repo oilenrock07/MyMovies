@@ -15,6 +15,17 @@
         </div>
     </div>
     <div class="container">
+
+        <div class="row">
+            <div class="well col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="ColorPicker">Text Color</label>
+                        <input id="ColorPicker" type="text" class="form-control" value="white"/>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <input type="file" id="file" value="Upload" accept="image/*" name="MoviePoster" custom-on-change="fileChange" capture="ChangeBackground" style="display: none" />
@@ -26,7 +37,7 @@
                 <div class="col-md-12">
 
                     <h2 ng-show="!showTextBox">
-                        <div ng-bind="bannerText" ng-click="displayTextBox()"></div>
+                        <div ng-bind="bannerText" ng-click="displayTextBox()" id="BannerDivText" style="color:white"></div>
                     </h2>
                     <input type="text" class="form-control no-radius" ng-model="bannerText" ng-show="showTextBox" ng-blur="showTextBox=!showTextBox" id="BannerText" />
                 </div>
@@ -35,47 +46,58 @@
     </div>
 </div>
 
-<script>
 
-    var app = angular.module('MovieApp', []);
-    app.controller('AdminController', function ($scope) {
-        $scope.bannerText = 'Background Title';
-        $scope.showTextBox = false;
+@section Scripts {
+    <script src="~/Scripts/bootstrap-colorpicker.min.js"></script>
+    <script>
+        var app = angular.module('MovieApp', []);
+        app.controller('AdminController', function ($scope) {
+            $scope.bannerText = 'Background Title';
+            $scope.showTextBox = false;
 
-        $scope.changeBackGround = function () {
-            setTimeout(function () {
-                document.getElementById('file').click();
-            }, 1);
-        }
+            $scope.changeBackGround = function () {
+                setTimeout(function () {
+                    document.getElementById('file').click();
+                }, 1);
+            }
 
-        $scope.displayTextBox = function() {
-            $scope.showTextBox = true;
-            setTimeout(function() {
-                document.getElementById('BannerText').focus();
-            }, 1);
-        }
+            $scope.displayTextBox = function () {
+                $scope.showTextBox = true;
+                setTimeout(function () {
+                    document.getElementById('BannerText').focus();
+                }, 1);
+            }
 
-        $scope.fileChange = function (event) {
-            var input = event.target;
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+            $scope.fileChange = function (event) {
+                var input = event.target;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    document.getElementById('BackGround').style.backgroundImage = 'url(' + e.target.result + ')';
+                    reader.onload = function (e) {
+                        document.getElementById('BackGround').style.backgroundImage = 'url(' + e.target.result + ')';
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
                 }
-
-                reader.readAsDataURL(input.files[0]);
             }
-        }
-    });
+        });
 
-    app.directive('customOnChange', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var onChangeHandler = scope.$eval(attrs.customOnChange);
-                element.bind('change', onChangeHandler);
-            }
-        };
-    });
-</script>
+        app.directive('customOnChange', function () {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var onChangeHandler = scope.$eval(attrs.customOnChange);
+                    element.bind('change', onChangeHandler);
+                }
+            };
+        });
+
+        //Jquery Section
+        $(document).ready(function () {
+            $('#ColorPicker').colorpicker();
+            $('#ColorPicker').colorpicker().on('changeColor', function (e) {
+                $('#BannerDivText').css("color", e.color.toString('rgba'));
+            });
+        });
+    </script>
+}

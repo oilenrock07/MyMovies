@@ -42,6 +42,7 @@ namespace MyMovies.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.min.css",
+                      "~/Content/bootstrap-colorpicker.css",
                       "~/Content/site.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",

@@ -6,7 +6,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>    
 </head>
 
 <body ng-app="MovieApp">
@@ -17,7 +17,7 @@
     </div>
 <a href="#top" id="scroll-top" title="Back to Top" class=""><i class="fa fa-angle-up"></i></a>
 
-@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
