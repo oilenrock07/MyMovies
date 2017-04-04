@@ -6,11 +6,13 @@ using System.Linq;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyMovies.Common.BusinessLogic;
+using MyMovies.Common.Extension;
 using MyMovies.Entities;
 using MyMovies.Infrastructure.Implementations;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Implementations;
 using MyMovies.Repository.Interfaces;
+using Omu.ValueInjecter;
 
 namespace MyMovies.Test
 {
@@ -36,17 +38,21 @@ namespace MyMovies.Test
         public void UpdateNotUpdatedMovies()
         {
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster)).ToList();
+            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster)).Take(1).ToList();
             foreach (var movie in toUpdateMovies)
             {
                 string xmlDocument;
                 var updatedMovie = scrapper.GetMovie(movie.ImdbId, out xmlDocument);
-                updatedMovie.DateCreated = movie.DateCreated;
-                updatedMovie.FileName = movie.FileName;
-                updatedMovie.Location = movie.Location;
-                updatedMovie.FileSize = movie.FileSize;
-                updatedMovie.Remarks = movie.Remarks;
-                updatedMovie.MovieId = movie.MovieId;
+                var movieCopy = movie.MapItem<Movie>();
+
+                _movieRepository.Update(movie);
+                movie.InjectFrom(updatedMovie);
+                movie.DateCreated = movieCopy.DateCreated;
+                movie.FileName = movieCopy.FileName;
+                movie.Location = movieCopy.Location;
+                movie.FileSize = movieCopy.FileSize;
+                movie.Remarks = movieCopy.Remarks;
+                movie.MovieId = movieCopy.MovieId;
 
                 var imagePath = String.Format("{0}/Images",Environment.CurrentDirectory);
                 var documentPath = String.Format("{0}/Documents", Environment.CurrentDirectory);
