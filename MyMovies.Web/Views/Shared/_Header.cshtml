@@ -1,10 +1,11 @@
 ﻿<header id="header" role="banner">
     <div class="navbar-white collapse" id="header-search-form" aria-expanded="false" style="height: 1px;">
         <div class="container">
-            <form class="navbar-form animated fadeInDown">
-                <input type="search" id="s" name="s" class="form-control" placeholder="Search in here...">
+            @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new {@class="navbar-form animated fadeInDown"}))
+            {
+                <input type="search" name="Search" class="form-control" placeholder="Search in here..." value="@ViewBag.Search">
                 <button type="submit" class="btn-circle" title="Search"><i class="fa fa-search"></i></button>
-            </form>
+            }
         </div>
     </div>
     <nav class="navbar navbar-white animated-dropdown ttb-dropdown" role="navigation">

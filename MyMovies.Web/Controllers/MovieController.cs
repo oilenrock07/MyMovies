@@ -29,46 +29,11 @@ namespace MyMovies.Web.Controllers
         }
 
         public ActionResult Index(PaginationModel paginationViewModel = null)
-        {
-            var pagination = new Pagination();
-            
+        {                       
             int count;
-            IQueryable<Movie> movies;            
-            if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Search))
-            {
-                var search = paginationViewModel.Search;
+            var movies = FilterMovie(paginationViewModel, out count);
 
-                //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
-                Expression<Func<Movie, bool>> expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
-                movies = _movieRepository.Find(expression);
-                count = movies.Count();
-            }
-            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Category))
-            {
-                movies = _movieRepository.Find(x => x.Genre.Contains(paginationViewModel.Category));
-                count = movies.Count();
-            }
-            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Director))
-            {
-                movies = _movieRepository.Find(x => x.Directors.Contains(paginationViewModel.Director));
-                count = movies.Count();
-            }
-            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Star))
-            {
-                movies = _movieRepository.Find(x => x.Stars.Contains(paginationViewModel.Star));
-                count = movies.Count();
-            }
-            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Writer))
-            {
-                movies = _movieRepository.Find(x => x.Writers.Contains(paginationViewModel.Writer));
-                count = movies.Count();
-            }
-            else
-            {
-                count = _movieRepository.GetAll().Count();
-                movies = _movieRepository.GetAll();
-            }
-
+            var pagination = new Pagination();
             var viewModel = new MoviePaginationViewModel();
             viewModel.Pagination = pagination.GetPaginationModel(GetPageNumber(), count);
             viewModel.Movies = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), viewModel.Pagination).MapCollection<MovieViewModel>();
@@ -104,6 +69,7 @@ namespace MyMovies.Web.Controllers
             return View(viewModel);
         }
 
+        #region Private Methods
         private void MapPaginationFilters(PaginationModel requestPagination, PaginationModel newPagination)
         {
             if (requestPagination == null) return;
@@ -120,5 +86,50 @@ namespace MyMovies.Web.Controllers
             return Request.QueryString["Page"] != null ? Convert.ToInt32(Request.QueryString["Page"]) :
                    RouteData.Values.ContainsKey("Page") ? Convert.ToInt32(RouteData.Values["Page"]) : 1;
         }
+
+        private IQueryable<Movie> FilterMovie(PaginationModel paginationViewModel, out int count)
+        {
+            IQueryable<Movie> movies;
+            if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Search))
+            {
+                var search = paginationViewModel.Search;
+
+                //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
+                Expression<Func<Movie, bool>> expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
+                movies = _movieRepository.Find(expression);
+                count = movies.Count();
+                ViewBag.Search = paginationViewModel.Search;
+            }
+            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Category))
+            {
+                movies = _movieRepository.Find(x => x.Genre.Contains(paginationViewModel.Category));
+                count = movies.Count();
+            }
+            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Director))
+            {
+                movies = _movieRepository.Find(x => x.Directors.Contains(paginationViewModel.Director));
+                count = movies.Count();
+            }
+            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Star))
+            {
+                movies = _movieRepository.Find(x => x.Stars.Contains(paginationViewModel.Star));
+                count = movies.Count();
+            }
+            else if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Writer))
+            {
+                movies = _movieRepository.Find(x => x.Writers.Contains(paginationViewModel.Writer));
+                count = movies.Count();
+            }
+            else
+            {
+                count = _movieRepository.GetAll().Count();
+                movies = _movieRepository.GetAll();
+            }
+
+            return movies;
+        }
+
+        #endregion
+        
     }
 }
