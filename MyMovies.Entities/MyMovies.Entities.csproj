@@ -120,13 +120,16 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
+    <Compile Include="MoviePlayList.cs" />
     <Compile Include="MovieXPath.cs" />
     <Compile Include="PageHeaderBackGround.cs" />
+    <Compile Include="PlayList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Review.cs" />
     <Compile Include="Users\Role.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserRole.cs" />
+    <Compile Include="WatchList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

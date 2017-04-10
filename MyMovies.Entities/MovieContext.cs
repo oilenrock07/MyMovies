@@ -14,6 +14,9 @@ namespace MyMovies.Entities
         public DbSet<MovieXPath> MovieXPaths { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<MoviePlayList> MoviePlayLists { get; set; }
+        public DbSet<PlayList> PlayLists { get; set; }
+        public DbSet<WatchList> WatchLists { get; set; }
 
         //Users
         public virtual IDbSet<Role> Roles { get; set; }
