@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using MyMovies.Common.BusinessLogic;
 using MyMovies.Common.Extension;
@@ -152,6 +153,13 @@ namespace MyMovies.Web.Controllers
 
             //throw it to error page
             return View(banner);
+        }
+
+        [HttpPost]
+        public ActionResult AddEditBanner(BannerAddEditViewModel viewModel)
+        {
+            ViewBag.Menu = "AdminBanner";
+            return View();
         }
 
         private void UpdateImage(MovieViewModel viewModel)
