@@ -37,10 +37,9 @@
                 @foreach (var star in Model.StarLists)
                 {
                     @Html.ActionLink(@star, "Index", new { Star = @star })
-                    @*<a href="/?Star=@star">@star</a>*@
-                if (star != Model.LastStar)
-                {
-                    <text>|</text>
+                    if (star != Model.LastStar)
+                    {
+                        <text>|</text>
                     }
                 }
             </div>
@@ -50,10 +49,13 @@
             <div>
                 @foreach (var writer in Model.WriterList)
                 {
-                    <a href="/?Writer=@writer">@writer</a>
-                    if (writer != Model.LastWriter)
+                    if (!String.IsNullOrEmpty(writer))
                     {
-                        <text>|</text>
+                        @Html.ActionLink(@writer, "Index", new { Writer = @writer })
+                        if (writer != Model.LastWriter)
+                        {
+                            <text>|</text>
+                        }
                     }
                 }
             </div>
@@ -63,7 +65,7 @@
             <div>
                 @foreach (var director in Model.DirectorList)
                 {
-                    <a href="/?Director=@director">@director</a>
+                    @Html.ActionLink(@director, "Index", new { Writer = @director })
                     if (director != Model.LastDirector)
                     {
                         <text>|</text>
