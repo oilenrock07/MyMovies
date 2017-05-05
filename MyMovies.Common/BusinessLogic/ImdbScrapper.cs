@@ -70,7 +70,8 @@ namespace MyMovies.Common.BusinessLogic
             if (xPath == null) throw new Exception("No XPathSetup");
 
             var title = doc.DocumentNode.SelectSingleNode(xPath.Title).OuterHtmlClean();
-            var rate = Convert.ToDouble(doc.DocumentNode.SelectSingleNode(xPath.Rate).InnerHtml());
+            var strRate = doc.DocumentNode.SelectSingleNode(xPath.Rate).InnerHtml();
+            var rate = Convert.ToDouble(String.IsNullOrEmpty(strRate) ? "0" : strRate);
             var dateReleased = doc.DocumentNode.SelectSingleNode(xPath.DateReleased).InnerTextClean();
             var rating = doc.DocumentNode.SelectSingleNode(xPath.Rating).Attribute("content");
             
@@ -80,7 +81,9 @@ namespace MyMovies.Common.BusinessLogic
             var runtime = doc.DocumentNode.SelectSingleNode(xPath.Runtime).InnerTextClean();
             
             var stars = String.Join(",", doc.DocumentNode.SelectNodes(xPath.Stars).Select(x => x.SelectSingleNode("*/span").InnerTextClean()));
-            var writers = String.Join(",", doc.DocumentNode.SelectNodes(xPath.Writers).Select(x => x.SelectSingleNode("*/span").InnerTextClean()));
+            var writers = doc.DocumentNode.SelectNodes(xPath.Writers) != null ? 
+                          String.Join(",", doc.DocumentNode.SelectNodes(xPath.Writers).Select(x => x.SelectSingleNode("*/span").InnerTextClean()))
+                          : "";
             
             //using headers
             var header = doc.DocumentNode.SelectSingleNode(xPath.Header);
@@ -97,40 +100,46 @@ namespace MyMovies.Common.BusinessLogic
             //Related Movies
             var relatedMoviesList = new List<Movie>();
             var overviews = doc.DocumentNode.SelectNodes(xPath.RelatedRoot);
-            foreach (var overview in overviews)
+            if (overviews != null)
             {
-                var genres = overview.SelectSingleNode(xPath.RelatedGenre);
-                var directorsNode = overview.SelectSingleNode(xPath.RelatedDirectors);
-                var actorsNode = overview.SelectSingleNode(xPath.RelatedStars);
-                var rateNode = overview.SelectSingleNode(xPath.RelatedRate);
-
-                if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
-                actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));
-
-                var genreSpans = genres.SelectNodes("span");
-                if (genreSpans != null)
+                foreach (var overview in overviews)
                 {
-                    foreach (var span in genreSpans)
+                    var genres = overview.SelectSingleNode(xPath.RelatedGenre);
+                    var directorsNode = overview.SelectSingleNode(xPath.RelatedDirectors);
+                    var actorsNode = overview.SelectSingleNode(xPath.RelatedStars);
+                    var rateNode = overview.SelectSingleNode(xPath.RelatedRate);
+
+                    if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
+                    var actorNode = actorsNode.SelectSingleNode("b");
+                    if (actorNode != null)
+                        actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));
+
+                    var genreSpans = genres.SelectNodes("span");
+                    if (genreSpans != null)
                     {
-                        genres.RemoveChild(span);
+                        foreach (var span in genreSpans)
+                        {
+                            genres.RemoveChild(span);
+                        }
                     }
+
+                    double relateMovieRate = 0;
+                    var movieRate = rateNode != null ? Double.TryParse(rateNode.InnerText, out relateMovieRate) : false;
+                    relatedMoviesList.Add(new Movie
+                    {
+                        ImdbId = overview.Attribute("data-tconst"),
+                        Title = overview.SelectSingleNode(xPath.RelatedTitle).InnerTextClean(),
+                        Year = overview.SelectSingleNode(xPath.RelatedYear).InnerTextClean().Replace("(", "").Replace(")", ""),
+                        Poster = overview.SelectSingleNode(xPath.RelatedPoster).Attribute("src"),
+                        Genre = genres.InnerText.CleanHtml().Replace("                                 ", "|"),
+                        Summary = overview.SelectSingleNode(xPath.RelatedSummary).InnerTextClean(),
+                        Directors = directorsNode != null ? directorsNode.InnerTextClean() : "",
+                        Stars = actorsNode.InnerTextClean(),
+                        Rate = movieRate ? relateMovieRate : 0
+                    });
                 }
-
-                var movieRate = Double.TryParse(rateNode.InnerText, out rate); 
-                relatedMoviesList.Add(new Movie
-                {
-                    ImdbId = overview.Attribute("data-tconst"),
-                    Title = overview.SelectSingleNode(xPath.RelatedTitle).InnerTextClean(),
-                    Year = overview.SelectSingleNode(xPath.RelatedYear).InnerTextClean().Replace("(", "").Replace(")", ""),
-                    Poster = overview.SelectSingleNode(xPath.RelatedPoster).Attribute("src"),
-                    Genre = genres.InnerText.CleanHtml().Replace("                                 ", "|"),
-                    Summary = overview.SelectSingleNode(xPath.RelatedSummary).InnerTextClean(),
-                    Directors = directorsNode != null ? directorsNode.InnerTextClean() : "",
-                    Stars = actorsNode.InnerTextClean(),
-                    Rate = movieRate ? rate : 0
-                });
             }
-
+            
             var movie = new Movie
             {
                 Title = title,

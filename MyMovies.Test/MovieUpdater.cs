@@ -26,6 +26,8 @@ namespace MyMovies.Test
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;
 
+        
+
         public MovieUpdater()
         {
             IDatabaseFactory databaseFactory = new DatabaseFactory(new MovieContext());
@@ -37,25 +39,16 @@ namespace MyMovies.Test
         [TestMethod]
         public void UpdateNotUpdatedMovies()
         {
+            
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster)).Take(1).ToList();
+            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster)).OrderBy(x => x.Title).Take(500).ToList();
             foreach (var movie in toUpdateMovies)
             {
                 string xmlDocument;
                 var updatedMovie = scrapper.GetMovie(movie.ImdbId, out xmlDocument);
-                var movieCopy = movie.MapItem<Movie>();
-
-                _movieRepository.Update(movie);
-                movie.InjectFrom(updatedMovie);
-                movie.DateCreated = movieCopy.DateCreated;
-                movie.FileName = movieCopy.FileName;
-                movie.Location = movieCopy.Location;
-                movie.FileSize = movieCopy.FileSize;
-                movie.Remarks = movieCopy.Remarks;
-                movie.MovieId = movieCopy.MovieId;
-
-                var imagePath = String.Format("{0}/Images",Environment.CurrentDirectory);
+                UpdateMovie(movie, updatedMovie);
                 var documentPath = String.Format("{0}/Documents", Environment.CurrentDirectory);
+                var imagePath = String.Format("{0}/Images",Environment.CurrentDirectory);
                 if (!Directory.Exists(imagePath))
                     Directory.CreateDirectory(imagePath);
 
@@ -65,10 +58,14 @@ namespace MyMovies.Test
                 var uploadPath = String.Format("/Resources/images/{0}.jpg", movie.ImdbId);
                 var documentFullPath = String.Format("{0}/{1}.txt", documentPath, movie.ImdbId);
                 var fullPath = String.Format("{0}/{1}.jpg", imagePath, movie.ImdbId);
-                using (var client = new WebClient())
+
+                if (!String.IsNullOrEmpty(updatedMovie.Poster))
                 {
-                    client.DownloadFile(updatedMovie.Poster, fullPath);
-                    updatedMovie.Poster = uploadPath;
+                    using (var client = new WebClient())
+                    {
+                        client.DownloadFile(updatedMovie.Poster, fullPath);
+                        movie.Poster = uploadPath;
+                    }
                 }
 
                 using (var file = new StreamWriter(documentFullPath))
@@ -78,6 +75,38 @@ namespace MyMovies.Test
 
                 _unitOfWork.Commit();
             }
+        }
+
+        [TestMethod]
+        public void UpdateMoviesFromFiles()
+        {
+            //get the imdbids from the files
+            string documentPath = String.Format("{0}/Documents", Environment.CurrentDirectory);
+            var dirInfo = new DirectoryInfo(documentPath);
+            var scrapper = new ImdbScrapper(_xPathRepository);
+            foreach (var fileInfo in dirInfo.GetFiles("*.txt"))
+            {
+                var updatedMovie = scrapper.LoadMovieFromFile(fileInfo.FullName);
+                var movie = _movieRepository.GetByImdbId(fileInfo.Name);
+
+                UpdateMovie(movie, updatedMovie);
+                _unitOfWork.Commit();
+            }
+            //update the data
+        }
+
+        private void UpdateMovie(Movie movie, Movie updatedMovie)
+        {
+            var movieCopy = movie.MapItem<Movie>();
+
+            _movieRepository.Update(movie);
+            movie.InjectFrom(updatedMovie);
+            movie.DateCreated = movieCopy.DateCreated;
+            movie.FileName = !String.IsNullOrEmpty(movieCopy.FileName) ? movieCopy.FileName : "N/A";
+            movie.Location = movieCopy.Location;
+            movie.FileSize = !String.IsNullOrEmpty(movieCopy.FileSize) ? movieCopy.FileSize : "N/A";
+            movie.Remarks = movieCopy.Remarks;
+            movie.MovieId = movieCopy.MovieId;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace MyMovies.Test
             //Spiderman: tt0468569
             //Dial M For Murder (old movie): tt0046912
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var movie = scrapper.GetMovie("tt0137523");
+            var movie = scrapper.GetMovie("tt0381838");
         }
 
         [TestMethod]
