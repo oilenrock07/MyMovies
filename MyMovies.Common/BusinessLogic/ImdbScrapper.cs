@@ -84,11 +84,14 @@ namespace MyMovies.Common.BusinessLogic
             var writers = doc.DocumentNode.SelectNodes(xPath.Writers) != null ? 
                           String.Join(",", doc.DocumentNode.SelectNodes(xPath.Writers).Select(x => x.SelectSingleNode("*/span").InnerTextClean()))
                           : "";
-            
+            var directors = doc.DocumentNode.SelectNodes(xPath.Directors) != null ?
+                          String.Join(",", doc.DocumentNode.SelectNodes(xPath.Directors).Select(x => x.SelectSingleNode("*/span").InnerTextClean()))
+                          : "";
+
             //using headers
             var header = doc.DocumentNode.SelectSingleNode(xPath.Header);
             var poster = header.SelectSingleNode(xPath.Poster).Attribute("src");
-            var directors = header.SelectSingleNode(xPath.Directors).InnerTextClean();
+            //var directors = header.SelectSingleNode(xPath.Directors).InnerTextClean();
 
             var titleDetails = doc.DocumentNode.SelectSingleNode(xPath.TitleDetails).SelectNodes("*/h4");
             var country = titleDetails.FirstOrDefault(x => x.InnerText == "Country:").TitleDetailsAnchor();
@@ -109,7 +112,9 @@ namespace MyMovies.Common.BusinessLogic
                     var actorsNode = overview.SelectSingleNode(xPath.RelatedStars);
                     var rateNode = overview.SelectSingleNode(xPath.RelatedRate);
 
-                    if (directorsNode != null) directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
+                    var directorNode = directorsNode.SelectSingleNode("b");
+                    if (directorNode != null)
+                        directorsNode.RemoveChild(directorNode.SelectSingleNode("b"));
                     var actorNode = actorsNode.SelectSingleNode("b");
                     if (actorNode != null)
                         actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));

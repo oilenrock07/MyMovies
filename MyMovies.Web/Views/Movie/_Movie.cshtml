@@ -65,10 +65,13 @@
             <div>
                 @foreach (var director in Model.DirectorList)
                 {
-                    @Html.ActionLink(@director, "Index", new { Writer = @director })
-                    if (director != Model.LastDirector)
+                    if (!String.IsNullOrEmpty(director))
                     {
-                        <text>|</text>
+                        @Html.ActionLink(@director, "Index", new { Writer = @director })
+                        if (director != Model.LastDirector)
+                        {
+                            <text>|</text>
+                        }
                     }
                 }
             </div>
