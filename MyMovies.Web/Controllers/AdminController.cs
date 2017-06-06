@@ -9,6 +9,7 @@ using MyMovies.Repository.Interfaces;
 using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
 using System.Net;
+using Microsoft.Ajax.Utilities;
 
 namespace MyMovies.Web.Controllers
 {
@@ -137,7 +138,7 @@ namespace MyMovies.Web.Controllers
         public ActionResult AddBanner()
         {
             ViewBag.Menu = "AdminBanner";
-            return View("AddEditBanner", new BannerAddEditViewModel());
+            return View("AddEditBanner", new BannerAddEditViewModel() { TextColor = "White"});
         }
 
         [HttpGet]
@@ -148,7 +149,22 @@ namespace MyMovies.Web.Controllers
             if (banner != null)
             {
                 var viewModel = banner.MapItem<BannerAddEditViewModel>();
-                return View(viewModel);
+                return View("AddEditBanner", viewModel);
+            }
+
+            //throw it to error page
+            return View(banner);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteBanner(int id)
+        {
+            var banner = _bannerRepository.GetById(id);
+            if (banner != null)
+            {
+                banner.IsDeleted = true;           
+                _unitOfWork.Commit();
+                return RedirectToAction("Banner");
             }
 
             //throw it to error page
@@ -159,7 +175,36 @@ namespace MyMovies.Web.Controllers
         public ActionResult AddEditBanner(BannerAddEditViewModel viewModel)
         {
             ViewBag.Menu = "AdminBanner";
-            return View();
+            if (viewModel.MoviePoster == null && String.IsNullOrEmpty(viewModel.Poster))
+            {
+                ViewBag.Error = "Please select a background image";
+                return View(viewModel);
+            }
+
+            var guid = Guid.NewGuid();
+            var path = Server.MapPath("~/Resources/banners");
+            var uploadPath = String.Format("/Resources/banners/{0}.jpg", guid);
+            var fullPath = String.Format("{0}/{1}.jpg", path, guid);
+
+            if (viewModel.BannerId > 0)
+            {
+                var banner = _bannerRepository.GetById(viewModel.BannerId);
+                banner.Poster = uploadPath;
+                banner.InjectFrom(viewModel);
+            }
+            else
+            {
+                var newBanner = viewModel.MapItem<Banner>();
+                newBanner.Poster = uploadPath;
+                _bannerRepository.Add(newBanner);
+            }
+            
+            if (viewModel.MoviePoster != null)
+                viewModel.MoviePoster.SaveAs(fullPath);
+
+            _unitOfWork.Commit();
+
+            return RedirectToAction("Banner");
         }
 
         private void UpdateImage(MovieViewModel viewModel)
