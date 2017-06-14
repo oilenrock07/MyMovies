@@ -1,8 +1,14 @@
 ﻿@model MyMovies.Web.ViewModels.BannerAddEditViewModel
-@{
-    var headerBg = "'/Images/Banners/Default.jpg'";
-}
+
 <div id="content" role="main" ng-controller="AdminController">
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger fade in alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+            @ViewBag.Error
+        </div>
+    }
+
     <div class="page-header dark larger larger-desc">
         <div class="container">
             <div class="row">
@@ -20,8 +26,8 @@
                 <div class="well col-md-12">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="ColorPicker">Text Color</label>
-                            <input id="ColorPicker" type="text" class="form-control no-radius" value="white" />
+                            @Html.LabelFor(model => model.TextColor, "Text Color")
+                            @Html.TextBoxFor(model => model.TextColor, new { @class = "form-control no-radius" })
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -33,7 +39,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Identifier)
-                            @Html.TextBoxFor(model => model.Identifier, new { @class = "form-control no-radius", placeholder = "Identifier for Banner type" })
+                            @Html.TextBoxFor(model => model.Identifier, new { ng_model="bannerText", @class = "form-control no-radius", placeholder = "Identifier for Banner type" })
                         </div>
                     </div>
                 </div>
@@ -45,7 +51,7 @@
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="page-header" style="background: url(@headerBg) no-repeat; background-size: 100%; height: 140px; display: block" id="BackGround">
+                <div class="page-header" style="background: url(@Model.HeaderBg) no-repeat; background-size: 100%; height: 140px; display: block" id="BackGround">
                     <div class="col-md-12">
 
                         <h2 ng-show="!showTextBox">
@@ -57,7 +63,9 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <input type="submit" value="Submit" class="btn btn-primary pull-right"/>
+                    @Html.HiddenFor(model => model.BannerId)
+                    @Html.HiddenFor(model => model.Poster)
+                    <input type="submit" value="Submit" class="btn btn-primary pull-right" />
                 </div>
             </div>
         }
@@ -71,7 +79,7 @@
     <script>
         var app = angular.module('MovieApp', []);
         app.controller('AdminController', function ($scope) {
-            $scope.bannerText = 'Background Title';
+            $scope.bannerText = '@Model.Identifier';
             $scope.showTextBox = false;
 
             $scope.changeBackGround = function () {
@@ -113,8 +121,8 @@
 
         //Jquery Section
         $(document).ready(function () {
-            $('#ColorPicker').colorpicker();
-            $('#ColorPicker').colorpicker().on('changeColor', function (e) {
+            $('#TextColor').colorpicker();
+            $('#TextColor').colorpicker().on('changeColor', function (e) {
                 $('#BannerDivText').css("color", e.color.toString('rgba'));
             });
         });

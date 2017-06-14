@@ -32,5 +32,13 @@ namespace MyMovies.Web.ViewModels
 
             _bannerTypes = list;
         }
+
+        public string HeaderBg
+        {
+            get
+            {
+                return String.IsNullOrEmpty(Poster) ? "'/Images/Banners/Default.jpg'" : String.Format("'{0}'", Poster);
+            }
+        }
     }
 }
