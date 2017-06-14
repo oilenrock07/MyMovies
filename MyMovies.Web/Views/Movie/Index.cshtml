@@ -39,3 +39,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    var app = angular.module('MovieApp', []);
+    app.controller('MovieListController', function ($scope) {
+        $scope.addToWatchList = function (movieId) {
+            alert(movieId);
+        }
+    });
+</script>

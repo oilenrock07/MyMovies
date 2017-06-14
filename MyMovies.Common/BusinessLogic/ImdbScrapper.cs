@@ -112,9 +112,13 @@ namespace MyMovies.Common.BusinessLogic
                     var actorsNode = overview.SelectSingleNode(xPath.RelatedStars);
                     var rateNode = overview.SelectSingleNode(xPath.RelatedRate);
 
-                    var directorNode = directorsNode.SelectSingleNode("b");
-                    if (directorNode != null)
-                        directorsNode.RemoveChild(directorNode.SelectSingleNode("b"));
+                    if (directorsNode != null)
+                    {
+                        var directorNode = directorsNode.SelectSingleNode("b");
+                        if (directorNode != null)
+                            directorsNode.RemoveChild(directorsNode.SelectSingleNode("b"));
+                    }
+
                     var actorNode = actorsNode.SelectSingleNode("b");
                     if (actorNode != null)
                         actorsNode.RemoveChild(actorsNode.SelectSingleNode("b"));

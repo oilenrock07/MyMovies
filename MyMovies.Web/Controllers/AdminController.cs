@@ -65,6 +65,7 @@ namespace MyMovies.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Index(MovieViewModel viewModel)
         {
             var id = viewModel.MovieId;

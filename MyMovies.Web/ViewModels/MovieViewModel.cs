@@ -3,11 +3,15 @@ using MyMovies.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MyMovies.Web.ViewModels
 {
     public class MovieViewModel : Movie
     {
+        [AllowHtml]
+        public override string Title { get; set; }
+
         public string LastStar
         {
             get { return StarLists.LastOrDefault(); }

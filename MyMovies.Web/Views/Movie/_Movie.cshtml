@@ -1,8 +1,10 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
 <div class="col-sm-6">
-    <div class="col-sm-5">
+    <div class="col-sm-12">
         <h3>@Model.Title (@Model.Year)</h3>
+    </div>    
+    <div class="col-sm-5">
         <div class="portfolio-item portfolio-meta-slideup push">
             <figure>
                 <a href="/Movie/Detail?id=@Model.MovieId" class="zoom-item" title="@Model.Title">
@@ -24,7 +26,7 @@
         <div>
             @foreach (var genre in Model.GenreList)
             {
-                @Html.ActionLink(@genre, "Index", new { Category = @genre })
+                @Html.ActionLink(@genre, "Index", new {Category = @genre})
                 if (genre != Model.LastGenre)
                 {
                     <text>|</text>
@@ -36,7 +38,7 @@
             <div>
                 @foreach (var star in Model.StarLists)
                 {
-                    @Html.ActionLink(@star, "Index", new { Star = @star })
+                    @Html.ActionLink(@star, "Index", new {Star = @star})
                     if (star != Model.LastStar)
                     {
                         <text>|</text>
@@ -51,7 +53,7 @@
                 {
                     if (!String.IsNullOrEmpty(writer))
                     {
-                        @Html.ActionLink(@writer, "Index", new { Writer = @writer })
+                        @Html.ActionLink(@writer, "Index", new {Writer = @writer})
                         if (writer != Model.LastWriter)
                         {
                             <text>|</text>
@@ -67,7 +69,7 @@
                 {
                     if (!String.IsNullOrEmpty(director))
                     {
-                        @Html.ActionLink(@director, "Index", new { Writer = @director })
+                        @Html.ActionLink(@director, "Index", new {Writer = @director})
                         if (director != Model.LastDirector)
                         {
                             <text>|</text>
@@ -81,14 +83,3 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    var app = angular.module('MovieApp', []);
-    app.controller('MovieListController', function ($scope) {
-        $scope.addToWatchList = function (movieId) {
-            alert(movieId);
-        }
-    });
-</script>
