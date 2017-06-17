@@ -2,7 +2,7 @@
 
 <div class="col-sm-6">
     <div class="col-sm-12">
-        <h3>@Model.Title (@Model.Year)</h3>
+        <h3>@Model.DisplayTitle</h3>
     </div>    
     <div class="col-sm-5">
         <div class="portfolio-item portfolio-meta-slideup push">
@@ -22,8 +22,8 @@
         </div>
     </div>
     <div class="col-sm-7">
-        <div class="col-xs-12"><span class=" pull-right">@Model.Rate.ToString("0.00")/10</span></div>
-        <div>
+        <div class="col-xs-12"><span class=" pull-right">@Model.DisplayRate/10</span></div>
+        <div class="movie-genre">
             @foreach (var genre in Model.GenreList)
             {
                 @Html.ActionLink(@genre, "Index", new {Category = @genre})

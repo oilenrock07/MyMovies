@@ -12,6 +12,16 @@ namespace MyMovies.Web.ViewModels
         [AllowHtml]
         public override string Title { get; set; }
 
+        public string DisplayTitle
+        {
+            get { return (String.IsNullOrEmpty(Year)) ? Title : String.Format("{0} {1}", Title, Year); }
+        }
+
+        public string DisplayRate
+        {
+            get { return (Rate%1) == 0 ? Rate.ToString() : Rate.ToString("#.0"); }
+        }
+
         public string LastStar
         {
             get { return StarLists.LastOrDefault(); }

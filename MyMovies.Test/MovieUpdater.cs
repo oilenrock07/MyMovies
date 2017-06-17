@@ -41,7 +41,7 @@ namespace MyMovies.Test
         {
             
             var scrapper = new ImdbScrapper(_xPathRepository);
-            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster)).OrderBy(x => x.Title).Take(250).ToList();
+            var toUpdateMovies = _movieRepository.GetAll().Where(x => String.IsNullOrEmpty(x.Poster) && String.IsNullOrEmpty(x.Writers)).OrderBy(x => x.Title).Take(529).ToList();
             foreach (var movie in toUpdateMovies)
             {
                 string xmlDocument;

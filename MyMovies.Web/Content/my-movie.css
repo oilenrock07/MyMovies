@@ -41,11 +41,6 @@ input[type="checkbox"].input-validation-error {
 	-webkit-transition:all 0.4s ease;
 }
 
-.portfolio-favourite-movie i {
-	font-size:18px;
-	margin-top:9px;
-}
-
 h1.movie-poster {
     float: right;
     margin-bottom: 0;
@@ -75,4 +70,38 @@ h1.movie-poster {
     z-index: 100;
     padding: 2px;
     box-sizing: border-box;
+}
+
+.movie-genre {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.movie-genre a {
+    color: goldenrod;
+}
+
+.detail-add {
+    float: left;
+    margin-right: 10px;
+    font-size: 30px;   
+}
+
+.detail-header-moviecategory {
+    margin-bottom:0 !important;
+}
+
+.detail-header-movieinfo {
+    color: #bebebe;
+    margin-bottom:10px;
+}
+
+.detail-header-10 {
+    font-size: xx-small;
+    font-weight: normal;
+    margin-left: -8px;
+}
+
+.detail-imdb {
+    font-size: 20px;
 }

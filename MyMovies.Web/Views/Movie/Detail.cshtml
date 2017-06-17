@@ -5,17 +5,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1>@Model.Title <span class="detail-year">(@Model.Year)</span></h1>
-                    <p class="page-header-desc">
-                    @foreach (var item in Model.GenreList)
-                    {
-                        <a href="/?Category=@item">@item</a>
-                        if (item != Model.GenreList.Last())
+                    <a href="#" title="Add to Watch List">
+                        <i class="fa fa-plus-circle detail-add" aria-hidden="true"></i>
+                    </a>
+                    <h1>
+                        @Model.Title <span class="detail-year">(@Model.Year)</span>
+                        <span class="pull-right">
+                            <i class="fa fa-star detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i> <span class="detail-header-10">/10</span>
+                        </span>
+                    </h1>
+                    <div class="page-header-desc detail-header-moviecategory">
+                        @foreach (var item in Model.GenreList)
                         {
-                            <text>,</text>
+                            <a href="/?Category=@item">@item</a>
+                            if (item != Model.GenreList.Last())
+                            {
+                                <text>,</text>
+                            }
                         }
-                    }
-                    </p>
+                    </div>
+                    <div class="detail-header-movieinfo">
+                        @Model.Rating  |  @Model.Runtime  |  @Model.DateReleased
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb">
@@ -29,42 +40,77 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="portfolio-media">
                     <img src="/Resources/images/@string.Format("{0}.jpg", Model.ImdbId)" class="img-responsive" alt="@Model.Title">
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-5">
 
                 <div class="portfolio-details">
-                    <i class="fa fa-star fa-2x pull-right detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i>    
-
                     <p class="t1">@Model.Summary</p>
                     <ul class="portfolio-details-list">
-                        <li><span>Directors:</span> @Model.Directors</li>
-                        <li><span>Writers:</span> @Model.Writers</li>
+                        <li>
+                            <span>Directors:</span>
+                            @foreach (var director in Model.DirectorList)
+                            {
+                                if (!String.IsNullOrEmpty(director))
+                                {
+                                    @Html.ActionLink(director, "Index", new { Writer = @director })
+                                    if (director != Model.LastDirector)
+                                    {
+                                        <text>|</text>
+                                    }
+                                }
+                            }
+                        </li>
+                        <li>
+                            <span>Writers:</span>
+                            @foreach (var writer in Model.WriterList)
+                            {
+                                if (!String.IsNullOrEmpty(writer))
+                                {
+                                    @Html.ActionLink(writer, "Index", new { Writer = @writer })
+                                    if (writer != Model.LastWriter)
+                                    {
+                                        <text>|</text>
+                                    }
+                                }
+                            }
+                        </li>
                         <li>
                             <span>Stars:</span>
                             @foreach (var item in Model.StarLists)
                             {
-                                <a href="/Controllers/Stars/@Url.Encode(item)">@item</a>
+                                @Html.ActionLink(item, "Index", new { Star = @item })
                                 if (item != Model.StarLists.Last())
                                 {
-                                    <text>,</text>
+                                    <text>|</text>
                                 }
                             }
                         </li>
-                        <li><span>Runtime:</span> @Model.Runtime</li>
-                        <li><span>Rating:</span> @Model.Rating</li>
-                        <li><span>Date Released:</span> @Model.DateReleased</li>
-                        <li><span>Country:</span> @Model.Country</li>
-                        <li><span>Language:</span> @Model.Language</li>
-                        <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
-                        <li><span>Budget:</span> @Html.Raw(Model.Budget)</li>
-                        <li><span>Gross:</span> @Html.Raw(Model.Gross)</li>
-                        <li><a href="javascript:void(0)" class="green">Show File Details</a></li>
-                        <li><a href="http://www.imdb.com/title/@Model.ImdbId" class="green">View in Imdb</a></li>
+                        @if (!String.IsNullOrEmpty(Model.Country))
+                        {
+                            <li><span>Country:</span> @Model.Country</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Language))
+                        {
+                            <li><span>Language:</span> @Model.Language</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.AlsoKnownAs))
+                        {
+                            <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Budget))
+                        {
+                            <li><span>Budget:</span> @Html.Raw(Model.Budget)</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Gross))
+                        {
+                            <li><span>Gross:</span> @Html.Raw(Model.Gross)</li>
+                        }
+
 
                         <li class="share-li">
                             <span>Share Now:</span>
@@ -75,8 +121,8 @@
                                 <a href="javascript:void(0)" class="social-icon icon-twitter add-tooltip" data-placement="top" title="" data-original-title="Twitter">
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="social-icon icon-google-plus add-tooltip" data-placement="top" title="" data-original-title="Google Plus">
-                                    <i class="fa fa-google-plus"></i>
+                                <a href="javascript:void(0)" class="social-icon add-tooltip detail-imdb" data-placement="top" title="" data-original-title="IMDB">
+                                    <i class="fa fa-imdb"></i>
                                 </a>
                             </div>
                         </li>
