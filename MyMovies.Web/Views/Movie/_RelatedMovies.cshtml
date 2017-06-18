@@ -1,0 +1,39 @@
+﻿@model MyMovies.Web.ViewModels.MovieViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 portfolio-related-container">
+            <h3 class="title-underblock custom mb30">Related Movies</h3>
+
+            <div class="owl-carousel">
+                @foreach (var movie in Model.RelatedMoviesViewModel)
+                {
+                    <div class="owl-item" style="width: 220px; margin-right: 30px;">
+                        <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup detail-relatedmovie-image">
+                            <figure>
+                                <a href='@Url.Action("Detail", new {id=movie.MovieId})' class="zoom-item" title="@movie.Title">
+                                    <img src="/Resources/images/@string.Format("{0}.jpg", movie.ImdbId)" class="img-responsive" alt="@movie.Title">
+                                </a>
+                            </figure>
+                            <div class="portfolio-meta dark">
+                                <h3 class="portfolio-title">
+                                    <a href="single-portfolio.html">@movie.Title</a>
+                                </h3>
+                                @foreach (var category in movie.GenreList)
+                                {
+                                    <span class="portfolio-tags">
+                                        @Html.ActionLink(@category, "Index", new {Category = @category})
+                                        @if (category != movie.LastGenre)
+                                        {
+                                            <text>|</text>
+                                        }
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

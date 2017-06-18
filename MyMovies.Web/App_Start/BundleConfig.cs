@@ -33,7 +33,7 @@ namespace MyMovies.Web
                         "~/Scripts/jquery.nicescroll.min.js",
                         "~/Scripts/jquery.tweet.min.js",
                         "~/Scripts/main.js",
-                        "~/Scripts/owl.carousel.min.js",
+                        "~/Scripts/owl.carousel.js",
                         "~/Scripts/retina.min.js",
                         "~/Scripts/smoothscroll.js",
                         "~/Scripts/waypoints-sticky.min.js",

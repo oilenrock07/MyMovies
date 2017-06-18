@@ -14,7 +14,7 @@ namespace MyMovies.Web.ViewModels
 
         public string DisplayTitle
         {
-            get { return (String.IsNullOrEmpty(Year)) ? Title : String.Format("{0} {1}", Title, Year); }
+            get { return (String.IsNullOrEmpty(Year)) ? Title : String.Format("{0} ({1})", Title, Year); }
         }
 
         public string DisplayRate
@@ -88,5 +88,6 @@ namespace MyMovies.Web.ViewModels
 
         public bool UpdateImage { get; set; }
         public HttpPostedFileBase MoviePoster { get; set; }
+        public IList<MovieViewModel> RelatedMoviesViewModel { get; set; }
     }
 }

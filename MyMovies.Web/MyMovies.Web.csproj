@@ -382,7 +382,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\retina.min.js" />
     <Content Include="Scripts\smoothscroll.js" />
     <Content Include="Scripts\waypoints-sticky.min.js" />
@@ -417,6 +417,8 @@
     <Content Include="Views\Admin\Banner.cshtml" />
     <Content Include="Views\Admin\AddEditBanner.cshtml" />
     <Content Include="Views\Admin\_Buttons.cshtml" />
+    <Content Include="Views\Movie\_DetailHeader.cshtml" />
+    <Content Include="Views\Movie\_RelatedMovies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

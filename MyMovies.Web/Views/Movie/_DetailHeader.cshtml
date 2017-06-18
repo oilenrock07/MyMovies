@@ -1,0 +1,48 @@
+﻿@model MyMovies.Web.ViewModels.MovieViewModel
+    
+<div class="page-header dark larger larger-desc">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="#" title="Add to Watch List">
+                    <i class="fa fa-plus-circle detail-add" aria-hidden="true"></i>
+                </a>
+                <div class="pull-right detail-header-rate">
+                    <i class="fa fa-star detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i> <span class="detail-header-10">/10</span>
+                </div>
+                <h1>
+                    @Model.Title <span class="detail-year">(@Model.Year)</span>
+
+                </h1>
+                <div class="page-header-desc detail-header-moviecategory">
+                    @foreach (var item in Model.GenreList)
+                    {
+                        <a href="/?Category=@item">@item</a>
+                        if (item != Model.GenreList.Last())
+                        {
+                            <text>,</text>
+                        }
+                    }
+                </div>
+                <div class="detail-header-movieinfo">
+                    @Model.Rating
+                    @if (!String.IsNullOrEmpty(Model.Runtime))
+                    {
+                        <text>| @Model.Runtime</text>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.DateReleased))
+                    {
+                        <text>|  @Model.DateReleased</text>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb">
+                    <li><a href="/">Movies</a></li>
+                    <li class="active">Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
