@@ -20,12 +20,14 @@ namespace MyMovies.Web.Controllers
         private readonly IMovieRepository _movieRepository;
         private readonly IMovieXPathRepository _movieXPathRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBannerRepository _bannerRepository;
 
-        public MovieController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork)
+        public MovieController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork, IBannerRepository bannerRepository)
         {
             _movieRepository = movieRepository;
             _movieXPathRepository = movieXPathRepository;
             _unitOfWork = unitOfWork;
+            _bannerRepository = bannerRepository;
         }
 
         public ActionResult Index(PaginationModel paginationViewModel = null)
@@ -35,6 +37,7 @@ namespace MyMovies.Web.Controllers
 
             var pagination = new Pagination();
             var viewModel = new MoviePaginationViewModel();
+            viewModel.Banner = LoadBanner(paginationViewModel);
             viewModel.Pagination = pagination.GetPaginationModel(GetPageNumber(), count);
             viewModel.Movies = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), viewModel.Pagination).MapCollection<MovieViewModel>();
             MapPaginationFilters(paginationViewModel, viewModel.Pagination);
@@ -70,6 +73,29 @@ namespace MyMovies.Web.Controllers
         }
 
         #region Private Methods
+
+        private string LoadBanner(PaginationModel paginationViewModel)
+        {
+            if (paginationViewModel != null)
+            {
+                var identifier = "";
+                if (!String.IsNullOrEmpty(paginationViewModel.Category))
+                    identifier = paginationViewModel.Category;
+                else if (!String.IsNullOrEmpty(paginationViewModel.Star))
+                    identifier = paginationViewModel.Star;
+                else if (!String.IsNullOrEmpty(paginationViewModel.Director))
+                    identifier = paginationViewModel.Director;
+                else if (!String.IsNullOrEmpty(paginationViewModel.Writer))
+                    identifier = paginationViewModel.Writer;
+
+                var banner = _bannerRepository.Find(x => x.Identifier == identifier && !x.IsDeleted);
+                if (banner != null && banner.Any())
+                    return banner.First().Poster;
+            }
+
+            return "/Images/default.jpg";
+        }
+
         private void MapPaginationFilters(PaginationModel requestPagination, PaginationModel newPagination)
         {
             if (requestPagination == null) return;
