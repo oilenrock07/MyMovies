@@ -1,7 +1,7 @@
 ﻿@model string[]
 @*We can only have 12 rows per column.*@
 
-<div class="dropdown-menu megamenu" role="menu">
+<div class="dropdown-menu megamenu" role="menu" ng-controller="BannerController">
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
@@ -23,16 +23,9 @@
                     }
                 </ul>
             </div>
-            <div class="col-sm-3">
-                <ul>
-                   @if (Model.Length > 24)
-                   {
-                       for (int a = 24; a < 36 && a < Model.Length; a++)
-                       {
-                            <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
-                       }
-                   }
-                </ul>
+
+            <div class="col-md-6 hidden-sm">
+                <img ng-src="{{banner}}" class="menu-image img-responsive" />
             </div>
         </div>
     </div>
