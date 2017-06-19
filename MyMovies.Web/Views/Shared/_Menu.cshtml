@@ -1,4 +1,4 @@
-﻿@model string[]
+﻿@model IEnumerable<Tuple<string,string>>
 @*We can only have 12 rows per column.*@
 
 <div class="dropdown-menu megamenu" role="menu" ng-controller="BannerController">
@@ -6,19 +6,21 @@
         <div class="row">
             <div class="col-sm-3">
                 <ul>
-                    @for (int a = 0; a < 12 && a < Model.Length; a++)
+                    @foreach (var item in Model.Take(12))
                     {
-                        <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
+                        var function = "showBannerImage('" + item.Item2 + "')";
+                        <li>@Html.ActionLink(item.Item1, "Index", new { Category = item.Item1 }, new { ng_mouseover = function, image=item.Item2 })</li>
                     }
                 </ul>
             </div>
             <div class="col-sm-3">
                 <ul>
-                    @if (Model.Length > 12)
+                    @if (Model.Count() > 12)
                     {
-                        for (int a = 12; a < 24 && a < Model.Length; a++)
+                        foreach (var item in Model.Skip(12).Take(24))
                         {
-                            <li>@Html.ActionLink(Model[a], "Index", new { Category = Model[a] })</li>
+                            var function = "showBannerImage('" + item.Item2 + "')";
+                            <li>@Html.ActionLink(item.Item1, "Index", new { Category = item.Item1 }, new { ng_mouseover = function, image = item.Item2 })</li>
                         }
                     }
                 </ul>

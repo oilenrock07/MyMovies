@@ -56,8 +56,19 @@ namespace MyMovies.Web.Controllers
 
         public ActionResult Menu()
         {
+            //load banners
+            var banners = _bannerRepository.Find(x => !x.IsDeleted);
             var categories = _movieRepository.GetGenres();
-            return PartialView("_Menu", categories.ToArray());
+
+            var model = new List<Tuple<string, string>>();
+            foreach (var category in categories)
+            {
+                var banner = banners.FirstOrDefault(x => x.Identifier == category);
+                var poster = banner != null ? banner.Poster : "";
+                model.Add(new Tuple<string, string>(category, poster));
+            }
+
+            return PartialView("_Menu", model);
         }
 
         public ActionResult Detail(int id)
@@ -83,7 +94,7 @@ namespace MyMovies.Web.Controllers
 
         #region Private Methods
 
-        private string LoadBanner(PaginationModel paginationViewModel)
+        private Banner LoadBanner(PaginationModel paginationViewModel)
         {
             if (paginationViewModel != null)
             {
@@ -99,10 +110,10 @@ namespace MyMovies.Web.Controllers
 
                 var banner = _bannerRepository.Find(x => x.Identifier == identifier && !x.IsDeleted);
                 if (banner != null && banner.Any())
-                    return banner.First().Poster;
+                    return banner.First();
             }
 
-            return "/Images/default.jpg";
+            return new Banner {Poster = "/Images/default.jpg", TextColor = "white"};
         }
 
         private void MapPaginationFilters(PaginationModel requestPagination, PaginationModel newPagination)

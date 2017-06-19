@@ -1,7 +1,6 @@
-﻿@using MyMovies.Web.ViewModels
-@using System.Dynamic;
-@{
-    var order = Request.Cookies["MovieOrder"] != null ? Request.Cookies["MovieOrder"].Value : "Title";
+﻿@{
+    var orderBy = Request.Cookies["MovieOrder"] != null ? Request.Cookies["MovieOrder"].Value : "Title";
+    var sortBy = Request.Cookies["MovieSorting"] != null ? Request.Cookies["MovieSorting"].Value : "Asc";
 }
 <header id="header" role="banner" ng-controller="HeaderController">
     <div class="navbar-white collapse" id="header-search-form" aria-expanded="false" style="height: 1px;">
@@ -68,7 +67,7 @@
                         <div class="dropdowns-container pull-right clearfix">
                             <div class="dropdown currency-dropdown pull-right">
                                 <a class="dropdown-toggle" href="#" id="currency-dropdown" data-toggle="dropdown" aria-expanded="false">
-                                    Sort By
+                                    @sortBy
                                     <span class="angle"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="currency-dropdown">
@@ -79,7 +78,7 @@
 
                             <div class="dropdown language-dropdown pull-right">
                                 <a class="dropdown-toggle" href="#" id="language-dropdown" data-toggle="dropdown" aria-expanded="false">
-                                    Order By
+                                    @orderBy
                                     <span class="angle"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="language-dropdown">

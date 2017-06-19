@@ -10,3 +10,10 @@ app.controller('HeaderController', function ($scope, $cookies, $window) {
         $window.location.reload();
     }
 });
+
+app.controller('BannerController', function ($scope) {
+    $scope.banner = '';
+    $scope.showBannerImage = function(category) {
+        $scope.banner = category;
+    }
+});
