@@ -14,7 +14,7 @@ namespace MyMovies.Entities
         public string ImdbId { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
         public string Year { get; set; }
         public double Rate { get; set; }
         public string Runtime { get; set; }

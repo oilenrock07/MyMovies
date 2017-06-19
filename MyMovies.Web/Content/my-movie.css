@@ -26,24 +26,19 @@ input[type="checkbox"].input-validation-error {
 }
 
 .portfolio-favourite-movie {
-	display:block;
-	width:52px;
-	height:52px;
-	border-radius:4px;
-	position: absolute;
-	right:18px;
-	top:50%;
-	margin-top:-26px;
-	background-color: goldenrod;
-	color:#303030;
-	text-align: center;
-	transition:all 0.4s ease;
-	-webkit-transition:all 0.4s ease;
-}
-
-.portfolio-favourite-movie i {
-	font-size:18px;
-	margin-top:9px;
+    display: block;
+    width: 52px;
+    height: 52px;
+    border-radius: 4px;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    margin-top: -26px;
+    background-color: goldenrod;
+    color: #303030;
+    text-align: center;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
 }
 
 h1.movie-poster {
@@ -52,10 +47,10 @@ h1.movie-poster {
 }
 
 .list-header {
-    background:url('/Images/test.jpg')no-repeat;
-    background-size:100%;
+    background: url('/Images/test.jpg')no-repeat;
+    background-size: 100%;
     height: 140px;
-    display:block;
+    display: block;
     /*padding:0 !important;
     margin:0;*/
 }
@@ -77,7 +72,50 @@ h1.movie-poster {
     box-sizing: border-box;
 }
 
-.menu-image {
-    width: 100%;
-    height: 100%;
+.movie-genre {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+    .movie-genre a {
+        color: goldenrod;
+    }
+
+.detail-add {
+    float: left;
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.detail-header-moviecategory {
+    margin-bottom: 0 !important;
+}
+
+.detail-header-movieinfo {
+    color: #bebebe;
+    margin-bottom: 10px;
+}
+
+.detail-header-10 {
+    font-size: xx-small;
+    font-weight: normal;
+    margin-left: -8px;
+}
+
+.detail-header-rate {
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.detail-imdb {
+    font-size: 20px;
+}
+
+.detail-fileinfo {
+    margin-bottom: 60px;
+}
+
+.detail-relatedmovie-image {
+	box-shadow:0 3px 12px rgba(0,0,0, 0.18);
+	-webkit-box-shadow:0 3px 12px rgba(0,0,0, 0.18);
 }

@@ -58,13 +58,13 @@ namespace MyMovies.Web.Controllers
 
             if (!String.IsNullOrEmpty(movie.RelatedMovie))
             {
-                viewModel.RelatedMovies = new List<Movie>();
+                viewModel.RelatedMoviesViewModel = new List<MovieViewModel>();
                 foreach (var item in movie.RelatedMovie.Split(','))
                 {
                     var relatedMovie = _movieRepository.GetByImdbId(item);
                     if (relatedMovie != null)
                     {
-                        viewModel.RelatedMovies.Add(relatedMovie);
+                        viewModel.RelatedMoviesViewModel.Add(relatedMovie.MapItem<MovieViewModel>());
                     }
                 }
             }

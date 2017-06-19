@@ -3,11 +3,25 @@ using MyMovies.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MyMovies.Web.ViewModels
 {
     public class MovieViewModel : Movie
     {
+        [AllowHtml]
+        public override string Title { get; set; }
+
+        public string DisplayTitle
+        {
+            get { return (String.IsNullOrEmpty(Year)) ? Title : String.Format("{0} ({1})", Title, Year); }
+        }
+
+        public string DisplayRate
+        {
+            get { return (Rate%1) == 0 ? Rate.ToString() : Rate.ToString("#.0"); }
+        }
+
         public string LastStar
         {
             get { return StarLists.LastOrDefault(); }
@@ -74,5 +88,6 @@ namespace MyMovies.Web.ViewModels
 
         public bool UpdateImage { get; set; }
         public HttpPostedFileBase MoviePoster { get; set; }
+        public IList<MovieViewModel> RelatedMoviesViewModel { get; set; }
     }
 }

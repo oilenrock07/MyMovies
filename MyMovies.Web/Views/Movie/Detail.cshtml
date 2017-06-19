@@ -1,70 +1,81 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
 <div id="content" role="main">
-    <div class="page-header dark larger larger-desc">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1>@Model.Title <span class="detail-year">(@Model.Year)</span></h1>
-                    <p class="page-header-desc">
-                    @foreach (var item in Model.GenreList)
-                    {
-                        <a href="/?Category=@item">@item</a>
-                        if (item != Model.GenreList.Last())
-                        {
-                            <text>,</text>
-                        }
-                    }
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <ol class="breadcrumb">
-                        <li><a href="/">Movies</a></li>
-                        <li class="active">Details</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_DetailHeader", Model)
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="portfolio-media">
                     <img src="/Resources/images/@string.Format("{0}.jpg", Model.ImdbId)" class="img-responsive" alt="@Model.Title">
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-5">
 
                 <div class="portfolio-details">
-                    <i class="fa fa-star fa-2x pull-right detail-star" aria-hidden="true">&nbsp;@Model.FormattedRate</i>    
-
-                    <p class="t1">@Model.Summary</p>
+                    <p class="t1">@Html.Raw(Model.Summary)</p>
                     <ul class="portfolio-details-list">
-                        <li><span>Directors:</span> @Model.Directors</li>
-                        <li><span>Writers:</span> @Model.Writers</li>
+                        <li>
+                            <span>Directors:</span>
+                            @foreach (var director in Model.DirectorList)
+                            {
+                                if (!String.IsNullOrEmpty(director))
+                                {
+                                    @Html.ActionLink(director, "Index", new { Writer = @director })
+                                    if (director != Model.LastDirector)
+                                    {
+                                        <text>|</text>
+                                    }
+                                }
+                            }
+                        </li>
+                        <li>
+                            <span>Writers:</span>
+                            @foreach (var writer in Model.WriterList)
+                            {
+                                if (!String.IsNullOrEmpty(writer))
+                                {
+                                    @Html.ActionLink(writer, "Index", new { Writer = @writer })
+                                    if (writer != Model.LastWriter)
+                                    {
+                                        <text>|</text>
+                                    }
+                                }
+                            }
+                        </li>
                         <li>
                             <span>Stars:</span>
                             @foreach (var item in Model.StarLists)
                             {
-                                <a href="/Controllers/Stars/@Url.Encode(item)">@item</a>
+                                @Html.ActionLink(item, "Index", new { Star = @item })
                                 if (item != Model.StarLists.Last())
                                 {
-                                    <text>,</text>
+                                    <text>|</text>
                                 }
                             }
                         </li>
-                        <li><span>Runtime:</span> @Model.Runtime</li>
-                        <li><span>Rating:</span> @Model.Rating</li>
-                        <li><span>Date Released:</span> @Model.DateReleased</li>
-                        <li><span>Country:</span> @Model.Country</li>
-                        <li><span>Language:</span> @Model.Language</li>
-                        <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
-                        <li><span>Budget:</span> @Html.Raw(Model.Budget)</li>
-                        <li><span>Gross:</span> @Html.Raw(Model.Gross)</li>
-                        <li><a href="javascript:void(0)" class="green">Show File Details</a></li>
-                        <li><a href="http://www.imdb.com/title/@Model.ImdbId" class="green">View in Imdb</a></li>
+                        @if (!String.IsNullOrEmpty(Model.Country))
+                        {
+                            <li><span>Country:</span> @Model.Country</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Language))
+                        {
+                            <li><span>Language:</span> @Model.Language</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.AlsoKnownAs))
+                        {
+                            <li><span>Also Known As:</span> @Model.AlsoKnownAs</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Budget))
+                        {
+                            <li><span>Budget:</span> @Html.Raw(Model.Budget)</li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Gross))
+                        {
+                            <li><span>Gross:</span> @Html.Raw(Model.Gross)</li>
+                        }
+
 
                         <li class="share-li">
                             <span>Share Now:</span>
@@ -75,117 +86,61 @@
                                 <a href="javascript:void(0)" class="social-icon icon-twitter add-tooltip" data-placement="top" title="" data-original-title="Twitter">
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="social-icon icon-google-plus add-tooltip" data-placement="top" title="" data-original-title="Google Plus">
-                                    <i class="fa fa-google-plus"></i>
+                                <a href="http://www.imdb.com/title/@Model.ImdbId" target="_blank" class="social-icon add-tooltip detail-imdb" data-placement="top" title="" data-original-title="IMDB">
+                                    <i class="fa fa-imdb"></i>
                                 </a>
                             </div>
                         </li>
                     </ul>
                 </div>
-
             </div>
 
+            <div class="col-md-4 detail-fileinfo">
+                <ul class="portfolio-details-list">
+                    <li>
+                        <span>Location:</span> @Model.Location
+                    </li>
+                    <li>
+                        <span>File Name:</span> @Model.FileName
+                    </li>
+                    <li>
+                        <span>File Size:</span> @Model.FileSize
+                    </li>
+                    <li>
+                        <span>Remarks:</span> @Model.Remarks
+                    </li>
+                    <li>
+                        <span>Date Added:</span> @Model.DateCreated
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 portfolio-related-container">
-                <h3 class="title-underblock custom mb30">Related Movies</h3>
-
-                <div class="portfolio-related-carousel owl-carousel popup-gallery owl-theme owl-loaded owl-responsive-768">
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage" style="transform: translate3d(-500px, 0px, 0px); transition: 0s; width: 1500px;">
-                            <div class="owl-item" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item1.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item1.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Design</a>, <a href="#">Love</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>14</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><div class="owl-item" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item2.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item2.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Life</a>, <a href="#">Nature</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>4</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item3.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item3.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Design</a>, <a href="#">Fashion</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>12</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item4.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item4.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Design</a>, <a href="#">Love</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>8</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><div class="owl-item active" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item5.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item5.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Design</a>, <a href="#">Love</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>14</span>
-                                        </a>
-                                    </div><!-- End .portfolio-meta -->
-                                </div>
-                            </div><div class="owl-item" style="width: 220px; margin-right: 30px;">
-                                <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-                                    <figure>
-                                        <a href="images/portfolio/grid/item6.jpg" class="zoom-item" title="Portfolio Item Description"><img src="images/portfolio/grid/item6.jpg" alt="portfolio item name" class="img-responsive"></a>
-                                    </figure>
-                                    <div class="portfolio-meta dark">
-                                        <h3 class="portfolio-title"><a href="single-portfolio.html">Cool Buggy</a></h3>
-                                        <div class="portfolio-tags"><a href="#">Design</a>, <a href="#">Love</a></div>
-                                        <a class="portfolio-favourite" href="#" title="Favourite">
-                                            <i class="fa fa-heart-o"></i>
-                                            <span>8</span>
-                                        </a>
-                                    </div><!-- End .portfolio-meta -->
-                                </div>
-                            </div>
-                        </div>
-                    </div><div class="owl-controls"><div class="owl-nav"><div class="owl-prev" style=""><i class="fa fa-angle-left"></i></div><div class="owl-next" style=""><i class="fa fa-angle-right"></i></div></div><div class="owl-dots" style="display: none;"></div></div>
-                </div><!-- end .portfolio-related-carousel -->
-            </div><!-- End .col-md-12 -->
-        </div><!-- End .row -->
-    </div><!-- End .container -->
-
+    @if (Model.RelatedMoviesViewModel != null)
+    {
+        @Html.Partial("_RelatedMovies", Model)
+    }
+    
 </div>
+
+@section scripts
+{
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    </script>
+}
