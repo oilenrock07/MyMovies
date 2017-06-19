@@ -25,6 +25,10 @@ namespace MyMovies.Web.Models
         public string Director { get; set; }
         public string Writer { get; set; }
 
+        //Order
+        public string OrderBy { get; set; }
+        public string SortBy { get; set; }
+
         public virtual int StartDisplayPage
         {
             get

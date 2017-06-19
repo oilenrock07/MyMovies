@@ -1,18 +1,24 @@
-﻿<header id="header" role="banner">
+﻿@using MyMovies.Web.ViewModels
+@using System.Dynamic;
+@{
+    var order = Request.Cookies["MovieOrder"] != null ? Request.Cookies["MovieOrder"].Value : "Title";
+}
+<header id="header" role="banner" ng-controller="HeaderController">
     <div class="navbar-white collapse" id="header-search-form" aria-expanded="false" style="height: 1px;">
         <div class="container">
-            @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new {@class="navbar-form animated fadeInDown"}))
+            @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "navbar-form animated fadeInDown" }))
             {
-                <input type="search" id="Search" name="Search" class="form-control" placeholder="Search in here..." value="@ViewBag.Search">
-                <button type="submit" class="btn-circle" title="Search"><i class="fa fa-search"></i></button>
+            <input type="search" id="Search" name="Search" class="form-control" placeholder="Search in here..." value="@ViewBag.Search">
+            <button type="submit" class="btn-circle" title="Search"><i class="fa fa-search"></i></button>
             }
         </div>
     </div>
     <nav class="navbar navbar-white animated-dropdown ttb-dropdown" role="navigation">
 
         <div class="navbar-top clearfix">
+
             <div class="container">
-                <div class="pull-right">
+                <div class="pull-left">
                     <ul class="navbar-top-nav clearfix hidden-sm hidden-xs">
                         <li><a href="login.html"><i class="fa fa-external-link"></i>Games</a></li>
                         @if (User.Identity.IsAuthenticated)
@@ -42,6 +48,49 @@
                             }
                         </ul>
                     </div>
+                </div>
+
+                <div class="pull-right">
+                    <div class="social-icons pull-right hidden-xs">
+                        <a href="#" class="social-icon icon-facebook" title="Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-twitter" title="Twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-google-plus" title="Google Plus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+
+                    @if (ViewBag.MovieList != null)
+                    {
+                        <div class="dropdowns-container pull-right clearfix">
+                            <div class="dropdown currency-dropdown pull-right">
+                                <a class="dropdown-toggle" href="#" id="currency-dropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Sort By
+                                    <span class="angle"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="currency-dropdown">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1"  href="javascript:void(0)" ng-click="setMovieSorting('Asc')">Asc</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1"  href="javascript:void(0)" ng-click="setMovieSorting('Desc')">Desc</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="dropdown language-dropdown pull-right">
+                                <a class="dropdown-toggle" href="#" id="language-dropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Order By
+                                    <span class="angle"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="language-dropdown">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" ng-click="setMovieOrder('Title')">Title</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" ng-click="setMovieOrder('Rate')">Rate</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" ng-click="setMovieOrder('Year')">Year</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" ng-click="setMovieOrder('DateAdded')">Date Added</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -130,10 +179,13 @@
     </nav>
 </header><!-- End #header -->
 
-<script>
-    function focusSearch() {
-        setTimeout(function () {
-            document.getElementById('Search').focus();
-        }, 1);
-    }
-</script>
+@section scripts
+{
+    <script>
+        function focusSearch() {
+            setTimeout(function () {
+                document.getElementById('Search').focus();
+            }, 1);
+        }
+    </script>
+}

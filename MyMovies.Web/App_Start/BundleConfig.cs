@@ -25,6 +25,7 @@ namespace MyMovies.Web
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                        "~/Scripts/movieapp.js",
                         "~/Scripts/analytics.js",
                         "~/Scripts/jflickrfeed.min.js",
                         "~/Scripts/jquery.debouncedresize.js",

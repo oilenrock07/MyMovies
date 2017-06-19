@@ -34,17 +34,6 @@
                    }
                 </ul>
             </div>
-            <div class="col-sm-3">
-                <ul>
-                   @if (Model.Length > 36)
-                    {
-                        for (int a = 36; a < 48 && a < Model.Length; a++)
-                        {
-                            <li><a href="/?Category=@Model[a]">@Model[a]</a></li>
-                        }
-                    }
-                </ul>
-            </div>
         </div>
     </div>
 </div>

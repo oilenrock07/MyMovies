@@ -325,6 +325,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\vspacing.min.css" />
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap-colorpicker.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -382,6 +384,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\movieapp.js" />
     <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\retina.min.js" />
     <Content Include="Scripts\smoothscroll.js" />

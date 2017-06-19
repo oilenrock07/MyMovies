@@ -83,7 +83,11 @@ namespace MyMovies.Web.ViewModels
 
         public string ShortenedSumary
         {
-            get { return Summary.Length > 250 ? String.Format("{0}...", Summary.Substring(0, 250)) : Summary; }
+            get
+            {
+                if (String.IsNullOrEmpty(Summary)) return "";
+                return Summary.Length > 250 ? String.Format("{0}...", Summary.Substring(0, 250)) : Summary;
+            }
         }
 
         public bool UpdateImage { get; set; }

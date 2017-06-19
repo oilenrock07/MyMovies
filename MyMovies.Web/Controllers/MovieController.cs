@@ -35,8 +35,17 @@ namespace MyMovies.Web.Controllers
 
             var pagination = new Pagination();
             var viewModel = new MoviePaginationViewModel();
+            ViewBag.MovieList = "true";
             viewModel.Pagination = pagination.GetPaginationModel(GetPageNumber(), count);
-            viewModel.Movies = pagination.TakePaginationModel(movies.OrderBy(x => x.Title).ToList(), viewModel.Pagination).MapCollection<MovieViewModel>();
+
+            var order = GetMovieOrderList();
+            var sorting = Request.Cookies["MovieSorting"];
+
+            var moviePagination = (sorting != null && sorting.Value == "Desc") ? 
+                                  pagination.TakePaginationModel(movies.OrderByDescending(order).ToList(), viewModel.Pagination) :
+                                  pagination.TakePaginationModel(movies.OrderBy(order).ToList(), viewModel.Pagination);
+                            
+            viewModel.Movies = moviePagination.MapCollection<MovieViewModel>();
             MapPaginationFilters(paginationViewModel, viewModel.Pagination);
 
             return View(viewModel);
@@ -129,6 +138,24 @@ namespace MyMovies.Web.Controllers
             return movies;
         }
 
+        private Func<Movie, object> GetMovieOrderList()
+        {
+            var order = Request.Cookies["MovieOrder"];
+            if (order != null)
+            {
+                switch (order.Value)
+                {
+                    case "Rate":
+                        return x => x.Rate;
+                    case "Year":
+                        return x => x.Year;
+                    case "DateAdded":
+                        return x => x.DateCreated;
+                }
+            }
+
+            return x => x.Title;
+        }
         #endregion
         
     }
