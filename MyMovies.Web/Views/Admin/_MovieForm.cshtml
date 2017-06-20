@@ -3,8 +3,6 @@
 <div ng-controller="AdminController">
     @using (@Html.BeginForm("Index", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        var updateImage = Model.UpdateImage ? "checked=\"checked\"" : "";
-
         <div class="row">
 
             <div class="col-md-4 col-md-push-8">
@@ -113,8 +111,30 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <label class="input-desc">Remarks</label>
-                    @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control no-radius", placeholder = "Remarks" })
+                    <div class="col-xs-6">
+                        <label class="input-desc" style="vertical-align: central">Remarks</label>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pull-right">
+                            <input id="input-id" name="input-name" type="number" class="rating">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control no-radius", placeholder = "Remarks" })
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Size <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">1080p</a></li>
+                                <li><a href="#">720p</a></li>
+                                <li><a href="#">480p</a></li>
+                                <li><a href="#">360p</a></li>
+                                <li><a href="#">240p</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div class="col-sm-6">
@@ -134,4 +154,3 @@
         </div>
     }
 </div>
-

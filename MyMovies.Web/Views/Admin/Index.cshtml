@@ -2,6 +2,12 @@
 @{
     var search = ViewBag.Search ?? "";
 }
+
+@section headerstyles
+{
+    <link href="~/Content/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+}
+
 <div id="content" role="main">
     <div class="page-header dark larger larger-desc">
         <div class="container">
@@ -62,7 +68,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/star-rating.js"></script>
+
     <script>
+        
+        $('#input-id').on('rating.change', function (event, value, caption) {
+            alert(value);
+        });
+
         app.controller('AdminController', function ($http, $scope) {
             $scope.fileName = '@(Model.FileName)';
             $scope.fileSize = '@(Model.FileSize)';

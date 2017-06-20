@@ -270,6 +270,7 @@
     <Content Include="Content\green.css" />
     <Content Include="Content\my-movie.css" />
     <Content Include="Content\simple-line-icons.css" />
+    <Content Include="Content\star-rating.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -388,6 +389,7 @@
     <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\retina.min.js" />
     <Content Include="Scripts\smoothscroll.js" />
+    <Content Include="Scripts\star-rating.js" />
     <Content Include="Scripts\waypoints-sticky.min.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="source.txt" />
