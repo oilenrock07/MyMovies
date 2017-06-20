@@ -73,12 +73,43 @@
     <script>
         
         $('#input-id').on('rating.change', function (event, value, caption) {
-            alert(value);
+            setRemarks();
         });
+
+        var size = '';
+        var setRemarks = function() {
+            var quality = "";
+            switch (parseInt($('#input-id').val())) {
+                case 1:
+                    quality = 'Very Bad';
+                    break;
+                case 2:
+                    quality = 'Bad';
+                    break;
+                case 3:
+                    quality = 'Not Bad';
+                    break;
+                case 4:
+                    quality = 'Good';
+                    break;
+                case 5:
+                    quality = 'Very Good';
+                    break;
+                default:
+                    quality = 'Very Bad';
+            }
+
+            $('#Remarks').val(quality + ' ' + size);
+        };
 
         app.controller('AdminController', function ($http, $scope) {
             $scope.fileName = '@(Model.FileName)';
             $scope.fileSize = '@(Model.FileSize)';
+
+            $scope.setMovieQuality = function (value) {
+                size = value;
+                setRemarks();
+            };
 
             $scope.fileChange = function (event) {
                 var input = event.target;

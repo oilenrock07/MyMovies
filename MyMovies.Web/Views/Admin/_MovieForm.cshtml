@@ -116,7 +116,7 @@
                     </div>
                     <div class="col-xs-6">
                         <div class="pull-right">
-                            <input id="input-id" name="input-name" type="number" class="rating">
+                            <input id="input-id" name="input-name" type="number" class="rating" step="1">
                         </div>
                     </div>
 
@@ -125,11 +125,11 @@
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Size <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">1080p</a></li>
-                                <li><a href="#">720p</a></li>
-                                <li><a href="#">480p</a></li>
-                                <li><a href="#">360p</a></li>
-                                <li><a href="#">240p</a></li>
+                                <li><a href="javascript:void(0)" ng-click="setMovieQuality('1080p')">1080p</a></li>
+                                <li><a href="javascript:void(0)" ng-click="setMovieQuality('720p')">720p</a></li>
+                                <li><a href="javascript:void(0)" ng-click="setMovieQuality('480p')">480p</a></li>
+                                <li><a href="javascript:void(0)" ng-click="setMovieQuality('360p')">360p</a></li>
+                                <li><a href="javascript:void(0)" ng-click="setMovieQuality('240p')">240p</a></li>
                             </ul>
                         </div>
                     </div>
