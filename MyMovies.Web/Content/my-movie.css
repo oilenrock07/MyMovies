@@ -72,6 +72,18 @@ h1.movie-poster {
     box-sizing: border-box;
 }
 
+.banner-editdelete {
+    left: auto;
+    right: 15px;
+    top: 15px;
+    font: 500 14px/1.5 'Open Sans', Verdana, sans-serif;
+    position: absolute;
+    min-width: 60px;
+    text-align: center;
+    z-index: 100;
+    padding: 2px;
+}
+
 .movie-genre {
     font-size: 16px;
     font-weight: bold;
