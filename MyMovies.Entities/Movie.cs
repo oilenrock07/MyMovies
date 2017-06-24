@@ -47,6 +47,11 @@ namespace MyMovies.Entities
         public string FileSize { get; set; }
 
         [NotMapped]
+        public string OriginalPoster { get; set; }
+        [NotMapped]
+        public string HdPosterLink { get; set; }
+
+        [NotMapped]
         public IList<Movie> RelatedMovies { get; set; }
 
         public Movie()

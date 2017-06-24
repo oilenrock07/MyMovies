@@ -56,7 +56,13 @@ namespace MyMovies.Web.ViewModels
         {
             get
             {
-                return Directors.Split(',').Select(x => x.Trim());
+                if (Directors == null)
+                    return new List<string>();
+
+                if (Directors.Contains(","))
+                    return Directors.Split(',').Select(x => x.Trim());
+
+                return new [] { Directors};
             }
         }
 
@@ -91,6 +97,7 @@ namespace MyMovies.Web.ViewModels
         }
 
         public bool UpdateImage { get; set; }
+        public bool UseOriginalPoster { get; set; }
         public HttpPostedFileBase MoviePoster { get; set; }
         public IList<MovieViewModel> RelatedMoviesViewModel { get; set; }
     }

@@ -2,11 +2,11 @@
 
 <input type="submit" class="btn btn-custom" value="Save" />
 <a href="/Admin/MovieUpdate?id=@Model.MovieId" class="btn btn-primary">Get Updates</a>
-@if (!String.IsNullOrEmpty(Model.ImdbId))
+@if (Model != null && !String.IsNullOrEmpty(Model.ImdbId))
 {
     <a href="http://www.imdb.com/title/@Model.ImdbId" target="_blank" class="btn btn-warning">IMDB</a>
 }
-@if (Model.MovieId > 0)
+@if (Model != null && Model.MovieId > 0)
 {
     @Html.ActionLink("Detail", "Detail", "Movie", new { id = Model.MovieId }, new { @class = "btn btn-danger" })
 }

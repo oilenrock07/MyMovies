@@ -8,12 +8,15 @@ using HtmlAgilityPack;
 using MyMovies.Common.Extension;
 using MyMovies.Entities;
 using MyMovies.Repository.Interfaces;
+using Newtonsoft.Json.Linq;
 
 namespace MyMovies.Common.BusinessLogic
 {
     public class ImdbScrapper
     {
         private readonly string _baseUrl = ConfigurationManager.AppSettings["ImdbBaseUrl"];
+        private readonly string _searchTitleFormat = ConfigurationManager.AppSettings["ImdbSearchTitleFormat"];
+
         private readonly HtmlWeb _web = new HtmlWeb();
         private readonly IMovieXPathRepository _movieXPathRepository;
 
@@ -35,7 +38,7 @@ namespace MyMovies.Common.BusinessLogic
 
         public virtual Movie GetMovie(string imdbId)
         {
-            var url = string.Format("{0}{1}", _baseUrl, imdbId);
+            var url = string.Format("{0}/title/{1}", _baseUrl, imdbId);
             var doc = _web.Load(url);
             
             var movie = MapResult(doc);
@@ -46,7 +49,7 @@ namespace MyMovies.Common.BusinessLogic
 
         public virtual Movie GetMovie(string imdbId, out string document)
         {
-            var url = string.Format("{0}{1}", _baseUrl, imdbId);
+            var url = string.Format("{0}/title/{1}", _baseUrl, imdbId);
             var doc = _web.Load(url);
 
             var movie = MapResult(doc);
@@ -58,10 +61,55 @@ namespace MyMovies.Common.BusinessLogic
 
         public virtual string GetMovieDocument(string imdbId)
         {
-            var url = string.Format("{0}{1}", _baseUrl, imdbId);
+            var url = string.Format("{0}/title/{1}", _baseUrl, imdbId);
             var doc = _web.Load(url);
 
             return doc.DocumentNode.OuterHtml;           
+        }
+
+        public virtual IEnumerable<Movie> SearchMovieByTitle(string title)
+        {
+            var url = String.Format(_searchTitleFormat, title);
+            var doc = _web.Load(url);
+            //var doc = new HtmlDocument();
+            //var html = File.ReadAllText(@"C:\search.txt");
+            //doc.LoadHtml(html);
+
+            var movieList = new List<Movie>();
+            var result = doc.DocumentNode.SelectNodes("//*[contains(@class,'findResult')]");
+            foreach (var item in result)
+            {
+                var urlLink = item.SelectSingleNode("//td//a").Attribute("href");
+                var imdbId = urlLink.Split('/')[2];
+                movieList.Add(new Movie
+                {
+                    Title = item.InnerText,
+                    Poster = item.SelectSingleNode(".//td//img").Attribute("src"),
+                    ImdbId = imdbId
+                });
+            }
+
+            return movieList;
+        }
+
+        public virtual string GetHdImage(string url, string imdbId)
+        {
+            var doc = _web.Load(String.Format("{0}{1}", _baseUrl, url));
+            var script = doc.DocumentNode.SelectSingleNode("//script").InnerHtml;
+            const string startString = "window.IMDbReactInitialState.push({'mediaviewer':";
+
+            var start = script.IndexOf(startString, StringComparison.Ordinal) + startString.Length;
+            var end = script.LastIndexOf("});", StringComparison.Ordinal) - start;
+
+            var json = script.Substring(start, end);
+            var jObject = JObject.Parse(json);
+
+            var imageId = url.Split('/').Last();
+            if (imageId.Contains("?"))
+                imageId = imageId.Split('?').First();
+            var tokenQuery = String.Format("galleries.{0}.allImages[?(@id == '{1}')].src", imdbId, imageId);
+
+            return jObject.SelectToken(tokenQuery).ToString();
         }
 
         protected Movie MapResult(HtmlDocument doc)
@@ -91,7 +139,21 @@ namespace MyMovies.Common.BusinessLogic
             //using headers
             var header = doc.DocumentNode.SelectSingleNode(xPath.Header);
             var poster = header.SelectSingleNode(xPath.Poster).Attribute("src");
+            var hdPosterLink = header.SelectSingleNode(xPath.Poster).ParentNode;
+            var hdPosterUrl = "";
+            if (hdPosterLink != null)
+                hdPosterUrl = hdPosterLink.Attribute("href");
+
+            var hdPoster = poster;
             //var directors = header.SelectSingleNode(xPath.Directors).InnerTextClean();
+
+            //get the HD
+            if (!String.IsNullOrEmpty(poster))
+            {
+                var splittedPosterUrl = poster.Split(new string[] { "@@" }, StringSplitOptions.None);
+                if (splittedPosterUrl.Length > 1)
+                    hdPoster = splittedPosterUrl[0] + "@@._V1_SY1000_CR0,0,676,1000_AL_.jpg";
+            }
 
             var titleDetails = doc.DocumentNode.SelectSingleNode(xPath.TitleDetails).SelectNodes("*/h4");
             var country = titleDetails.FirstOrDefault(x => x.InnerText == "Country:").TitleDetailsAnchor();
@@ -155,7 +217,9 @@ namespace MyMovies.Common.BusinessLogic
                 Rate = rate,
                 DateReleased = dateReleased,
                 Rating = rating,
-                Poster = poster,
+                OriginalPoster = poster,
+                Poster = hdPoster,
+                HdPosterLink = hdPosterUrl,
                 Stars = stars,
                 Summary = summary,
                 Year = year,

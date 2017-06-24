@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" ng-controller="AdminController">
 
         @if (TempData["Save"] != null)
         {
@@ -46,16 +46,33 @@
             </div>
         }
 
+        @if (TempData["NoSearchResult"] != null)
+        {
+            <div class="alert alert-warning fade in alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>No Result Found.</strong> 
+                @Html.ActionLink("Search", "SearchImdbTitle", new {key = search }) IMDB for match titles?
+            </div>
+        }
+
         <div class="row">
             <div class="col-md-8">
                 @using (Html.BeginForm("Search", "Admin", FormMethod.Get))
                 {
-                    <div class="input-group">
+                    if (Model != null && Model.MovieId > 0 && TempData["Save"] == null)
+                    {
+                        <div class="alert alert-info fade in alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            Movie already exists
+                        </div>
+                    }
 
+
+                    <div class="input-group">
                         <span class="input-group-btn">
                             <input type="submit" class="btn btn-custom" value="Search" />
                         </span>
-                        <input type="text" class="form-control" placeholder="Enter ImdbId Here or Movie Name" name="key" value="@search">
+                        <input id ="AdminSearch" type="text" class="form-control" placeholder="Enter ImdbId Here or Movie Name" name="key" value="@search" select-on-click>
                     </div>
                 }
             </div>
@@ -71,8 +88,8 @@
     <script src="~/Scripts/star-rating.js"></script>
 
     <script>
-        
-        $('#input-id').on('rating.change', function (event, value, caption) {
+
+        $('#input-id').on('rating.change', function(event, value, caption) {
             setRemarks();
         });
 
@@ -80,44 +97,54 @@
         var setRemarks = function() {
             var quality = "";
             switch (parseInt($('#input-id').val())) {
-                case 1:
-                    quality = 'Very Bad';
-                    break;
-                case 2:
-                    quality = 'Bad';
-                    break;
-                case 3:
-                    quality = 'Not Bad';
-                    break;
-                case 4:
-                    quality = 'Good';
-                    break;
-                case 5:
-                    quality = 'Very Good';
-                    break;
-                default:
-                    quality = 'Very Bad';
+            case 1:
+                quality = 'Very Bad';
+                break;
+            case 2:
+                quality = 'Bad';
+                break;
+            case 3:
+                quality = 'Not Bad';
+                break;
+            case 4:
+                quality = 'Good';
+                break;
+            case 5:
+                quality = 'Very Good';
+                break;
+            default:
+                quality = 'Very Bad';
             }
 
             $('#Remarks').val(quality + ' ' + size);
         };
 
-        app.controller('AdminController', function ($http, $scope) {
+        app.controller('AdminController', function($http, $scope) {
             $scope.fileName = '@(Model.FileName)';
             $scope.fileSize = '@(Model.FileSize)';
 
-            $scope.setMovieQuality = function (value) {
+            $scope.loadHdImage = function (url, imdbId) {
+                $http.post('/Admin/GetHdImage', { 'url': url, 'imdbId': imdbId }).then(function (returnUrl) {
+                    var hdUrl = returnUrl.data;
+                    $('#MoviePoster').attr('src', hdUrl);
+                    $('#Poster').val(hdUrl);
+                }, function() {
+                    
+                });
+            };
+
+            $scope.setMovieQuality = function(value) {
                 size = value;
                 setRemarks();
             };
 
-            $scope.fileChange = function (event) {
+            $scope.fileChange = function(event) {
                 var input = event.target;
 
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function (e) {
+                    reader.onload = function(e) {
                         $('#MoviePoster').attr('src', e.target.result);
                     }
 
@@ -125,11 +152,11 @@
                 }
             }
 
-            $scope.getFileDetails = function () {
+            $scope.getFileDetails = function() {
                 var input = $(document.createElement('input'));
                 input.attr("type", "file");
 
-                $(input).change(function () {
+                $(input).change(function() {
                     $scope.fileName = $(input)[0].files[0].name;
                     var fileSize = $(input)[0].files[0].size;
                     var ctr = 0;
@@ -150,10 +177,10 @@
             }
         });
 
-        app.directive('customOnChange', function () {
+        app.directive('customOnChange', function() {
             return {
                 restrict: 'A',
-                link: function (scope, element, attrs) {
+                link: function(scope, element, attrs) {
                     var onChangeHandler = scope.$eval(attrs.customOnChange);
                     element.bind('change', onChangeHandler);
                 }

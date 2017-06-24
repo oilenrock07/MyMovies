@@ -18,6 +18,11 @@
             return false;
         }
 
+        public static bool IsIMDBUrl(this string url)
+        {
+            return url.Contains("www.imdb.com");
+        }
+
         public static string GetImdbIdFromLink(this string link)
         {
             return link.Split('/')[4];

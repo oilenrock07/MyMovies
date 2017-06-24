@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using MyMovies.Common.BusinessLogic;
 using MyMovies.Common.Extension;
@@ -10,6 +11,7 @@ using MyMovies.Web.ViewModels;
 using Omu.ValueInjecter;
 using System.Net;
 using Microsoft.Ajax.Utilities;
+using MyMovies.Common.Helpers;
 
 namespace MyMovies.Web.Controllers
 {
@@ -44,8 +46,11 @@ namespace MyMovies.Web.Controllers
         public ActionResult Search(string key)
         {
             Movie movie;
-            if (key.IsIMDB())
+            if (key.IsIMDB() || key.IsIMDBUrl())
             {
+                if (key.IsIMDBUrl())
+                    key = ImdbHelper.GetImdbId(key);
+
                 //search for local record
                 movie = _movieRepository.GetByImdbId(key);
                 if (movie == null)
@@ -58,6 +63,11 @@ namespace MyMovies.Web.Controllers
             else
             {
                 movie = _movieRepository.GetByMovieName(key);
+                if (movie == null)
+                {
+                    movie = new Movie();
+                    TempData["NoSearchResult"] = true;
+                }
             }
 
             ViewBag.Search = key;
@@ -126,6 +136,23 @@ namespace MyMovies.Web.Controllers
             return View("Index", viewModel);
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult GetHdImage(string url, string imdbId)
+        {
+            var scrapper = new ImdbScrapper(_movieXPathRepository);
+            var hdUrl = scrapper.GetHdImage(url, imdbId);
+            return Json(hdUrl);
+        }
+
+        [HttpGet]
+        public ActionResult SearchImdbTitle(string key)
+        {
+            var scrapper = new ImdbScrapper(_movieXPathRepository);
+            var movies = scrapper.SearchMovieByTitle(key);
+
+            return View(movies);
+        }
 
         [HttpGet]
         public ActionResult Banner()
@@ -218,7 +245,7 @@ namespace MyMovies.Web.Controllers
                 viewModel.MoviePoster.SaveAs(fullPath);
                 viewModel.Poster = uploadPath;
             }
-            else if (viewModel.UpdateImage && !String.IsNullOrEmpty(viewModel.Poster))
+            else if ((viewModel.UpdateImage || viewModel.MovieId == 0) && !String.IsNullOrEmpty(viewModel.Poster))
             {
                 using (var client = new WebClient())
                 {

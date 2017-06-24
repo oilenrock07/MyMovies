@@ -1,6 +1,6 @@
 ﻿@model MyMovies.Web.ViewModels.MovieViewModel
 
-<div ng-controller="AdminController">
+<div>
     @using (@Html.BeginForm("Index", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
@@ -12,6 +12,8 @@
                     @Html.CheckBoxFor(model => model.UpdateImage)
                     Update Image
                 </label>
+
+                <a href="javascript:void(0)" class="btn btn-primary pull-right" ng-click="loadHdImage('@Model.HdPosterLink', '@Model.ImdbId')">Load Hd Image</a>
             </div>
 
             <div class="col-md-8 col-md-pull-4">

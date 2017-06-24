@@ -14,6 +14,8 @@ using System.Linq;
 using MyMovies.Common.Extension;
 using MyMovies.Web.ViewModels;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MyMovies.Test
 {
@@ -124,6 +126,38 @@ namespace MyMovies.Test
                 });
             }
 
+        }
+
+        [TestMethod]
+        public void GetImdbIdFromUrl()
+        {
+            var url = "http://www.imdb.com/title/tt1700844/?ref_=nv_sr_2";
+            var splitted = url.Split('/');
+        }
+
+        [TestMethod]
+        public void SearchImdbMovieByTitle()
+        {
+            var key = "Edge of Tomorrow";
+            var scrapper = new ImdbScrapper(_xPathRepository);
+            var movies = scrapper.SearchMovieByTitle(key);
+        }
+
+        [TestMethod]
+        public void ReadJson()
+        {
+            var doc = new HtmlDocument();
+            var html = File.ReadAllText(@"C:\js.txt");
+            doc.LoadHtml(html);
+            
+            var script = doc.DocumentNode.SelectSingleNode("//script").InnerHtml;
+            var startString = "window.IMDbReactInitialState.push({'mediaviewer':";
+            var start = script.IndexOf(startString) + startString.Length;
+            var end = script.LastIndexOf("});") - start;
+
+            var json = script.Substring(start , end);
+            var jObject = JObject.Parse(json);
+            jObject.SelectToken("galleries.tt1975159.allImages[?(@id == 'rm3014517760')].src").ToString();
         }
     }
 }
