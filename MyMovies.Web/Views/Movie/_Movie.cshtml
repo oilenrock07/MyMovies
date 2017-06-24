@@ -11,7 +11,7 @@
     <div class="col-sm-5">
         <div class="portfolio-item @addToListClass">
             <figure>
-                <a href='@Url.Action("Detail", new {id = @Model.MovieId})' title="@Model.Title">
+                <a href='@Url.Action("Detail", new { id = @Model.MovieId })' title="@Model.Title">
                     <img src="@Model.Poster" alt="@Model.Title" class="img-responsive">
                 </a>
             </figure>
@@ -19,11 +19,14 @@
             {
                 <div class="portfolio-meta">
                     <a href="/Admin/Search?key=@Model.ImdbId">Edit</a>
-                    <h1 class="movie-poster">
-                        <a href="javascript:void(0)" title="Favourite" ng-click="addToWatchList(@Model.MovieId)">
-                            <i class="fa fa-heart-o"></i>
-                        </a>
-                    </h1>
+                    @if (!Model.IsOnWatchList())
+                    {
+                        <h1 class="movie-poster">
+                            <a href="javascript:void(0)" title="Favourite" ng-click="addToWatchList(@Model.MovieId)">
+                                <i class="fa fa-heart-o"></i>
+                            </a>
+                        </h1>
+                    }
                 </div>
             }
         </div>
@@ -36,7 +39,7 @@
                 @Html.ActionLink(@genre, "Index", new { Category = @genre })
                 if (genre != Model.LastGenre)
                 {
-                    <text>|</text>
+                <text>|</text>
                 }
             }
         </div>
@@ -47,7 +50,7 @@
                 @Html.ActionLink(@star, "Index", new { Star = @star })
                 if (star != Model.LastStar)
                 {
-                    <text>|</text>
+                <text>|</text>
                 }
             }
         </div>
@@ -57,10 +60,10 @@
             {
                 if (!String.IsNullOrEmpty(writer))
                 {
-                    @Html.ActionLink(@writer, "Index", new { Writer = @writer })
+                @Html.ActionLink(@writer, "Index", new { Writer = @writer })
                     if (writer != Model.LastWriter)
                     {
-                        <text>|</text>
+                <text>|</text>
                     }
                 }
             }
@@ -71,10 +74,10 @@
             {
                 if (!String.IsNullOrEmpty(director))
                 {
-                    @Html.ActionLink(@director, "Index", new { Writer = @director })
+                @Html.ActionLink(@director, "Index", new { Writer = @director })
                     if (director != Model.LastDirector)
                     {
-                        <text>|</text>
+                <text>|</text>
                     }
                 }
             }

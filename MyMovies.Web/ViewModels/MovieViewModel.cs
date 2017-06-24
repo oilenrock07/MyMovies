@@ -100,5 +100,14 @@ namespace MyMovies.Web.ViewModels
         public bool UseOriginalPoster { get; set; }
         public HttpPostedFileBase MoviePoster { get; set; }
         public IList<MovieViewModel> RelatedMoviesViewModel { get; set; }
+        public IEnumerable<WatchList> WatchList { get; set; }
+
+        public bool IsOnWatchList()
+        {
+            if (WatchList != null && WatchList.Any())
+                return WatchList.FirstOrDefault(x => x.MovieId == MovieId) != null;
+
+            return false;
+        }
     }
 }

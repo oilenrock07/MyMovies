@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyMovies.Common.Extension;
 using MyMovies.Infrastructure.Interfaces;
 using MyMovies.Repository.Interfaces;
@@ -21,13 +22,16 @@ namespace MyMovies.Web.Controllers
         private readonly IMovieXPathRepository _movieXPathRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBannerRepository _bannerRepository;
+        private readonly IWatchListRepository _watchListRepository;
 
-        public MovieController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork, IBannerRepository bannerRepository)
+        public MovieController(IMovieRepository movieRepository, IMovieXPathRepository movieXPathRepository, IUnitOfWork unitOfWork, IBannerRepository bannerRepository,
+            IWatchListRepository watchListRepository)
         {
             _movieRepository = movieRepository;
             _movieXPathRepository = movieXPathRepository;
             _unitOfWork = unitOfWork;
             _bannerRepository = bannerRepository;
+            _watchListRepository = watchListRepository;
         }
 
         public ActionResult Index(PaginationModel paginationViewModel = null)
@@ -90,6 +94,32 @@ namespace MyMovies.Web.Controllers
             }
 
             return View(viewModel);
+        }
+
+        //[Authorize]
+        public void AddToWatchList(int movieId)
+        {
+            var watchList = new WatchList
+            {
+                UserId = User.Identity.GetUserId(),
+                IsActive = true,
+                MovieId = movieId
+            };
+
+            _watchListRepository.Add(watchList);
+            _unitOfWork.Commit();
+        }
+
+        //[Authorize]
+        public void RemoveToWatchList(int movieId)
+        {
+            var watchList = _watchListRepository.Find(x => x.MovieId == movieId && x.UserId == User.Identity.GetUserId());
+            if (watchList != null)
+            {
+                var movieToWatch = watchList.First();
+                movieToWatch.IsActive = false;
+                _unitOfWork.Commit();
+            }
         }
 
         #region Private Methods
