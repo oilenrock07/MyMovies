@@ -46,6 +46,7 @@ namespace MyMovies.Web.Controllers
         public ActionResult Search(string key)
         {
             Movie movie;
+            key = key.Trim();
             if (key.IsIMDB() || key.IsIMDBUrl())
             {
                 if (key.IsIMDBUrl())

@@ -48,7 +48,6 @@ namespace MyMovies.Entities
 
         [NotMapped]
         public string OriginalPoster { get; set; }
-        [NotMapped]
         public string HdPosterLink { get; set; }
 
         [NotMapped]

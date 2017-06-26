@@ -79,7 +79,7 @@ namespace MyMovies.Common.BusinessLogic
             var result = doc.DocumentNode.SelectNodes("//*[contains(@class,'findResult')]");
             foreach (var item in result)
             {
-                var urlLink = item.SelectSingleNode("//td//a").Attribute("href");
+                var urlLink = item.SelectSingleNode(".//td//a").Attribute("href");
                 var imdbId = urlLink.Split('/')[2];
                 movieList.Add(new Movie
                 {
@@ -139,13 +139,16 @@ namespace MyMovies.Common.BusinessLogic
             //using headers
             var header = doc.DocumentNode.SelectSingleNode(xPath.Header);
             var poster = header.SelectSingleNode(xPath.Poster).Attribute("src");
-            var hdPosterLink = header.SelectSingleNode(xPath.Poster).ParentNode;
             var hdPosterUrl = "";
-            if (hdPosterLink != null)
-                hdPosterUrl = hdPosterLink.Attribute("href");
+
+            if (!String.IsNullOrEmpty(poster))
+            {
+                var hdPosterLink = header.SelectSingleNode(xPath.Poster).ParentNode;
+                if (hdPosterLink != null)
+                    hdPosterUrl = hdPosterLink.Attribute("href");
+            }
 
             var hdPoster = poster;
-            //var directors = header.SelectSingleNode(xPath.Directors).InnerTextClean();
 
             //get the HD
             if (!String.IsNullOrEmpty(poster))
@@ -153,6 +156,15 @@ namespace MyMovies.Common.BusinessLogic
                 var splittedPosterUrl = poster.Split(new string[] { "@@" }, StringSplitOptions.None);
                 if (splittedPosterUrl.Length > 1)
                     hdPoster = splittedPosterUrl[0] + "@@._V1_SY1000_CR0,0,676,1000_AL_.jpg";
+                else
+                {
+                    if (poster.Contains("._V1_"))
+                    {
+                        splittedPosterUrl = poster.Split(new string[] { "._V1_" }, StringSplitOptions.None);
+                        if (splittedPosterUrl.Length > 1)
+                            hdPoster = splittedPosterUrl[0] + "._V1_SY1000_CR0,0,676,1000_AL_.jpg";
+                    }                    
+                }
             }
 
             var titleDetails = doc.DocumentNode.SelectSingleNode(xPath.TitleDetails).SelectNodes("*/h4");

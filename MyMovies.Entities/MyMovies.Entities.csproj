@@ -121,6 +121,14 @@
     <Compile Include="Migrations\201704100226185_FavoritesAndPlaylist.Designer.cs">
       <DependentUpon>201704100226185_FavoritesAndPlaylist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706240357462_PosterUrlAndMovieWatchList.cs" />
+    <Compile Include="Migrations\201706240357462_PosterUrlAndMovieWatchList.Designer.cs">
+      <DependentUpon>201706240357462_PosterUrlAndMovieWatchList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706260333577_HdPosterLink.cs" />
+    <Compile Include="Migrations\201706260333577_HdPosterLink.Designer.cs">
+      <DependentUpon>201706260333577_HdPosterLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -193,6 +201,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704100226185_FavoritesAndPlaylist.resx">
       <DependentUpon>201704100226185_FavoritesAndPlaylist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706240357462_PosterUrlAndMovieWatchList.resx">
+      <DependentUpon>201706240357462_PosterUrlAndMovieWatchList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706260333577_HdPosterLink.resx">
+      <DependentUpon>201706260333577_HdPosterLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
