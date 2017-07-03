@@ -97,17 +97,22 @@ namespace MyMovies.Web.Controllers
         }
 
         //[Authorize]
-        public void AddToWatchList(int movieId)
+        public JsonResult AddToWatchList(int movieId)
         {
+            var userId = User.Identity.GetUserId();
             var watchList = new WatchList
             {
-                UserId = User.Identity.GetUserId(),
+                UserId = userId,
                 IsActive = true,
                 MovieId = movieId
             };
 
             _watchListRepository.Add(watchList);
             _unitOfWork.Commit();
+
+            //return the top 10 watchlist
+            var top10WatchList = _watchListRepository.GetTop10WatchList(userId);
+            return Json(top10WatchList);
         }
 
         //[Authorize]

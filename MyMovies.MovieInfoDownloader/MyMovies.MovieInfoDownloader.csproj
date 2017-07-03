@@ -56,6 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogics\ImageDownloader.cs" />
+    <Compile Include="BusinessLogics\MovieBase.cs" />
+    <Compile Include="BusinessLogics\MovieDownloader.cs" />
+    <Compile Include="Interfaces\IMovieProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
