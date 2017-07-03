@@ -11,7 +11,7 @@
     <div class="col-sm-5">
         <div class="portfolio-item @addToListClass">
             <figure>
-                <a href='@Url.Action("Detail", new { id = @Model.MovieId })' title="@Model.Title">
+                <a href='@Url.Action("Detail", new { id = @Model.MovieId })' title="@Model.AlsoKnownAs">
                     <img src="@Model.Poster" alt="@Model.Title" class="img-responsive">
                 </a>
             </figure>
@@ -36,10 +36,10 @@
         <div class="movie-genre">
             @foreach (var genre in Model.GenreList)
             {
-                @Html.ActionLink(@genre, "Index", new { Category = @genre })
+                @Html.ActionLink(@genre, "Index", new {Category = @genre})
                 if (genre != Model.LastGenre)
                 {
-                <text>|</text>
+                    <text>|</text>
                 }
             }
         </div>

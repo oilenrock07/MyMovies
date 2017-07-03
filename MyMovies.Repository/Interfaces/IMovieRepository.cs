@@ -8,6 +8,7 @@ namespace MyMovies.Repository.Interfaces
     {
         Movie GetByImdbId(string imdbId);
         Movie GetByMovieName(string movieName);
+        Movie GetMovieByAKA(string movieName);
         IEnumerable<string> GetGenres();
     }
 }

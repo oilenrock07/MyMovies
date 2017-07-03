@@ -65,6 +65,8 @@ namespace MyMovies.Web.Controllers
             {
                 movie = _movieRepository.GetByMovieName(key);
                 if (movie == null)
+                    movie = _movieRepository.GetMovieByAKA(key);
+                if (movie == null)
                 {
                     movie = new Movie();
                     TempData["NoSearchResult"] = true;

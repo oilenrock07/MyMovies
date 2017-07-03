@@ -29,6 +29,11 @@ namespace MyMovies.Repository.Implementations
             return Find(x => x.Title == movieName).FirstOrDefault();
         }
 
+        public virtual Movie GetMovieByAKA(string movieName)
+        {
+            return Find(x => x.AlsoKnownAs == movieName).FirstOrDefault();
+        }
+
         public virtual IEnumerable<string> GetGenres()
         {
             var cachedGenre = _cacheManager != null ? _cacheManager.Get("Genres") : null;
