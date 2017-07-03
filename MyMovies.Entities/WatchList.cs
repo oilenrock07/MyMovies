@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyMovies.Entities
 {
@@ -10,7 +11,9 @@ namespace MyMovies.Entities
 
         public string UserId { get; set; }
 
+        [ForeignKey("Movie")]
         public int MovieId { get; set; }
+        public virtual Movie Movie { get; set; }
 
         public bool IsActive { get; set; }
 
