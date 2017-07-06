@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201706260333577_HdPosterLink.Designer.cs">
       <DependentUpon>201706260333577_HdPosterLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707031355280_addedmovieinwatchlist.cs" />
+    <Compile Include="Migrations\201707031355280_addedmovieinwatchlist.Designer.cs">
+      <DependentUpon>201707031355280_addedmovieinwatchlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieContext.cs" />
@@ -207,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706260333577_HdPosterLink.resx">
       <DependentUpon>201706260333577_HdPosterLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707031355280_addedmovieinwatchlist.resx">
+      <DependentUpon>201707031355280_addedmovieinwatchlist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

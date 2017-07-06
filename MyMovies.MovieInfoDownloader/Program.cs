@@ -6,8 +6,8 @@ namespace MyMovies.MovieInfoDownloader
     {
         private static void Main(string[] args)
         {
-            var imageDownloader = new ImageDownloader();
-            imageDownloader.Process();
+            var posterLinkUpdater = new HDPosterLinkUpdater();
+            posterLinkUpdater.Process();
         }
     }
 }
