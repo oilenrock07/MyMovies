@@ -1,5 +1,8 @@
 ﻿var app = angular.module('MovieApp', ['ngCookies']);
 app.controller('HeaderController', function ($scope, $cookies, $window) {
+
+    $scope.watchLists = [{}, {}, {}, {}, {}, {}];
+
     $scope.setMovieOrder = function (order) {
         $cookies.put('MovieOrder', order);
         $window.location.reload();
@@ -29,5 +32,13 @@ app.directive('selectOnClick', ['$window', function ($window) {
                 }
             });
         }
+    };
+}]);
+
+app.directive('watchList', [function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: '/Templates/directives/Wathclist.html'
     };
 }]);
