@@ -30,6 +30,8 @@ namespace MyMovies.Web.ViewModels
         {
             get
             {
+                if (Stars == null)
+                    return new List<string>();
                 return Stars.Split(',').Select(x => x.Trim());
             }
         }
@@ -43,6 +45,8 @@ namespace MyMovies.Web.ViewModels
         {
             get
             {
+                if (Genre == null)
+                    return new List<string>();
                 return Genre.Split(',').Select(x => x.Trim());
             } 
         }
@@ -75,6 +79,8 @@ namespace MyMovies.Web.ViewModels
         {
             get
             {
+                if (Writers == null)
+                    return new List<string>();
                 return Writers.Split(',').Select(x => x.Trim());
             }
         } 

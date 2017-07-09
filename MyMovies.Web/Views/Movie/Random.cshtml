@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MyMovies.Web.ViewModels.MovieViewModel>
+<div id="content" role="main">
+    <div class="page-header dark larger larger-desc">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Random Movies</h1>
+                    <p class="page-header-desc">Randomly find a movie you want to watch</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-controller="MovieListController">
+        <div class="row">
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+
+                if ((i % 2) == 0)
+                {
+                    @Html.Raw("<div class=\"row\">")
+                    @Html.Partial("_Movie", Model.ElementAt(i))
+
+                    if (i == Model.Count())
+                    {
+                        @Html.Raw("</div>")
+                    }
+                }
+                else
+                {
+                    @Html.Partial("_Movie", Model.ElementAt(i))
+                    @Html.Raw("</div>")
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        //var app = angular.module('MovieApp', []);
+        app.controller('MovieListController', function ($scope) {
+            $scope.addToWatchList = function (movieId) {
+                alert(movieId);
+            }
+        });
+    </script>
+}
+

@@ -7,7 +7,7 @@
         <div class="container">
             @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "navbar-form animated fadeInDown" }))
             {
-                <input type="search" id="Search" name="Search" class="form-control" placeholder="Search in here..." value="@ViewBag.Search">
+                <input type="search" id="Search" name="Search" class="form-control" placeholder="Search in here..." value="@ViewBag.Search" select-on-click>
                 <button type="submit" class="btn-circle" title="Search"><i class="fa fa-search"></i></button>
             }
         </div>
@@ -115,6 +115,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="angle"></span></a>
                             @{Html.RenderAction("Menu", "Movie");}
                         </li>
+                        <li>@Html.ActionLink("Random", "Random", "Movie")</li>
                         @if (User.IsInRole(MyMovies.Entities.Enums.RolesEnums.AdminRole))
                         {
 

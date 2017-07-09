@@ -34,6 +34,16 @@ namespace MyMovies.Repository.Implementations
             return Find(x => x.AlsoKnownAs == movieName).FirstOrDefault();
         }
 
+        public virtual IEnumerable<int> GetAllMovieIds()
+        {
+            return GetAll().Select(x => x.MovieId);
+        }
+
+        public virtual IEnumerable<Movie> GetAllMoviesByMovieId(IEnumerable<int> movieIds)
+        {
+            return Find(x => movieIds.Contains(x.MovieId));
+        }
+
         public virtual IEnumerable<string> GetGenres()
         {
             var cachedGenre = _cacheManager != null ? _cacheManager.Get("Genres") : null;

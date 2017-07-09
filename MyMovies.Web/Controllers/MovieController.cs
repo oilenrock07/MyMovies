@@ -96,6 +96,36 @@ namespace MyMovies.Web.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Random()
+        {
+            //Get the ids
+            var movieIds = _movieRepository.GetAllMovieIds().ToList();
+            if (movieIds.Any())
+            {
+                var randomIds = new List<int>(50);
+
+                while (true)
+                {
+                    var rnd = new Random();
+                    var randomId = rnd.Next(1, movieIds.Count);
+
+                    var movieId = movieIds.ElementAt(randomId - 1);
+                    if (!randomIds.Contains(movieId))
+                    {
+                        randomIds.Add(movieId);
+                        if (randomIds.Count == 50 || randomIds.Count == movieIds.Count)
+                            break;
+                    }
+                }
+
+                var movies = _movieRepository.GetAllMoviesByMovieId(randomIds);
+                var viewModel = movies.MapCollection<MovieViewModel>();
+                return View(viewModel);
+            }
+
+            return View();
+        }
+
         //[Authorize]
         public JsonResult AddToWatchList(int movieId)
         {
@@ -173,10 +203,10 @@ namespace MyMovies.Web.Controllers
             IQueryable<Movie> movies;
             if (paginationViewModel != null && !String.IsNullOrEmpty(paginationViewModel.Search))
             {
-                var search = paginationViewModel.Search;
+                var search = paginationViewModel.Search.ToLower();
 
                 //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
-                Expression<Func<Movie, bool>> expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.ImdbId == search;
+                Expression<Func<Movie, bool>> expression = x => x.Title.ToLower().Contains(search) || x.Stars.ToLower().Contains(search) || x.Directors.ToLower().Contains(search) || x.FileName.ToLower().Contains(search) || x.AlsoKnownAs.ToLower().Contains(search) || x.ImdbId == search;
                 movies = _movieRepository.Find(expression);
                 count = movies.Count();
                 ViewBag.Search = paginationViewModel.Search;
