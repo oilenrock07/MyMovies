@@ -49,8 +49,8 @@ namespace MyMovies.Web.Controllers
             var sorting = Request.Cookies["MovieSorting"];
 
             var moviePagination = (sorting != null && sorting.Value == "Desc") ? 
-                                  pagination.TakePaginationModel(movies.OrderByDescending(order).ToList(), viewModel.Pagination) :
-                                  pagination.TakePaginationModel(movies.OrderBy(order).ToList(), viewModel.Pagination);
+                                  pagination.TakePaginationModel(movies.OrderByDescending(order).ThenBy(x => x.DateCreated).ToList(), viewModel.Pagination) :
+                                  pagination.TakePaginationModel(movies.OrderBy(order).ThenBy(x => x.DateCreated).ToList(), viewModel.Pagination);
                             
             viewModel.Movies = moviePagination.MapCollection<MovieViewModel>();
             MapPaginationFilters(paginationViewModel, viewModel.Pagination);
@@ -206,7 +206,7 @@ namespace MyMovies.Web.Controllers
                 var search = paginationViewModel.Search.ToLower();
 
                 //use String.Equals(row.Name, "test", StringComparison.OrdinalIgnoreCase)
-                Expression<Func<Movie, bool>> expression = x => x.Title.ToLower().Contains(search) || x.Stars.ToLower().Contains(search) || x.Directors.ToLower().Contains(search) || x.FileName.ToLower().Contains(search) || x.AlsoKnownAs.ToLower().Contains(search) || x.ImdbId == search;
+                Expression<Func<Movie, bool>> expression = x => x.Title.Contains(search) || x.Stars.Contains(search) || x.Directors.Contains(search) || x.FileName.Contains(search) || x.AlsoKnownAs.Contains(search) || x.ImdbId == search || x.Country == search;
                 movies = _movieRepository.Find(expression);
                 count = movies.Count();
                 ViewBag.Search = paginationViewModel.Search;
